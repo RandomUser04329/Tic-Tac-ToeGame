@@ -32,6 +32,8 @@ function startGame(name) {
                 userInfo.Player.playerName = prompt("Please enter a name: ");
              if (userInfo.Player.playerName != "") {
                 return gameFunction(userInfo); 
+             } else  {
+                continue;
              }
             }
         }
@@ -40,6 +42,8 @@ function startGame(name) {
                 userInfo.Player.rounds = parseInt(prompt("Please enter the amount of rounds you want to play: "));
              if (userInfo.Player.rounds != 0) {
                 return gameFunction(userInfo); 
+             } else  {
+                continue;
              }
             }
         }
@@ -51,12 +55,31 @@ function startGame(name) {
     function gameFunction(userInfo) { 
         let gameRounds = userInfo.Player.rounds; 
 
-        let playerChoices = [gameRounds]; 
-        let computerChoices = [gameRounds]; 
+        let playerChoices = []; 
+        let computerChoices = []; 
+        let playerAns = 0; 
+        let computerAns = 0; 
         let gameEnd = 0;
 
+
+
         while (gameEnd <= gameRounds) {
-            let playerChoice = prompt(parseInt("Enter a number 1-6: "))
+            playerAns = parseInt(prompt("Enter a number 1-6: "));
+            computerAns = Math.floor(Math.random() * 6); 
+
+            if (playerAns === 0) { 
+                alert("Needs to be a number from 1 to 6.");
+                continue; 
+            } else if (playerAns >= 1 && playerAns <= 6) { 
+                gameEnd++;
+                playerChoices[gameEnd] = playerAns;
+                computerChoices[gameEnd] = computerAns;
+                console.log(playerAns);
+                console.log(computerAns);
+                console.log(computerChoices);
+                console.log(playerChoices);
+                continue;
+            }
         }
 
     }
