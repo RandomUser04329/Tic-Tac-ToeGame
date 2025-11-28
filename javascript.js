@@ -85,16 +85,20 @@ function startGame(name) {
             userInfo.Player.playerAnswers = playerChoices; 
             userInfo.computerAI.computerAnswers = computerChoices; 
 
-            return gameSummary(userInfo, gameRounds); 
+            return gameSummary(userInfo); 
         }
 
     }
 
 
-    function gameSummary(userInfo, rounds) {
+    function gameSummary(userInfo) {
 
         let i; 
         let numdiffer = 0; 
+        let gameRound = 0;
+
+        let compWin = 0; 
+        let userWin = 0;
 
         let usrAnswers = userInfo.Player.playerAnswers.filter(i =>
             i !== undefined ); 
@@ -102,14 +106,61 @@ function startGame(name) {
         let compAnswers = userInfo.computerAI.computerAnswers.filter(i => 
             i !== undefined );
         
-
+        
         for (let i of usrAnswers) {
+            gameRound++; 
             if (usrAnswers[i] !== compAnswers[i]) { 
+                console.log("No Match");
+                compWin++;
                 continue;
             } else { 
                 numdiffer++; 
+                userWin++;
                 console.log(numdiffer + " Match");
             }
+
+            if (gameRound === userInfo.Player.rounds) { 
+                console.log("Game end");
+                console.log(userInfo.Player.rounds);
+                return gameReset(userInfo, compWin, userWin);
+            }
+
+        }
+    }
+
+
+
+    function gameReset(userInfo, compScore, userScore) { 
+
+        let decision; 
+
+        let userName = userInfo.Player.playerName;
+        let userLevel = userInfo.Player.playerLevel;
+        let userColor = userInfo.Player.playerColor;
+        let userChoices = userInfo.Player;
+
+        if (compScore > userScore) { 
+            alert("You Lose.");
+            decision = prompt("Retry? Type Y or N.");
+        } else if (userScore > compScore) {
+            userInfo.Player.playerLevel += 0.25; 
+            alert("You Win!");
+            decision = prompt("Retry? Type Y or N.");
+        } else if (userScore === compScore) {
+            alert("Draw! Its a tie.");
+            decision = prompt("Retry? Type Y or N.");
+        }
+
+
+        if (decision === "Y") { 
+            userInfo.Player.playerAnswers = []; 
+            userInfo.computerAI.computerAnswers = [];
+            return gameFunction(userInfo);
+        } else if (decision === "N") {
+            userInfo.Player
+            console.log
+        } else { 
+            decision = prompt("please enter either Y or N (not y/n or any other character.");
         }
 
     }
