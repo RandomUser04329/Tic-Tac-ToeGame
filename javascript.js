@@ -3,18 +3,22 @@ function startGame(name) {
     let playerName;
     let playerLevel;
     let playerColor;
+    let playerAnswers;
+    let computerAnswers;
     let rounds; 
 
     let Player = {
         playerName: name,
         playerLevel: 0,
         playerColor,
+        playerAnswers,
         rounds: parseInt(prompt("Enter the amount of rounds you want to play: "))
     };
 
     let computerAI = {
         compName: "AI",
         compLevel: 0,
+        computerAnswers, 
         compColor: "Random"
     }
 
@@ -29,7 +33,7 @@ function startGame(name) {
     } else { 
         if (userInfo.Player.playerName === "") {
             while (userInfo.Player.playerName === "") {
-                userInfo.Player.playerName = prompt("Please enter a name: ");
+                userInfo.Player.playerName = prompt("Enter a name:");
              if (userInfo.Player.playerName != "") {
                 return gameFunction(userInfo); 
              } else  {
@@ -39,7 +43,7 @@ function startGame(name) {
         }
         if (userInfo.Player.rounds === 0) {
             while (userInfo.Player.rounds === 0) {
-                userInfo.Player.rounds = parseInt(prompt("Please enter the amount of rounds you want to play: "));
+                userInfo.Player.rounds = parseInt(prompt("Enter the amount of rounds you wish to play:"));
              if (userInfo.Player.rounds != 0) {
                 return gameFunction(userInfo); 
              } else  {
@@ -63,7 +67,7 @@ function startGame(name) {
 
 
 
-        while (gameEnd <= gameRounds) {
+        while (gameEnd < gameRounds) {
             playerAns = parseInt(prompt("Enter a number 1-6: "));
             computerAns = Math.floor(Math.random() * 6); 
 
@@ -74,19 +78,57 @@ function startGame(name) {
                 gameEnd++;
                 playerChoices[gameEnd] = playerAns;
                 computerChoices[gameEnd] = computerAns;
-                console.log(playerAns);
-                console.log(computerAns);
-                console.log(computerChoices);
-                console.log(playerChoices);
                 continue;
+            }
+
+        } if (gameEnd >= gameRounds) { 
+            userInfo.Player.playerAnswers = playerChoices; 
+            userInfo.computerAI.computerAnswers = computerChoices; 
+
+            return gameSummary(userInfo, gameRounds); 
+        }
+
+    }
+
+
+    function gameSummary(userInfo, rounds) {
+
+        let i; 
+        let numdiffer = 0; 
+
+        let usrAnswers = userInfo.Player.playerAnswers.filter(i =>
+            i !== undefined ); 
+        
+        let compAnswers = userInfo.computerAI.computerAnswers.filter(i => 
+            i !== undefined );
+        
+
+        for (let i of usrAnswers) {
+            if (usrAnswers[i] !== compAnswers[i]) { 
+                continue;
+            } else { 
+                numdiffer++; 
+                console.log(numdiffer + " Match");
             }
         }
 
     }
 
 
+}
 
+/*
+const objK = { 
+    key1: [1, 2, 3, 4],
+    key2: [5, 6, 7, 8],
+    key3: { 
+        key1: [2, 4, 6], 
+        key2: [3, 6, 9]
+    }
 }
 
 
-
+for (let i of objK.key3.key2) {
+    console.log(i);
+}
+*/
