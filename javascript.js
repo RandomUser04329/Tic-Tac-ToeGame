@@ -12,8 +12,10 @@ function startGame(name) {
         playerLevel: 0,
         playerColor,
         playerAnswers,
-        rounds: parseInt(prompt("Enter the amount of rounds you want to play: "))
+        rounds
     };
+
+    Player.rounds = parseInt(prompt("Enter the amount of rounds you want to play: "));
 
     let computerAI = {
         compName: "AI",
@@ -28,7 +30,7 @@ function startGame(name) {
     };
 
 
-    if (userInfo.Player.rounds != 0 && userInfo.Player.playerName != "") {
+    if (userInfo.Player.rounds && userInfo.Player.playerName != "") {
         return gameFunction(userInfo); 
     } else { 
         if (userInfo.Player.playerName === "") {
@@ -155,7 +157,7 @@ function startGame(name) {
 
             if (decision === "Y") { 
                 userChoices = []; 
-                userRounds = 0; 
+                userInfo.Player.rounds = parseInt(prompt("Enter the amount of rounds you wish to play"))
                 userInfo.computerAI.computerAnswers = [];
                 return gameFunction(userInfo);
             } else if (decision === "N") {
