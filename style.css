@@ -1,0 +1,113 @@
+ * {
+    outline: 2px solid red;
+}
+
+/* Custom Fonts for better appearance */ 
+@font-face {
+    font-family: MyFont1;
+    src: url("./fonts/MainFont.ttf");
+}
+
+
+
+/* fuk */
+body { 
+    height: 100vh;
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+
+/*The Page that holds all dingle berries*/
+.MainPage { 
+    height: 100vh; 
+    border: 0;
+    margin: 0;
+    display: grid; 
+    grid-template-columns: minmax(600px, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+
+
+/* The Starting Page of the Game */
+.TitleScreenPage { 
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    display: grid;
+    grid-template-columns: 1fr 600px 1fr;
+    grid-template-rows: 1fr 100px 60px 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+#TitlePage-title { 
+    font-family: MyFont1;
+    font-size: 64px;
+    text-align: center;
+    grid-row: 2;
+    grid-column: 2;
+    width: 400px;
+    height: 75px;
+
+}
+
+#titlePage-button { 
+    width: 100px; 
+    height: 100px;
+    border: none;
+    padding: 0;
+    font-family: MyFont1;
+    grid-row: 3;
+    grid-column: 2;
+    font-size: 100px;
+    color: red;
+    background: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+#titlePage-button:hover  {
+    color: rgb(102, 181, 255);
+    transform: translateY(2px)
+}
+
+
+
+/* User Settings Page */
+.UserInfoChoicePage { 
+    display: none;
+}
+
+/* Round Selections for the Game */
+.RoundChoicePage { 
+    display: none;
+}
+
+/* Game Page */
+.GamePage {
+    display: none;
+}
+
+/* Player Wins Page */
+.GameWinPage { 
+    display: none;
+}
+
+/* Player loses Page */ 
+.GameLosePage {
+    display: none;
+}
+
+/* Summary of the Game */
+.GameSummaryPage { 
+    display: none;
+}
+
+/* Player can play again OR Leave the game entirely */
+.PlayAgainPage { 
+    display: none;
+}
