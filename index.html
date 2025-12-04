@@ -10,6 +10,12 @@
 <body>
         <div class = "MainPage">
 
+
+
+
+
+
+
             <div class = "TitleScreenPage">
     
                 <h1 id = "TitlePage-title">Tic-Tac-Toe</h1>
@@ -19,39 +25,87 @@
             </div>
 
 
+
+
+
+
+
+
             <div class = "UserInfoChoicePage"> 
                 <h1 id = "UserInfo-TitleHeader">Create a profile first</h1>
-
+                <!--Same for the username (add a button with type submit)-->
                 <form id = "UserForm-FormName">
                     <label for = "UserInfo-Name" id = "UserInfo-UserLabel">Give a Name</label>
                     <input type = "text" id = "UserInfo-Name" required> 
                 </form>
 
+                <!--Add a button for the profile pictures otherwise it may be tricky-->
                 <form id = "UserForm-FormPFP"> 
-                    <label for = input id = "UserInfo-UserLabel">Choose a Profile Picture</label>
-                    <input type = "image" src = "" id = "UserInfo-PFP1">
-                    <input type = "image" src = "" id = "UserInfo-PFP2">
-                    <input type = "image" src = "" id = "UserInfo-PFP3">  
+                    <label id = "UserInfo-UserLabel">Choose a Profile Picture</label>
+                    <div class = "FormPFP-ImageBox">
+                        <input type = "image" src = "" id = "UserInfo-PFP1">
+                        <input type = "image" src = "" id = "UserInfo-PFP2">
+                        <input type = "image" src = "" id = "UserInfo-PFP3">  
+                    </div>
                 </form>
 
                 <form id = "UserForm-FormColor">
                     <label for = "UserInfo-Color" id = "UserInfo-UserLabel">Choose a Color</label>
-                    <input type = "color" id = "UserInfo-Color" placeholder = "Choose a color"> 
+                    <input type = "color" id = "UserInfo-Color" value = "UserColor" required>
+                    <button id = "UserForm-ColorButton" for = "UserInfo-Color" type = "submit">Done</button> 
                 </form>
 
 
             </div>
 
 
-            <div class = "RoundChoicePage"> 
 
+
+
+
+
+
+
+
+
+
+            <div class = "RoundChoicePage"> 
+                <h1 id = "RoundChoice-Header">Enter the amount of rounds you want to play</h1>
+
+                <input id = "RoundChoice-Input" type = "number" value = "RoundNumber" required>
+
+                <button id = "RoundChoice-Button" type = "submit" >Done</button>
 
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
             <div class = "GamePage"> 
 
 
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
             <div class = "GameWinPage"> 
             
@@ -59,20 +113,67 @@
             </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
             <div class = "GameLosePage"> 
             
             
             </div>
+
+
+
+
+
+
+
+
+
+
 
             <div class = "GameSummaryPage"> 
 
 
             </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
             <div class = "PlayAgainPage"> 
 
 
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
 

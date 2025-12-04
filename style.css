@@ -103,7 +103,7 @@ body {
     padding: 0;
     height: 600px;
     width: 600px;
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 120px 300px 1fr;
     justify-items: center;
@@ -119,34 +119,57 @@ body {
     height: 100px;
 }
 
+
+
+
+
+
+/* Form Username */
 #UserForm-FormName { 
     width: 500px;
     height: 300px;
     grid-row: 3; 
     grid-column: 2;
-    display: grid;
+    display: none;
     align-items: center;
     justify-items: center;
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-columns: 1fr 300px 300px 300px 1fr;
+    align-content: start;
+    gap: 5px;
+    grid-template-rows: 50px 20px;
+    grid-template-columns: 1fr 300px 1fr;
 }
 
 #UserInfo-UserLabel { 
     font-family: MyFont1;
-    grid-column: 3;
+    font-size: 24px;
+    grid-column: 2;
     grid-row: 1;
 }
 
 #UserInfo-Name { 
-    width: 200px;
-    height: 20px;
-    text-align: center;
-    border: 0;
+    width: 250px;
+    height: 35px;
+    text-align: start;
+    padding-left: 15px;
+    border: 1px solid black;
     border-radius: 20px;
-    grid-row: 1;
+    font-size: 24px;
+    grid-row: 2;
     grid-column: 2;
 }
 
+#UserInfo-Name:hover { 
+    background-color: rgb(0, 191, 255, 0.05);
+}
+
+
+
+
+
+
+
+
+/* Form Profile Picture */
 #UserForm-FormPFP { 
     width: 500px;
     height: 300px;
@@ -155,19 +178,34 @@ body {
     display: none;
     align-items: center;
     justify-items: center;
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-columns: 1fr 300px 300px 300px 1fr;
+    grid-template-rows: 100px 100px; 
+    grid-template-columns: 1fr 400px 1fr;
+}
+
+.FormPFP-ImageBox { 
+    grid-row: 2;
+    grid-column: 2;
+    width: 400px;
+    height: 150px;
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    justify-items: center;
+    justify-content: center;
 }
 
 input[type = "image"] { 
-    grid-row: 2;
-    grid-column: 2;
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
 }
 
 
 
+
+
+
+
+
+/* Form Color Pick */
 #UserForm-FormColor { 
     width: 500px;
     height: 300px;
@@ -176,13 +214,40 @@ input[type = "image"] {
     display: none;
     align-items: center;
     justify-items: center;
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-columns: 1fr 300px 300px 300px 1fr;
+    grid-template-rows: 50px 60px 60px;
+    grid-template-columns: 1fr 500px 1fr;
 }
 
 #UserInfo-Color { 
+    grid-row: 2;
+    grid-column: 2;
+    width: 150px;
+    height: 50px;
+    border: 0;
+    border-radius: 100px;
+    background: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+#UserForm-ColorButton { 
     grid-row: 3;
     grid-column: 2;
+    border: 0.5px solid black;
+    border-radius: 20px;
+    font-family: MyFont1;
+    background: none;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#UserForm-ColorButton:hover { 
+    background-color: rgb(0, 191, 255, 0.05);
+}
+
+#UserForm-ColorButton:active { 
+    background-color: rgba(0, 158, 211, 0.1);
 }
 
 
@@ -210,7 +275,41 @@ input[type = "image"] {
 
 /* Round Selections for the Game */
 .RoundChoicePage { 
-    display: none;
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 120px 75px 100px 1fr;
+    justify-items: center;
+}
+
+#RoundChoice-Header {
+    grid-row: 2;
+    grid-column: 2;
+    font-family: MyFont1;
+    font-size: 26px;
+    width: 300px;
+    text-align: center;
+}
+
+#RoundChoice-Input { 
+    grid-row: 3;
+    grid-column: 2;
+    font-size: 24px;
+    text-align: start;
+    padding-left: 10px;
+    font-family: MyFont1;
+    border: 1px solid black;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#RoundChoice-Button { 
+    grid-row: 4;
+    grid-column: 2;
+    width: 50px;
 }
 
 
