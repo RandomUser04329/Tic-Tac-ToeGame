@@ -37,7 +37,7 @@ body {
     padding: 0;
     height: 600px;
     width: 600px;
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 600px 1fr;
     grid-template-rows: 1fr 100px 60px 1fr;
     justify-items: center;
@@ -70,42 +70,272 @@ body {
     cursor: pointer;
 }
 
-#titlePage-button:hover  {
+#titlePage-button:hover {
     color: rgb(102, 181, 255);
-    transform: translateY(2px)
+    transform: translateY(2px);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 /* User Settings Page */
 .UserInfoChoicePage { 
-    display: none;
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 120px 300px 1fr;
+    justify-items: center;
 }
+
+#UserInfo-TitleHeader { 
+    font-family: MyFont1;
+    font-size: 40px;
+    text-align: center;
+    grid-row: 2;
+    grid-column: 2;
+    width: 500px;
+    height: 100px;
+}
+
+#UserForm-FormName { 
+    width: 500px;
+    height: 300px;
+    grid-row: 3; 
+    grid-column: 2;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr 300px 300px 300px 1fr;
+}
+
+#UserInfo-UserLabel { 
+    font-family: MyFont1;
+    grid-column: 3;
+    grid-row: 1;
+}
+
+#UserInfo-Name { 
+    width: 200px;
+    height: 20px;
+    text-align: center;
+    border: 0;
+    border-radius: 20px;
+    grid-row: 1;
+    grid-column: 2;
+}
+
+#UserForm-FormPFP { 
+    width: 500px;
+    height: 300px;
+    grid-row: 3; 
+    grid-column: 2;
+    display: none;
+    align-items: center;
+    justify-items: center;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr 300px 300px 300px 1fr;
+}
+
+input[type = "image"] { 
+    grid-row: 2;
+    grid-column: 2;
+    width: 50px;
+    height: 50px;
+}
+
+
+
+#UserForm-FormColor { 
+    width: 500px;
+    height: 300px;
+    grid-row: 3; 
+    grid-column: 2;
+    display: none;
+    align-items: center;
+    justify-items: center;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr 300px 300px 300px 1fr;
+}
+
+#UserInfo-Color { 
+    grid-row: 3;
+    grid-column: 2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Round Selections for the Game */
 .RoundChoicePage { 
     display: none;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Game Page */
 .GamePage {
     display: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Player Wins Page */
 .GameWinPage { 
     display: none;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Player loses Page */ 
 .GameLosePage {
     display: none;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Summary of the Game */
 .GameSummaryPage { 
     display: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Player can play again OR Leave the game entirely */
 .PlayAgainPage { 
