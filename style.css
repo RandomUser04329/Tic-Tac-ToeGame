@@ -1,6 +1,8 @@
- * {
+
+* {
     outline: 2px solid red;
 }
+
 
 /* Custom Fonts for better appearance */ 
 @font-face {
@@ -278,9 +280,9 @@ input[type = "image"] {
     padding: 0;
     height: 600px;
     width: 600px;
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 120px 75px 100px 1fr;
+    grid-template-rows: 1fr 130px 60px 100px 1fr;
     justify-items: center;
 }
 
@@ -297,8 +299,8 @@ input[type = "image"] {
     grid-row: 3;
     grid-column: 2;
     font-size: 24px;
-    text-align: start;
-    padding-left: 10px;
+    border: 0;
+    text-align: center;
     font-family: MyFont1;
     border: 1px solid black;
     width: 100px;
@@ -306,13 +308,32 @@ input[type = "image"] {
     cursor: pointer;
 }
 
+#RoundChoice-Input::-webkit-outer-spin-button,
+::-webkit-inner-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0;
+}
+
 #RoundChoice-Button { 
     grid-row: 4;
     grid-column: 2;
-    width: 50px;
+    font-family: MyFont1;
+    width: 110px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
 }
 
+#RoundChoice-Button:hover { 
+    background-color: rgb(0, 191, 255, 0.05);
+}
 
+#RoundChoice-Button:active { 
+     background-color: rgba(0, 151, 202, 0.1);
+}
 
 
 
@@ -336,6 +357,94 @@ input[type = "image"] {
 /* Game Page */
 .GamePage {
     display: none;
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    grid-template-columns: 100px 2fr 100px;
+    grid-template-rows: 80px 420px 100px;
+    justify-items: center;
+}
+
+#GamePage-RoundDisplay { 
+    grid-row: 1;
+    grid-column: 2;
+    font-family: MyFont1;
+    font-size: 36px;
+}
+
+.GamePage-GameBoardBox { 
+    grid-row: 2;
+    grid-column: 2;
+    width: 400px;
+    height: 400px;
+}
+
+#GameBoard-BoardButton1, #GameBoard-BoardButton2,
+#GameBoard-BoardButton3, #GameBoard-BoardButton4,
+#GameBoard-BoardButton5, #GameBoard-BoardButton6,
+#GameBoard-BoardButton7, #GameBoard-BoardButton8,
+#GameBoard-BoardButton9 {
+    width: 130px;
+    height: 133px;
+    border: 1px solid black;
+    background-color: white;
+    cursor: pointer;
+}
+
+#GameBoard-BoardButton1:hover, #GameBoard-BoardButton2:hover, 
+#GameBoard-BoardButton3:hover, #GameBoard-BoardButton4:hover, 
+#GameBoard-BoardButton5:hover, #GameBoard-BoardButton6:hover, 
+#GameBoard-BoardButton7:hover, #GameBoard-BoardButton8:hover, 
+#GameBoard-BoardButton9:hover { 
+    background-color: rgb(225, 225, 225, 0.5);
+}
+
+
+
+
+.GamePage-ProfileBox { 
+    grid-row: 3;
+    grid-column: 1 / span 3;
+    width: 600px;
+    height: 80px;
+    display: grid;
+    grid-template-columns: 300px 300px;
+    grid-template-rows: 80px;
+    box-shadow: 0 0 10px  rgb(0, 0, 0, 0.3);
+}
+
+.ProfileBox-User {
+    border-right: 1px solid rgb(0, 0, 0, 0.2);
+    width: 300px;
+    height: 80px;
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    font-family: MyFont1;
+    font-size: 12px;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+    
+}
+
+#UserProfile-UserPFP { 
+    grid-column: 1;
+    width: 70px;
+    height: 70px;
+}
+
+#UserProfile-UserName { 
+    grid-column: 2;
+    font-size: 16px;
+    height: 20px;
+    width: 100px;
+}
+
+#UserProfile-UserScore { 
+    grid-column: 3;
+    width: 60px;
+    font-size: 16px;
 }
 
 
@@ -353,6 +462,46 @@ input[type = "image"] {
 
 
 
+.ProfileBox-Computer {
+    border-left: 1px solid rgb(0, 0, 0, 0.2);
+    width: 300px;
+    height: 80px;
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 100px;
+    font-family: MyFont1;
+    font-size: 12px;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+}
+
+#ComputerProfile-ComputerPFP { 
+    grid-column: 3;
+    width: 70px;
+    height: 70px;
+}
+
+#ComputerProfile-ComputerName { 
+    grid-column: 2;
+    font-size: 16px;
+    height: 20px;
+    width: 100px;
+}
+
+#ComputerProfile-ComputerScore {
+    grid-column: 1;
+    width: 60px;
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -360,7 +509,13 @@ input[type = "image"] {
 
 /* Player Wins Page */
 .GameWinPage { 
-    display: none;
+    display: grid;
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    grid-template-columns: 100px 2fr 100px;
+    grid-template-rows: 80px 420px 100px;
+    justify-items: center;
 }
 
 

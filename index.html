@@ -70,7 +70,9 @@
 
 
             <div class = "RoundChoicePage"> 
-                <h1 id = "RoundChoice-Header">Enter the amount of rounds you want to play</h1>
+                <h1 id = "RoundChoice-Header">Enter the amount of rounds you want to play
+                    (0 - 10)
+                </h1>
 
                 <input id = "RoundChoice-Input" type = "number" value = "RoundNumber" required>
 
@@ -92,6 +94,50 @@
 
             <div class = "GamePage"> 
 
+                <h1 id = "GamePage-RoundDisplay">Round ?? </h1>
+
+                <div class = "GamePage-GameBoardBox">
+                    <button id = "GameBoard-BoardButton1" value = "boardSquare1"></button>
+
+                    <button id = "GameBoard-BoardButton2" value = "boardSquare2"></button>
+
+                    <button id = "GameBoard-BoardButton3" value = "boardSquare3"></button>
+
+                    <button id = "GameBoard-BoardButton4" value = "boardSquare4"></button>
+
+                    <button id = "GameBoard-BoardButton5" value = "boardSquare5"></button>
+
+                    <button id = "GameBoard-BoardButton6" value = "boardSquare6"></button>
+
+                    <button id = "GameBoard-BoardButton7" value = "boardSquare7"></button>
+
+                    <button id = "GameBoard-BoardButton8" value = "boardSquare8"></button>
+
+                    <button id = "GameBoard-BoardButton9" value = "boardSquare9"></button> 
+                </div>
+
+                <div class = "GamePage-ProfileBox">
+
+                    <div class = "ProfileBox-User">
+                        <image id = "UserProfile-UserPFP"></image>
+
+                        <h1 id = "UserProfile-UserName">UserName</h1>
+
+                        <h1 id = "UserProfile-UserScore">00</h1>
+                    </div>
+
+
+
+                    <div class = "ProfileBox-Computer"> 
+
+                        <h1 id = "ComputerProfile-ComputerScore">00</h1>
+
+                        <h1 id = "ComputerProfile-ComputerName">A.I</h1>
+
+                        <image id = "ComputerProfile-ComputerPFP"></image>
+                    </div>
+
+                </div>
 
             </div>
 
