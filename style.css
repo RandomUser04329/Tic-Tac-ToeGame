@@ -1,5 +1,5 @@
 
-* {
+ * {
     outline: 2px solid red;
 }
 
@@ -39,7 +39,7 @@ body {
     padding: 0;
     height: 600px;
     width: 600px;
-    display: none;
+    display: grid;
     grid-template-columns: 1fr 600px 1fr;
     grid-template-rows: 1fr 100px 60px 1fr;
     justify-items: center;
@@ -66,18 +66,19 @@ body {
     grid-row: 3;
     grid-column: 2;
     font-size: 100px;
-    color: red;
+    color: rgb(102, 181, 255);
     background: none;
     text-align: center;
     cursor: pointer;
 }
 
 #titlePage-button:hover {
-    color: rgb(102, 181, 255);
-    transform: translateY(2px);
+    color: rgb(48, 155, 255, 0.5);
 }
 
-
+#titlePage-button:active {
+    color: rgba(0, 132, 255, 0.5);
+}
 
 
 
@@ -508,14 +509,49 @@ input[type = "image"] {
 
 
 /* Player Wins Page */
-.GameWinPage { 
-    display: grid;
+.RoundWonPage { 
+    display: none;
     padding: 0;
     height: 600px;
     width: 600px;
-    grid-template-columns: 100px 2fr 100px;
-    grid-template-rows: 80px 420px 100px;
+    grid-template-columns: 100px 1fr 100px;
+    grid-template-rows: 100px 100px;
     justify-items: center;
+    align-items: center;
+    align-content: center;
+}
+
+#RoundWon-header { 
+    grid-column: 2;
+    grid-row: 1;
+    width: 400px;
+    height: 50px;
+    font-family: MyFont1;
+    font-size: 36px;
+    text-align: center;
+}
+
+#RoundWon-button { 
+    grid-column: 2;
+    grid-row: 2;
+    height: 50px;
+    width: 150px;
+    font-family: MyFont1;
+    font-size: 12px;
+    border-radius: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+    background-color: white;
+}
+
+#RoundWon-button:hover { 
+    background-color: rgb(0, 170, 255, 1);
+    color: rgb(0, 0, 0, 0.5);
+}
+
+#RoundWon-button:active { 
+    background-color: rgb(0, 170, 255, 0.8);
+    color: rgb(0, 0, 0, 0.5);
 }
 
 
@@ -537,8 +573,49 @@ input[type = "image"] {
 
 
 /* Player loses Page */ 
-.GameLosePage {
+.RoundLosePage { 
     display: none;
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    grid-template-columns: 100px 1fr 100px;
+    grid-template-rows: 100px 100px;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+}
+
+#RoundLost-header { 
+    grid-column: 2;
+    grid-row: 1;
+    width: 400px;
+    height: 50px;
+    font-family: MyFont1;
+    font-size: 36px;
+    text-align: center;
+}
+
+#RoundLost-button { 
+    grid-column: 2;
+    grid-row: 2;
+    height: 50px;
+    width: 150px;
+    font-family: MyFont1;
+    font-size: 12px;
+    border-radius: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+    background-color: white;
+}
+
+#RoundLost-button:hover { 
+    background-color: rgb(0, 170, 255, 1);
+    color: rgb(0, 0, 0, 0.5);
+}
+
+#RoundLost-button:active { 
+    background-color: rgb(0, 170, 255, 0.8);
+    color: rgb(0, 0, 0, 0.5);
 }
 
 
@@ -565,6 +642,65 @@ input[type = "image"] {
 /* Summary of the Game */
 .GameSummaryPage { 
     display: none;
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    grid-template-columns: 100px 1fr 100px;
+    grid-template-rows: 100px 1fr 100px;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    font-family: MyFont1;
+}
+
+
+
+
+
+
+
+/* User Wins */
+.GameSummary-UserWins { 
+    width: 400px;
+    height: 400px;
+    grid-column: 2;
+    grid-row: 2;
+    display: none;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 100px;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+}
+
+#UserWins-Header { 
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#UserWins-button { 
+    grid-row: 2;
+    height: 50px;
+    width: 150px;
+    font-family: MyFont1;
+    font-size: 12px;
+    border-radius: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+    background-color: white;
+}
+
+#UserWins-button:hover { 
+    background-color: rgb(0, 170, 255, 1);
+    color: rgb(0, 0, 0, 0.5);
+}
+
+#UserWins-button:active { 
+    background-color: rgb(0, 170, 255, 0.8);
+    color: rgb(0, 0, 0, 0.5);
 }
 
 
@@ -591,7 +727,262 @@ input[type = "image"] {
 
 
 
-/* Player can play again OR Leave the game entirely */
-.PlayAgainPage { 
+
+
+
+
+
+
+/* User Loses */
+
+.GameSummary-UserLoses { 
+    width: 400px;
+    height: 400px;
+    grid-column: 2;
+    grid-row: 2;
     display: none;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 100px;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+}
+
+#UserLoses-Header { 
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#UserLoses-button { 
+    grid-row: 2;
+    height: 50px;
+    width: 150px;
+    font-family: MyFont1;
+    font-size: 12px;
+    border-radius: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+    background-color: white;
+}
+
+#UserLoses-button:hover { 
+    background-color: rgb(0, 170, 255, 1);
+    color: rgb(0, 0, 0, 0.5);
+}
+
+#UserLoses-button:active { 
+    background-color: rgb(0, 170, 255, 0.8);
+    color: rgb(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Players can play again OR Leave the game entirely */
+.PlayAgainPage { 
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    display: none;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    text-align: center;
+}
+
+.PlayAgain-UserOption { 
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    grid-row: 1;
+    grid-column: 1;
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px 100px;
+    justify-items: center;
+    align-content: center;
+}
+
+#PlayAgain-header { 
+    grid-column: span 2;
+    grid-row: 1;
+    width: 200px;
+    height: 50px;
+    font-family: MyFont1;
+    font-size: 32px;
+}
+
+#PlayAgain-YesBTN, #PlayAgain-NoBTN { 
+    grid-row: 2;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid rgb(0, 0, 0, 0.2);
+    background-color: white;
+    font-family: MyFont1;
+    cursor: pointer;
+}
+
+#PlayAgain-YesBTN{ 
+    margin-left: 150px;
+}
+
+#PlayAgain-NoBTN{ 
+    margin-right: 150px;
+}
+
+#PlayAgain-YesBTN:hover { 
+    background-color: rgb(0, 183, 255, 0.5);
+}
+
+#PlayAgain-YesBTN:active { 
+    background-color: rgb(0, 183, 255, 1);
+}
+
+#PlayAgain-NoBTN:hover { 
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+#PlayAgain-NoBTN:active { 
+    background-color: rgba(255, 0, 0, 1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.PlayAgain-IfYes { 
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    grid-row: 1;
+    grid-column: 1;
+    display: none; 
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px 100px;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    font-family: MyFont1;
+}
+
+#IfYes-header { 
+    grid-column: span 2;
+    grid-row: 1;
+    width: 300px;
+    text-align: center;
+    font-size: 32px;
+}
+
+#IfYes-KeepBTN, #IfYes-ChangeBTN { 
+    grid-row: 2;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid rgb(0, 0, 0, 0.2);
+    background-color: white;
+    font-family: MyFont1;
+    cursor: pointer;
+}
+
+#IfYes-KeepBTN { 
+    margin-left: 150px;
+}
+
+#IfYes-ChangeBTN { 
+    margin-right: 150px;
+}
+
+#IfYes-KeepBTN:hover { 
+    background-color: rgb(0, 183, 255, 0.5);
+}
+
+#IfYes-KeepBTN:active { 
+    background-color: rgb(0, 183, 255, 1);
+}
+
+#IfYes-ChangeBTN:hover { 
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+#IfYes-ChangeBTN:active { 
+    background-color: rgba(255, 0, 0, 1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.PlayAgain-IfNo { 
+    padding: 0;
+    height: 600px;
+    width: 600px;
+    grid-row: 1;
+    grid-column: 1;
+    display: none; 
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    font-family: MyFont1;
+}
+
+#IfNo-header { 
+    grid-row: 1;
+    grid-column: span 2;
+    font-size: 36px; 
 }

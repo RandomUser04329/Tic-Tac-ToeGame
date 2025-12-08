@@ -153,9 +153,10 @@
 
 
 
-            <div class = "GameWinPage"> 
-            
-            
+            <div class = "RoundWonPage"> 
+                <h1 id = "RoundWon-header">You won the round.</h1>
+
+                <button id = "RoundWon-button"> Next Round</button>
             </div>
 
 
@@ -171,8 +172,10 @@
 
 
 
-            <div class = "GameLosePage"> 
-            
+            <div class = "RoundLosePage"> 
+                <h1 id = "RoundLost-header">You lost this round.</h1>
+
+                <button id = "RoundLost-button"> Next Round</button>
             
             </div>
 
@@ -187,7 +190,18 @@
 
 
             <div class = "GameSummaryPage"> 
+                <div class = "GameSummary-UserWins">
+                    <h1 id = "UserWins-Header">You Won!</h1>
 
+                    <button id = "UserWins-button">Next</button>
+
+                </div>
+
+                <div class = "GameSummary-UserLoses">
+                    <h1 id = "UserLoses-Header">You Lost.</h1>
+                    
+                    <button id = "UserLoses-button">Next</button>
+                </div>
 
             </div>
 
@@ -205,6 +219,28 @@
 
             <div class = "PlayAgainPage"> 
 
+                <div class = "PlayAgain-UserOption">
+                    <h1 id = "PlayAgain-header">Go Again?</h1>
+
+                    <button id = "PlayAgain-YesBTN" value = "Yes" >Yes</button>
+                    <button id = "PlayAgain-NoBTN" value = "No" >No</button>
+
+                </div>
+                
+                <div class = "PlayAgain-IfYes">
+                    <h1 id = "IfYes-header">Change Rounds or keep original?</h1>
+
+                    <button id = "IfYes-KeepBTN" value = "keep">Keep</button>
+                    <button id = "IfYes-ChangeBTN" value = "change">Change</button>
+                </div>
+
+
+                <div class = "PlayAgain-IfNo">
+                    <h1 id = "IfNo-header">Thanks for Playing!</h1>
+                </div>
+
+
+                
 
             </div>
 
