@@ -2,8 +2,6 @@
 //The Main Page
 const BodyPage = document.querySelector(".MainPage");
 
-
-
 //Start Page
 const TitleScreenPage = document.querySelector(".TitleScreenPage");
 
@@ -25,7 +23,42 @@ const SummaryOfGamePage = document.querySelector(".GameSummaryPage");
 //User wants to play again page
 const PlayAgainPage = document.querySelector(".PlayAgainPage");
 
-//the parent function that starts the WHOLE game
+game();
+
+function game() { 
+
+    //Start button goes to the user creation page
+    let StartGameButton = document.querySelector("#titlePage-button");
+
+    StartGameButton.addEventListener("click", () => { 
+        TitleScreenPage.style.display = "none";
+        UserCreationPage.style.display = "grid";
+        makeUser(); 
+    });
+
+
+    function makeUser() { 
+        let PlayerName;
+        let PlayerLevel;
+        let PlayerColor;
+        let PlayerProfilePicture;
+
+        
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+/*
+the parent function that starts the WHOLE game
 function startGame(name) { 
     let playerName;
     let playerLevel;
@@ -206,6 +239,8 @@ function startGame(name) {
 
 
 }
+*/
+
 
 /*
 const objK = { 

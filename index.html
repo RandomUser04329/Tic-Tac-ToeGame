@@ -37,16 +37,18 @@
                 <form id = "UserForm-FormName">
                     <label for = "UserInfo-Name" id = "UserInfo-UserLabel">Give a Name</label>
                     <input type = "text" id = "UserInfo-Name" required> 
+                    <button id = "SubmitNameButton" value = "UserName"  for = "UserForm-FormName" required>Next</button>
                 </form>
 
                 <!--Add a button for the profile pictures otherwise it may be tricky-->
                 <form id = "UserForm-FormPFP"> 
                     <label id = "UserInfo-UserLabel">Choose a Profile Picture</label>
                     <div class = "FormPFP-ImageBox">
-                        <input type = "image" src = "" id = "UserInfo-PFP1">
-                        <input type = "image" src = "" id = "UserInfo-PFP2">
-                        <input type = "image" src = "" id = "UserInfo-PFP3">  
+                        <input type = "image" src = "./images/Apple Profile.png" id = "UserInfo-PFP1">
+                        <input type = "image" src = "./images/Invader Profile.png" id = "UserInfo-PFP2">
+                        <input type = "image" src = "./images/Star Profile.png" id = "UserInfo-PFP3">  
                     </div>
+                    <button id = "SubmitPFPButton" value = "ProfilePicture" for = "UserForm-FormPFP" required>Next</button>
                 </form>
 
                 <form id = "UserForm-FormColor">
