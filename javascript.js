@@ -1,3 +1,30 @@
+
+//The Main Page
+const BodyPage = document.querySelector(".MainPage");
+
+
+
+//Start Page
+const TitleScreenPage = document.querySelector(".TitleScreenPage");
+
+//User Creation Page
+const UserCreationPage = document.querySelector(".UserInfoChoicePage");
+
+//Game Board Page
+const GameBoardPage = document.querySelector(".GamePage");
+
+//Round Lose Page(If the user loses)
+const UserLosesRoundPage = document.querySelector(".RoundLosePage");
+
+//Round Won Page(If the user wins)
+const UserWinsRoundPage = document.querySelector(".RoundWonPage");
+
+//End of Game page (Game Summary)
+const SummaryOfGamePage = document.querySelector(".GameSummaryPage");
+
+//User wants to play again page
+const PlayAgainPage = document.querySelector(".PlayAgainPage");
+
 //the parent function that starts the WHOLE game
 function startGame(name) { 
     let playerName;
