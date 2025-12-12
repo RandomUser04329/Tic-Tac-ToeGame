@@ -25,17 +25,18 @@ const PlayAgainPage = document.querySelector(".PlayAgainPage");
 
 game();
 
-function game() { 
+let FormNamePage = document.querySelector("#UserForm-FormName");
+let FormPFPPage = document.querySelector("#UserForm-FormPFP");
+let FormColorPage = document.querySelector("#UserForm-FormColor");
 
+function game() { 
     //Start button goes to the user creation page
     let StartGameButton = document.querySelector("#titlePage-button");
 
     StartGameButton.addEventListener("click", () => { 
         TitleScreenPage.style.display = "none";
-        UserCreationPage.style.display = "grid";
         makeUser(); 
     });
-
 
     function makeUser() { 
         let PlayerName;
@@ -43,9 +44,30 @@ function game() {
         let PlayerColor;
         let PlayerProfilePicture;
 
-        
+        UserCreationPage.style.display = "grid";
+        createName(); 
 
-    }
+
+        //UserName Function
+        function createName() { 
+            FormNamePage.style.display = "grid"; 
+            let NameGetter = document.querySelector("#SubmitNameButton");
+            let NameField = document.querySelector("#UserInfo-Name");
+
+            NameGetter.addEventListener("click", () => {
+                if (NameField.textContent === "") { 
+                    return;
+                } else { 
+                    
+                }
+            });
+
+            
+
+        }
+
+
+    }   
 
 
 
