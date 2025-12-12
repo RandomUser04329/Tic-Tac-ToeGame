@@ -1,5 +1,5 @@
 
- * {
+   {
     outline: 2px solid red;
 }
 
@@ -106,16 +106,19 @@ body {
     padding: 0;
     height: 600px;
     width: 600px;
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 120px 300px 1fr;
     justify-items: center;
+    align-content: center;
+    align-items: center;
 }
 
 #UserInfo-TitleHeader { 
     font-family: MyFont1;
     font-size: 40px;
     text-align: center;
+    align-content: center;
     grid-row: 2;
     grid-column: 2;
     width: 500px;
@@ -196,7 +199,7 @@ body {
     height: 300px;
     grid-row: 3; 
     grid-column: 2;
-    display: grid;
+    display: none;
     align-items: center;
     justify-items: center;
     grid-template-rows: 100px 100px 100px; 
@@ -217,9 +220,18 @@ body {
     justify-content: center;
 }
 
-input[type = "image"] { 
+#UserInfo-ApplePFP, #UserInfo-InvaderPFP, #UserInfo-StarPFP{ 
     width: 120px;
     height: 120px;
+    box-shadow: 0 5px 5px rgb(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+#UserInfo-ApplePFP:hover, 
+#UserInfo-InvaderPFP:hover, 
+#UserInfo-StarPFP:hover { 
+    box-shadow: 0 5px 7px rgb(0, 0, 0, 0.5);
+    transform: translateY(-3px);
 }
 
 #SubmitPFPButton { 
@@ -286,21 +298,24 @@ input[type = "image"] {
 #UserForm-ColorButton { 
     grid-row: 3;
     grid-column: 2;
-    border: 0.5px solid black;
-    border-radius: 20px;
-    font-family: MyFont1;
-    background: none;
     width: 100px;
-    height: 30px;
+    height: 25px;
+    border-radius: 20px;
+    border: 1px solid rgb(0, 0, 0, 0.5);
+    background-color: white;
     cursor: pointer;
+    font-family: MyFont1;
+    font-size: 10px;
 }
 
 #UserForm-ColorButton:hover { 
-    background-color: rgb(0, 191, 255, 0.05);
+    background-color: rgb(0, 170, 255, 1);
+    color: rgb(0, 0, 0, 0.5);
 }
 
 #UserForm-ColorButton:active { 
-    background-color: rgba(0, 158, 211, 0.1);
+    background-color: rgb(0, 170, 255, 0.8);
+    color: rgb(0, 0, 0, 0.5);
 }
 
 
@@ -331,10 +346,12 @@ input[type = "image"] {
     padding: 0;
     height: 600px;
     width: 600px;
-    display: none;
+    display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 130px 60px 100px 1fr;
     justify-items: center;
+    align-content: center;
+    align-items: center;
 }
 
 #RoundChoice-Header {
@@ -379,11 +396,13 @@ input[type = "image"] {
 }
 
 #RoundChoice-Button:hover { 
-    background-color: rgb(0, 191, 255, 0.05);
+    background-color: rgb(0, 170, 255, 1);
+    color: rgb(0, 0, 0, 0.5);
 }
 
 #RoundChoice-Button:active { 
-     background-color: rgba(0, 151, 202, 0.1);
+    background-color: rgb(0, 170, 255, 0.8);
+    color: rgb(0, 0, 0, 0.5);
 }
 
 
