@@ -2,78 +2,118 @@
 //The Main Page
 const BodyPage = document.querySelector(".MainPage");
 
+
 //Start Page
 const TitleScreenPage = document.querySelector(".TitleScreenPage");
 
-//User Creation Page
+
+
+//User Creation Page + Form Selectors
 const UserCreationPage = document.querySelector(".UserInfoChoicePage");
 
-//Game Board Page
-const GameBoardPage = document.querySelector(".GamePage");
+let PlayerName; 
+let PlayerLevel;
+let PlayerPic;
+let PlayerColor;
 
-//Round Lose Page(If the user loses)
-const UserLosesRoundPage = document.querySelector(".RoundLosePage");
 
-//Round Won Page(If the user wins)
-const UserWinsRoundPage = document.querySelector(".RoundWonPage");
 
-//End of Game page (Game Summary)
-const SummaryOfGamePage = document.querySelector(".GameSummaryPage");
+//Player Function
+let Player = { 
+    PlayerName: "",
+    PlayerLevel: 0, 
+    PlayerProfilePic: "", 
+    PlayerColor: ""
+}
 
-//User wants to play again page
-const PlayAgainPage = document.querySelector(".PlayAgainPage");
 
-game();
+//Computer
+
 
 let FormNamePage = document.querySelector("#UserForm-FormName");
 let FormPFPPage = document.querySelector("#UserForm-FormPFP");
 let FormColorPage = document.querySelector("#UserForm-FormColor");
 
-function game() { 
-    //Start button goes to the user creation page
-    let StartGameButton = document.querySelector("#titlePage-button");
-
-    StartGameButton.addEventListener("click", () => { 
-        TitleScreenPage.style.display = "none";
-        makeUser(); 
-    });
-
-    function makeUser() { 
-        let PlayerName;
-        let PlayerLevel;
-        let PlayerColor;
-        let PlayerProfilePicture;
-
-        UserCreationPage.style.display = "grid";
-        createName(); 
 
 
-        //UserName Function
-        function createName() { 
-            FormNamePage.style.display = "grid"; 
-            let NameGetter = document.querySelector("#SubmitNameButton");
-            let NameField = document.querySelector("#UserInfo-Name");
 
-            NameGetter.addEventListener("click", () => {
-                if (NameField.textContent === "") { 
-                    return;
-                } else { 
-                    
-                }
-            });
+//Game Board Page
+const GameBoardPage = document.querySelector(".GamePage");
 
-            
 
+
+
+//Round Lose Page(If the user loses)
+const UserLosesRoundPage = document.querySelector(".RoundLosePage");
+
+
+
+
+//Round Won Page(If the user wins)
+const UserWinsRoundPage = document.querySelector(".RoundWonPage");
+
+
+
+
+//End of Game page (Game Summary)
+const SummaryOfGamePage = document.querySelector(".GameSummaryPage");
+
+
+
+
+//User wants to play again page
+const PlayAgainPage = document.querySelector(".PlayAgainPage");
+
+
+
+//Global Value to change pages
+let page; 
+
+
+//Automatic loop at start to enter the starting page
+while (true) { 
+    page = TitleScreenPage;
+    TitleScreenPage.style.display = "grid";
+    Pages(page);
+}
+
+//function that changes pages 
+function Pages(page) {
+
+    while (page) { 
+        if (page === TitleScreenPage) { 
+            StartGame();
+            break;
+        } else if (page === UserCreationPage) { 
+            MakeUser();
+            break;
+        } else if (page === GameBoardPage) { 
+            PlayGame();
+            break;
         }
-
-
-    }   
-
+    }
 
 
 }
 
+//Start Game Page
+function StartGame() { 
+    TitleScreenPage.style.display = "grid";
+    let StartGameButton = document.querySelector("#titlePage-button");
 
+    StartGameButton.addEventListener("click", () => { 
+        TitleScreenPage.style.display = "none";
+        page = UserCreationPage;
+        Pages(page);
+    });
+}
+
+
+
+//User Creation Page
+function MakeUser() { 
+    
+}
 
 
 
