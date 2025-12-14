@@ -17,13 +17,19 @@ const UserCreationPage = document.querySelector(".UserInfoChoicePage");
 //User Creation Form selectors
 let FormNamePage = document.querySelector("#UserForm-FormName");
 let FormInputField = document.querySelector("#UserInfo-Name");
-let FormInput = FormInputField.textContent;
+let FormInput;
 let SubmitNameButton = document.querySelector("#SubmitNameButton");
 
 let FormPFPPage = document.querySelector("#UserForm-FormPFP");
-let SubmitPFPButton = document.querySelector("#SubmitPFPButton");
+let FormApplePFP = document.querySelector("#UserInfo-ApplePFP");
+let FormInvaderPFP = document.querySelector("#UserInfo-InvaderPFP");
+let FormStarPFP = document.querySelector("#UserInfo-StarPFP");
+let FormPFPSrc; 
+
+let FormPFPButton = document.querySelector("#SubmitPFPButton");
 
 let FormColorPage = document.querySelector("#UserForm-FormColor");
+let FormColorInput = document.querySelector("#UserInfo-Color"); 
 let SubmitColorButton = document.querySelector("#UserForm-ColorButton");
 
 
@@ -107,7 +113,7 @@ let page;
 
 //function that changes pages 
 function Pages(page) {
-    while (page != "") { 
+    while (page != undefined) { 
         if (page === TitleScreenPage) { 
             StartGame();
             break;
@@ -138,34 +144,80 @@ function StartGame() {
 
 
 //User Creation Page
-function MakePlayer() { 
-    UserCreationPage.style.display = "grid"; 
 
-    if (User === undefined) { 
-        PlayerFunc();
-    }
 
-    while (true) { 
-        if (User.PlayerName === undefined) { 
-            MakeName(); 
-            break;
+    function MakePlayer() {
+
+        function Name() { 
+            FormNamePage.style.display = "grid";
+
+            SubmitNameButton.addEventListener("click", () => {
+
+                FormInput = FormInputField.textContent;
+
+                PlayerFunc(FormInput);
+
+                while (FormInput != undefined) { 
+                    if (FormPFPSrc === undefined || FormColorInput.value === undefined) {
+                        MakePlayer(); 
+                        break;
+                    }
+                }
+            }); 
         }
-        
+
+        function ProfilePicture() { 
+            FormPFPPage.style.display = "grid";
+        }
+
+        function ProfileColor() { 
+            FormColorPage.style.display = "grid";
+        }
+
+
+        let showSection; 
+
+        while (showSection === undefined) { 
+            if (FormInput === undefined) { 
+                showSection = FormNamePage;
+                break;
+            } else if (FormPFPSrc === undefined) { 
+                showSection = FormPFPPage;
+                break;
+            } else if (FormColorInput.value === undefined) { 
+                showSection = FormColorPage; 
+                break;
+            }
+        }
+
+        while (showSection != undefined) { 
+            UserCreationPage.style.display = "grid"; 
+
+            if (showSection === FormNamePage) { 
+                Name(); 
+                break;
+            } else if (showSection === FormPFPPage) { 
+                ProfilePicture(); 
+                break;
+            } else if (showSection === FormColorPage) { 
+                ProfileColor(); 
+                break;
+            }
+
+        }
+
     }
-    
 
 
-    function MakeName() { 
-        FormNamePage.style.display = "grid";
-
-        SubmitNameButton.addEventListener("click", () => { 
-            PlayerFunc(FormInput);
-            return page = UserCreationPage;
-        }); 
-    }
-}
 
 
+
+
+//Start
+
+page = TitleScreenPage;
+
+Pages(page); 
 
 
 
@@ -174,18 +226,6 @@ function MakePlayer() {
 
 
 
-
-
-
-
-
-
-
-//Start 
-while (User === undefined) {
-    StartGame();
-    break;
-}
 
 
 
