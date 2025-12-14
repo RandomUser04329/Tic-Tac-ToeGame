@@ -3,89 +3,116 @@
 const BodyPage = document.querySelector(".MainPage");
 
 
-//Start Page
+//Start Page + child elements
 const TitleScreenPage = document.querySelector(".TitleScreenPage");
+
+let StartGameButton = document.querySelector("#titlePage-button");
+
 
 
 
 //User Creation Page + Form Selectors
 const UserCreationPage = document.querySelector(".UserInfoChoicePage");
 
-let PlayerName; 
-let PlayerLevel;
-let PlayerPic;
-let PlayerColor;
-
-
-
-//Player Function
-let Player = { 
-    PlayerName: "",
-    PlayerLevel: 0, 
-    PlayerProfilePic: "", 
-    PlayerColor: ""
-}
-
-
-//Computer
-
-
+//User Creation Form selectors
 let FormNamePage = document.querySelector("#UserForm-FormName");
+let FormInputField = document.querySelector("#UserInfo-Name");
+let FormInput = FormInputField.textContent;
+let SubmitNameButton = document.querySelector("#SubmitNameButton");
+
 let FormPFPPage = document.querySelector("#UserForm-FormPFP");
+let SubmitPFPButton = document.querySelector("#SubmitPFPButton");
+
 let FormColorPage = document.querySelector("#UserForm-FormColor");
+let SubmitColorButton = document.querySelector("#UserForm-ColorButton");
 
 
 
+//Round selection page + selectors
+const roundChoicePage = document.querySelector(".RoundChoicePage");
+
+let RoundChoiceInput = document.querySelector("#RoundChoice-Input");
+let RoundChoiceButton = document.querySelector("#RoundChoice-Button");
 
 //Game Board Page
 const GameBoardPage = document.querySelector(".GamePage");
 
-
-
-
 //Round Lose Page(If the user loses)
 const UserLosesRoundPage = document.querySelector(".RoundLosePage");
-
-
-
 
 //Round Won Page(If the user wins)
 const UserWinsRoundPage = document.querySelector(".RoundWonPage");
 
-
-
-
 //End of Game page (Game Summary)
 const SummaryOfGamePage = document.querySelector(".GameSummaryPage");
-
-
-
 
 //User wants to play again page
 const PlayAgainPage = document.querySelector(".PlayAgainPage");
 
 
 
-//Global Value to change pages
-let page; 
 
 
-//Automatic loop at start to enter the starting page
-while (true) { 
-    page = TitleScreenPage;
-    TitleScreenPage.style.display = "grid";
-    Pages(page);
+
+
+
+
+
+
+
+
+
+//Global object + Global keys
+let User;
+let PlayerName;
+let PlayerLevel;
+let PlayerPic;
+let PlayerColor;
+
+//Player Function
+function PlayerFunc(value) { 
+    PlayerName = value;
+    User = { 
+        PlayerName,
+        PlayerLevel,
+        PlayerPic,
+        PlayerColor
+    }
+
+    return User;
 }
+
+let Computer;
+let ComputerName;
+let ComputerLevel;
+let ComputerPic;
+let ComputerColor;
+
+//Computer Function
+function ComputerFunc(name, level, pic, color) { 
+    return { 
+        ComputerName: name,
+        ComputerLevel: level,
+        ComputerPic: pic,
+        ComputerColor: color,
+    }
+}
+
+
+
+
+
+//Global Value to change pages
+let page;
 
 //function that changes pages 
 function Pages(page) {
-
-    while (page) { 
+    while (page != "") { 
         if (page === TitleScreenPage) { 
             StartGame();
             break;
         } else if (page === UserCreationPage) { 
-            MakeUser();
+            MakePlayer();
             break;
         } else if (page === GameBoardPage) { 
             PlayGame();
@@ -93,13 +120,13 @@ function Pages(page) {
         }
     }
 
-
 }
 
 //Start Game Page
 function StartGame() { 
     TitleScreenPage.style.display = "grid";
-    let StartGameButton = document.querySelector("#titlePage-button");
+
+    console.log(User);
 
     StartGameButton.addEventListener("click", () => { 
         TitleScreenPage.style.display = "none";
@@ -111,197 +138,79 @@ function StartGame() {
 
 
 //User Creation Page
-function MakeUser() { 
+function MakePlayer() { 
+    UserCreationPage.style.display = "grid"; 
+
+    if (User === undefined) { 
+        PlayerFunc();
+    }
+
+    while (true) { 
+        if (User.PlayerName === undefined) { 
+            MakeName(); 
+            break;
+        }
+        
+    }
     
+
+
+    function MakeName() { 
+        FormNamePage.style.display = "grid";
+
+        SubmitNameButton.addEventListener("click", () => { 
+            PlayerFunc(FormInput);
+            return page = UserCreationPage;
+        }); 
+    }
 }
 
 
 
 
 
-/*
-the parent function that starts the WHOLE game
-function startGame(name) { 
-    let playerName;
-    let playerLevel;
-    let playerColor;
-    let playerAnswers;
-    let computerAnswers;
-    let rounds; 
-
-    let Player = {
-        playerName: name,
-        playerLevel: 0,
-        playerColor,
-        playerAnswers,
-        rounds
-    };
-
-    Player.rounds = parseInt(prompt("Enter the amount of rounds you want to play: "));
-
-    let computerAI = {
-        compName: "AI",
-        compLevel: 0,
-        computerAnswers, 
-        compColor: "Random"
-    }
-
-    let userInfo = { 
-        Player, 
-        computerAI
-    };
-
-
-    if (userInfo.Player.rounds && userInfo.Player.playerName != "") {
-        return gameFunction(userInfo); 
-    } else { 
-        if (userInfo.Player.playerName === "") {
-            while (userInfo.Player.playerName === "") {
-                userInfo.Player.playerName = prompt("Enter a name:");
-             if (userInfo.Player.playerName != "") {
-                return gameFunction(userInfo); 
-             } else  {
-                continue;
-             }
-            }
-        }
-        if (userInfo.Player.rounds === 0) {
-            while (userInfo.Player.rounds === 0) {
-                userInfo.Player.rounds = parseInt(prompt("Enter the amount of rounds you wish to play:"));
-             if (userInfo.Player.rounds != 0) {
-                return gameFunction(userInfo); 
-             } else  {
-                continue;
-             }
-            }
-        }
-    }
 
 
 
 
-    function gameFunction(userInfo) { 
-        let gameRounds = userInfo.Player.rounds; 
-
-        let playerChoices = []; 
-        let computerChoices = []; 
-        let playerAns = 0; 
-        let computerAns = 0; 
-        let gameEnd = 0;
 
 
 
-        while (gameEnd < gameRounds) {
-            playerAns = parseInt(prompt("Enter a number 1-6: "));
-            computerAns = Math.floor(Math.random() * 6); 
-
-            if (playerAns === 0) { 
-                alert("Needs to be a number from 1 to 6.");
-                continue; 
-            } else if (playerAns >= 1 && playerAns <= 6) { 
-                gameEnd++;
-                playerChoices[gameEnd] = playerAns;
-                computerChoices[gameEnd] = computerAns;
-                continue;
-            }
-
-        } if (gameEnd >= gameRounds) { 
-            userInfo.Player.playerAnswers = playerChoices; 
-            userInfo.computerAI.computerAnswers = computerChoices; 
-
-            return gameSummary(userInfo); 
-        }
-
-    }
-
-
-    function gameSummary(userInfo) {
-
-        let i; 
-        let numMatch = 0; 
-        let gameRound = 0;
-
-        let compWin = 0; 
-        let userWin = 0;
-
-        let usrAnswers = userInfo.Player.playerAnswers.filter(i =>
-            i !== undefined ); 
-        
-        let compAnswers = userInfo.computerAI.computerAnswers.filter(i => 
-            i !== undefined );
-        
-        
-        for (let i of usrAnswers) {
-            gameRound++; 
-            if (gameRound < userInfo.Player.rounds) {
-                if (usrAnswers[i] !== compAnswers[i]) { 
-                    console.log("No Match");
-                    compWin++;
-                    continue;
-                } else { 
-                    numMatch++; 
-                    userWin++;
-                    console.log(numMatch + " Match");
-                    continue;
-                }
-
-            } else if (gameRound === userInfo.Player.rounds) { 
-                return gameReset(userInfo, compWin, userWin);
-            }     
-        }
-
-    }
 
 
 
-    function gameReset(userInfo, compScore, userScore) { 
-
-        let decision; 
-
-        let userName = userInfo.Player.playerName;
-        let userLevel = userInfo.Player.playerLevel;
-        let userColor = userInfo.Player.playerColor;
-        let userChoices = userInfo.Player.playerAnswers;
-        let userRounds = userInfo.Player.rounds;
-
-        if (compScore > userScore) { 
-            alert("You Lose.");
-        } else if (userScore > compScore) {
-            userInfo.Player.playerLevel += 0.25; 
-            alert("You Win!");
-        } else if (userScore === compScore) {
-            alert("Draw! Its a tie.");
-        }
-
-        while (true) { 
-
-            decision = prompt("Retry? Type Y or N.");
-
-            if (decision === "Y") { 
-                userChoices = []; 
-                userInfo.Player.rounds = parseInt(prompt("Enter the amount of rounds you wish to play"))
-                userInfo.computerAI.computerAnswers = [];
-                return gameFunction(userInfo);
-            } else if (decision === "N") {
-                userName = "";
-                userLevel = 0;
-                userColor = "";
-                userChoices = [];
-                userRounds = 0;
-                console.log("Thanks For Playing.");
-                break;
-            } else { 
-                alert("please enter either Y or N (not y/n or any other character.");
-                continue;
-            }
-
-        }
-
-    }
 
 
+//Start 
+while (User === undefined) {
+    StartGame();
+    break;
 }
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
