@@ -15,27 +15,28 @@ let StartGameButton = document.querySelector("#titlePage-button");
 const UserCreationPage = document.querySelector(".UserInfoChoicePage");
 
 //User Creation Form selectors
-let FormNamePage = document.querySelector("#UserForm-FormName");
+let FormNameSection = document.querySelector("#UserForm-FormName");
 let FormInputField = document.querySelector("#UserInfo-Name");
-let FormInput;
+let FormInput; 
 let SubmitNameButton = document.querySelector("#SubmitNameButton");
 
-let FormPFPPage = document.querySelector("#UserForm-FormPFP");
+let FormPFPSection = document.querySelector("#UserForm-FormPFP");
 let FormApplePFP = document.querySelector("#UserInfo-ApplePFP");
 let FormInvaderPFP = document.querySelector("#UserInfo-InvaderPFP");
 let FormStarPFP = document.querySelector("#UserInfo-StarPFP");
 let FormPFPSrc; 
 
-let FormPFPButton = document.querySelector("#SubmitPFPButton");
+let SubmitPFPButton = document.querySelector("#SubmitPFPButton");
 
-let FormColorPage = document.querySelector("#UserForm-FormColor");
+let FormColorSection = document.querySelector("#UserForm-FormColor");
 let FormColorInput = document.querySelector("#UserInfo-Color"); 
+let FormColor;
 let SubmitColorButton = document.querySelector("#UserForm-ColorButton");
 
 
 
 //Round selection page + selectors
-const roundChoicePage = document.querySelector(".RoundChoicePage");
+const RoundChoicePage = document.querySelector(".RoundChoicePage");
 
 let RoundChoiceInput = document.querySelector("#RoundChoice-Input");
 let RoundChoiceButton = document.querySelector("#RoundChoice-Button");
@@ -106,124 +107,80 @@ function ComputerFunc(name, level, pic, color) {
 
 
 
+function ShowPage(page) { 
 
+    const AllPages = document.querySelector(".MainPage > div"); 
 
-//Global Value to change pages
-let page;
+    AllPages.style.display = "none";
 
-//function that changes pages 
-function Pages(page) {
-    while (page != undefined) { 
-        if (page === TitleScreenPage) { 
-            StartGame();
-            break;
-        } else if (page === UserCreationPage) { 
-            MakePlayer();
-            break;
-        } else if (page === GameBoardPage) { 
-            PlayGame();
-            break;
-        }
+    if (page) { 
+        page.style.display = "grid";
+    } 
+
+    return;
+}
+
+function ShowSection(Section) { 
+    const AllSections = document.querySelector(".MainPage > form");
+
+    AllSections.style.display = "none";
+
+    if (Section) { 
+        Section.style.display = "grid"; 
     }
 
+    return;
+
 }
 
-//Start Game Page
-function StartGame() { 
-    TitleScreenPage.style.display = "grid";
 
-    console.log(User);
+function TicTacToe() { 
 
-    StartGameButton.addEventListener("click", () => { 
-        TitleScreenPage.style.display = "none";
-        page = UserCreationPage;
-        Pages(page);
+    ShowPage(TitleScreenPage);
+
+    StartGameButton.addEventListener("click", () => {
+        MakeUser(); 
     });
-}
 
+    function MakeUser() { 
+        ShowPage(UserCreationPage); 
 
-
-//User Creation Page
-
-
-    function MakePlayer() {
-
-        function Name() { 
-            FormNamePage.style.display = "grid";
-
-            SubmitNameButton.addEventListener("click", () => {
-
-                FormInput = FormInputField.textContent;
-
-                PlayerFunc(FormInput);
-
-                while (FormInput != undefined) { 
-                    if (FormPFPSrc === undefined || FormColorInput.value === undefined) {
-                        MakePlayer(); 
-                        break;
-                    }
-                }
-            }); 
+        if (FormInput === undefined || FormPFPSrc === undefined || FormColor === undefined) { 
+            if (FormInput === undefined) { 
+                ProfileName();
+            } else if (FormPFPSrc === undefined) { 
+                ProfilePic();
+            } else if (FormColor === undefined) { 
+                ProfileColor(); 
+            }
         }
 
-        function ProfilePicture() { 
-            FormPFPPage.style.display = "grid";
+
+        function ProfileName() { 
+            ShowSection(FormNameSection);
+        }
+
+        function ProfilePic() { 
+            ShowSection(FormPFPSection);
         }
 
         function ProfileColor() { 
-            FormColorPage.style.display = "grid";
-        }
-
-
-        let showSection; 
-
-        while (showSection === undefined) { 
-            if (FormInput === undefined) { 
-                showSection = FormNamePage;
-                break;
-            } else if (FormPFPSrc === undefined) { 
-                showSection = FormPFPPage;
-                break;
-            } else if (FormColorInput.value === undefined) { 
-                showSection = FormColorPage; 
-                break;
-            }
-        }
-
-        while (showSection != undefined) { 
-            UserCreationPage.style.display = "grid"; 
-
-            if (showSection === FormNamePage) { 
-                Name(); 
-                break;
-            } else if (showSection === FormPFPPage) { 
-                ProfilePicture(); 
-                break;
-            } else if (showSection === FormColorPage) { 
-                ProfileColor(); 
-                break;
-            }
-
+            ShowSection(FormColorSection);
         }
 
     }
 
+    function Game() { 
 
+    }
 
+    function RoundResults() { 
 
+    }
 
+}
 
-//Start
-
-page = TitleScreenPage;
-
-Pages(page); 
-
-
-
-
-
-
+TicTacToe(); 
 
 
 
