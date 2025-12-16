@@ -15,12 +15,12 @@ let StartGameButton = document.querySelector("#titlePage-button");
 const UserCreationPage = document.querySelector(".UserInfoChoicePage");
 
 //User Creation Form selectors
-let FormNameSection = document.querySelector("#UserForm-FormName");
+const FormNameSection = document.querySelector("#UserForm-FormName");
 let FormInputField = document.querySelector("#UserInfo-Name");
-let FormInput; 
+let FormName; 
 let SubmitNameButton = document.querySelector("#SubmitNameButton");
 
-let FormPFPSection = document.querySelector("#UserForm-FormPFP");
+const FormPFPSection = document.querySelector("#UserForm-FormPFP");
 let FormApplePFP = document.querySelector("#UserInfo-ApplePFP");
 let FormInvaderPFP = document.querySelector("#UserInfo-InvaderPFP");
 let FormStarPFP = document.querySelector("#UserInfo-StarPFP");
@@ -28,7 +28,7 @@ let FormPFPSrc;
 
 let SubmitPFPButton = document.querySelector("#SubmitPFPButton");
 
-let FormColorSection = document.querySelector("#UserForm-FormColor");
+const FormColorSection = document.querySelector("#UserForm-FormColor");
 let FormColorInput = document.querySelector("#UserInfo-Color"); 
 let FormColor;
 let SubmitColorButton = document.querySelector("#UserForm-ColorButton");
@@ -77,8 +77,7 @@ let PlayerPic;
 let PlayerColor;
 
 //Player Function
-function PlayerFunc(value) { 
-    PlayerName = value;
+function PlayerFunc() { 
     User = { 
         PlayerName,
         PlayerLevel,
@@ -121,7 +120,7 @@ function ShowPage(page) {
 }
 
 function ShowSection(Section) { 
-    const AllSections = document.querySelector(".MainPage > form");
+    const AllSections = document.querySelector(".MainPage > .UserInfoChoicePage > form");
 
     AllSections.style.display = "none";
 
@@ -133,10 +132,9 @@ function ShowSection(Section) {
 
 }
 
+TicTacToe(); 
 
 function TicTacToe() { 
-
-    ShowPage(TitleScreenPage);
 
     StartGameButton.addEventListener("click", () => {
         MakeUser(); 
@@ -145,17 +143,67 @@ function TicTacToe() {
     function MakeUser() { 
         ShowPage(UserCreationPage); 
 
-        if (FormInput === undefined || FormPFPSrc === undefined || FormColor === undefined) { 
-            if (FormInput === undefined) { 
-                ProfileName();
-            } else if (FormPFPSrc === undefined) { 
-                ProfilePic();
-            } else if (FormColor === undefined) { 
-                ProfileColor(); 
+        PlayerFunc(); 
+
+        //A boolean to check whether the Players Info has all data or is missing a piece
+        let UserData = false;
+
+        while (UserData != true) { 
+            if (User.PlayerName === undefined || User.PlayerPic === undefined || User.PlayerColor === undefined) { 
+                UserData = false; 
+                break;
+            } else if (User.PlayerName != undefined && User.PlayerPic != undefined && User.PlayerColor != undefined) { 
+                UserData = true;
+                break;
             }
         }
+        
+        while (UserData === false) {
+            if (User.PlayerName === undefined) { 
+                ProfileName();
+                break;
+            } else if (User.PlayerPic === undefined) { 
+                ProfilePic();
+                break;
+            } else if (User.PlayerColor === undefined) { 
+                ProfileColor();
+                break;
+            }
 
+            function ProfileName() { 
+                ShowSection(FormNameSection);
 
+                SubmitNameButton.addEventListener("click", () => {
+                    User.PlayerName = FormInputField.textContent;
+                    if (UserData === false) { 
+                        MakeUser();
+                    }
+                });
+            }
+
+            function ProfilePic() { 
+                ShowSection(FormPFPSection);
+
+                
+                if (UserData === false) { 
+                    MakeUser();
+                }
+            }
+
+            function ProfileColor() { 
+                ShowSection(FormColorSection);
+
+                SubmitColorButton.addEventListener("click", () => {
+                    FormColor = FormColorInput.
+                    if (UserData === false) { 
+                        MakeUser(); 
+                    }
+                });
+            }
+
+        }
+
+        /*
         function ProfileName() { 
             ShowSection(FormNameSection);
         }
@@ -167,9 +215,12 @@ function TicTacToe() {
         function ProfileColor() { 
             ShowSection(FormColorSection);
         }
-
+        */
     }
 
+
+
+    
     function Game() { 
 
     }
@@ -177,10 +228,10 @@ function TicTacToe() {
     function RoundResults() { 
 
     }
-
+    
 }
 
-TicTacToe(); 
+
 
 
 

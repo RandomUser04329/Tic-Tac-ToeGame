@@ -35,7 +35,7 @@ body {
     padding: 0;
     height: 600px;
     width: 600px;
-    display: none;
+    display: grid;
     grid-template-columns: 1fr 600px 1fr;
     grid-template-rows: 1fr 100px 60px 1fr;
     justify-items: center;
