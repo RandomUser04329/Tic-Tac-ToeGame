@@ -69,23 +69,44 @@ const PlayAgainPage = document.querySelector(".PlayAgainPage");
 
 
 
-//Global object + Global keys
-let User;
-let PlayerName;
-let PlayerLevel;
-let PlayerPic;
-let PlayerColor;
+//Factory Function + Object keys for User
+let Player;
+let PlayerName = undefined;
+let PlayerLevel = undefined;
+let PlayerPic = undefined;
+let PlayerColor = undefined;
 
 //Player Function
-function PlayerFunc() { 
-    User = { 
-        PlayerName,
-        PlayerLevel,
-        PlayerPic,
-        PlayerColor
+function PlayerFunc(value) {
+
+    let checker; 
+
+    for (let i = 0; i < value.length; ++i) { 
+        checker = value[i];
     }
 
-    return User;
+    if (checker != undefined) { 
+        if (isNaN(checker)) { 
+            if (!checker.includes(".png")) { 
+                PlayerName = value;
+            } else if (checker.includes("#")) { 
+                PlayerColor = value;
+            } else { 
+                PlayerPic = value;
+            }
+        }
+    }
+
+    
+    Player = { 
+        Name: PlayerName,
+        level: 0,
+        Picture: PlayerPic,
+        Color: PlayerColor
+    }
+    
+    
+    return Player;
 }
 
 let Computer;
@@ -93,6 +114,7 @@ let ComputerName;
 let ComputerLevel;
 let ComputerPic;
 let ComputerColor;
+
 
 //Computer Function
 function ComputerFunc(name, level, pic, color) { 
@@ -105,139 +127,114 @@ function ComputerFunc(name, level, pic, color) {
 }
 
 
+function ShowPage(page) {  
 
-function ShowPage(page) { 
+    const AllPages = document.querySelectorAll(".MainPage > div");
 
-    const AllPages = document.querySelector(".MainPage > div"); 
+    AllPages.forEach(div => 
+        div.style.display = "none"
+    );
 
-    AllPages.style.display = "none";
+    page.style.display = "grid";
 
-    if (page) { 
-        page.style.display = "grid";
-    } 
+    return;
+}
+
+function HidePage(page) { 
+    page.style.display = "none";
 
     return;
 }
 
 function ShowSection(Section) { 
-    const AllSections = document.querySelector(".MainPage > .UserInfoChoicePage > form");
+    const AllSections = document.querySelectorAll(".MainPage > .UserInfoChoicePage > form");
 
-    AllSections.style.display = "none";
+    AllSections.forEach(form => form.style.display = "none");
 
-    if (Section) { 
-        Section.style.display = "grid"; 
-    }
+    Section.style.display = "grid";
 
     return;
-
 }
 
-TicTacToe(); 
 
-function TicTacToe() { 
+//A boolean to check whether the Players Info has all data or is missing a piece
+let UserData = false;
+
+function Start() { 
+    ShowPage(TitleScreenPage); 
 
     StartGameButton.addEventListener("click", () => {
-        MakeUser(); 
+        MakeUser();
     });
 
-    function MakeUser() { 
-        ShowPage(UserCreationPage); 
-
-        PlayerFunc(); 
-
-        //A boolean to check whether the Players Info has all data or is missing a piece
-        let UserData = false;
-
-        while (UserData != true) { 
-            if (User.PlayerName === undefined || User.PlayerPic === undefined || User.PlayerColor === undefined) { 
-                UserData = false; 
-                break;
-            } else if (User.PlayerName != undefined && User.PlayerPic != undefined && User.PlayerColor != undefined) { 
-                UserData = true;
-                break;
-            }
-        }
-        
-        while (UserData === false) {
-            if (User.PlayerName === undefined) { 
-                ProfileName();
-                break;
-            } else if (User.PlayerPic === undefined) { 
-                ProfilePic();
-                break;
-            } else if (User.PlayerColor === undefined) { 
-                ProfileColor();
-                break;
-            }
-
-            function ProfileName() { 
-                ShowSection(FormNameSection);
-
-                SubmitNameButton.addEventListener("click", () => {
-                    User.PlayerName = FormInputField.textContent;
-                    if (UserData === false) { 
-                        MakeUser();
-                    }
-                });
-            }
-
-            function ProfilePic() { 
-                ShowSection(FormPFPSection);
-
-                
-                if (UserData === false) { 
-                    MakeUser();
-                }
-            }
-
-            function ProfileColor() { 
-                ShowSection(FormColorSection);
-
-                SubmitColorButton.addEventListener("click", () => {
-                    FormColor = FormColorInput.
-                    if (UserData === false) { 
-                        MakeUser(); 
-                    }
-                });
-            }
-
-        }
-
-        /*
-        function ProfileName() { 
-            ShowSection(FormNameSection);
-        }
-
-        function ProfilePic() { 
-            ShowSection(FormPFPSection);
-        }
-
-        function ProfileColor() { 
-            ShowSection(FormColorSection);
-        }
-        */
-    }
-
-
-
-    
-    function Game() { 
-
-    }
-
-    function RoundResults() { 
-
-    }
-    
 }
 
 
+function MakeUser() { 
+    ShowPage(UserCreationPage); 
+    HidePage(TitleScreenPage);
 
+        if (PlayerName === undefined) { 
+            ProfileName();
+        } 
+        if (PlayerPic === undefined) { 
+            ProfilePic();
+        } 
+        if (PlayerColor === undefined) { 
+            ProfileColor();
+        }
+}
 
+    
+function ProfileName() { 
+    ShowSection(FormNameSection);
 
+    SubmitNameButton.addEventListener("click", () => {
 
+        FormName = FormInputField.textContent;
+        PlayerFunc(FormName); 
 
+        return MakeUser(); 
+    });
+}
 
+function ProfilePic() { 
+
+    let ApplePFP = FormApplePFP.addEventListener("click");
+    let InvaderPFP = FormInvaderPFP.addEventListener("click");
+    let StarPFP = FormStarPFP.addEventListener("click");
+                
+
+    ShowSection(FormPFPSection);
+                
+    SubmitPFPButton.addEventListener("click", () => {
+        if (ApplePFP) { 
+            PlayerPic = FormApplePFP.src;
+        } else if (InvaderPFP) { 
+            PlayerPic = FormInvaderPFP.src;
+        } else if (StarPFP) { 
+            PlayerPic = StarPFP.src;
+        }
+
+        if (UserData === false) { 
+            MakeUser();
+        }
+    });
+}
+
+function ProfileColor() { 
+
+    ShowSection(FormColorSection);
+
+    SubmitColorButton.addEventListener("click", () => {
+        FormColor = FormColorInput.value; 
+        PlayerColor = FormColor;
+
+        if (UserData === false) { 
+            MakeUser(); 
+        }
+    });
+}
 
 
 
