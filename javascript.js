@@ -25,7 +25,7 @@ let FormInputField = document.querySelector("#UserInfo-Name");
 let FormName; 
 let SubmitNameButton = document.querySelector("#SubmitNameButton");
 
-const FormPFPSection = document.querySelector("#Form-ProfilePicture");
+const FormPictureSection = document.querySelector("#Form-ProfilePicture");
 let FormApplePFP = document.querySelector("#UserInfo-ApplePFP");
 let FormInvaderPFP = document.querySelector("#UserInfo-InvaderPFP");
 let FormStarPFP = document.querySelector("#UserInfo-StarPFP");
@@ -132,7 +132,7 @@ function ComputerFunc(name, level, pic, color) {
 }
 
 
-
+/*
 function ShowPage(page) {  
 
     const AllPages = document.querySelectorAll(".MainPage > div");
@@ -143,13 +143,15 @@ function ShowPage(page) {
 
     page.style.display = "grid";
 
-    return;
 }
 
 function HidePage(page) { 
-    page.style.display = "none";
 
-    return;
+    if (page.style.display = "grid") {
+        page.style.display = "none";
+    } else { 
+        page.style.display = "none";
+    } 
 }
 
 function ShowSection(Section) { 
@@ -161,23 +163,23 @@ function ShowSection(Section) {
 
     return;
 }
-
+*/
 
 //A boolean to check whether the Players Info has all data or is missing a piece
 let UserData = false;
 
-function Start() { 
-    ShowPage(TitleScreenPage); 
+TitleScreenPage.style.display = "grid";
+    
 
-    StartGameButton.addEventListener("click", () => {
-         return MakeUser();
-    });
-}
+StartGameButton.addEventListener("click", () => {
+    MakeUser();
+});
+
 
 
 function MakeUser() { 
-    ShowPage(UserCreationPage); 
-    HidePage(TitleScreenPage);
+    TitleScreenPage.style.display = "none";
+    UserCreationPage.style.display = "grid";
 
         if (PlayerName === undefined) { 
             ProfileName();
@@ -188,26 +190,30 @@ function MakeUser() {
 
     
 function ProfileName() { 
-    ShowSection(FormNameSection);
+    //ShowSection(FormNameSection);
+    FormNameSection.style.display = "grid";
 
     SubmitNameButton.addEventListener("click", () => {
 
         FormName = FormInputField.textContent;
         PlayerFunc(FormName); 
 
-        return MakeUser(); 
+        ProfilePicture();
     });
 }
 
+function ProfilePicture() { 
+    FormPictureSection.style.display = "grid";
+    FormNameSection.style.display = "none";
+    //ShowSection(FormPictureSection);
 
+    SubmitPFPButton.addEventListener("click", () => {
 
+    });
 
-let i = true;
-
-if (i === true) { 
-    Start(); 
-    i = false;
 }
+
+
 
 console.log(Player);
 
