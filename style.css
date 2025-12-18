@@ -1,5 +1,4 @@
 
-
 /* Custom Fonts for better appearance */ 
 @font-face {
     font-family: MyFont1;
@@ -126,18 +125,38 @@ body {
 
 
 
-/* Form Username */
-#UserForm-FormName { 
+/* Form Grid + styles */
+#UserForm-Form { 
     width: 500px;
     height: 300px;
     grid-row: 3; 
     grid-column: 2;
-    display: none;
+    display: grid;
     align-items: center;
     justify-items: center;
     align-content: start;
-    grid-template-rows: 80px 20px 80px;
-    grid-template-columns: 1fr 300px 1fr;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+}
+
+
+
+
+
+
+/* Form Name grid + styles */
+
+#Form-ProfileName { 
+    width: 500px;
+    height: 300px;
+    display: none;
+    grid-row: 1;
+    grid-column: 1;
+    grid-template-columns: 80px 1fr 80px;
+    grid-template-rows: 50px 50px 50px;
+    align-items: center;
+    justify-items: center;
+    align-content: start;
 }
 
 #UserInfo-UserLabel { 
@@ -190,11 +209,11 @@ body {
 
 
 /* Form Profile Picture */
-#UserForm-FormPFP { 
+#Form-ProfilePicture { 
     width: 500px;
     height: 300px;
-    grid-row: 3; 
-    grid-column: 2;
+    grid-row: 1; 
+    grid-column: 1;
     display: none;
     align-items: center;
     justify-items: center;
@@ -267,11 +286,11 @@ body {
 
 
 /* Form Color Pick */
-#UserForm-FormColor { 
+#Form-ProfileColor { 
     width: 500px;
     height: 300px;
-    grid-row: 3; 
-    grid-column: 2;
+    grid-row: 1; 
+    grid-column: 1;
     display: none;
     align-items: center;
     justify-items: center;

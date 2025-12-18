@@ -14,13 +14,18 @@ let StartGameButton = document.querySelector("#titlePage-button");
 //User Creation Page + Form Selectors
 const UserCreationPage = document.querySelector(".UserInfoChoicePage");
 
+
+//User Form Selector 
+const UserForm = document.querySelector("#UserForm-Form"); 
+
+
 //User Creation Form selectors
-const FormNameSection = document.querySelector("#UserForm-FormName");
+const FormNameSection = document.querySelector("#Form-ProfileName");
 let FormInputField = document.querySelector("#UserInfo-Name");
 let FormName; 
 let SubmitNameButton = document.querySelector("#SubmitNameButton");
 
-const FormPFPSection = document.querySelector("#UserForm-FormPFP");
+const FormPFPSection = document.querySelector("#Form-ProfilePicture");
 let FormApplePFP = document.querySelector("#UserInfo-ApplePFP");
 let FormInvaderPFP = document.querySelector("#UserInfo-InvaderPFP");
 let FormStarPFP = document.querySelector("#UserInfo-StarPFP");
@@ -28,7 +33,7 @@ let FormPFPSrc;
 
 let SubmitPFPButton = document.querySelector("#SubmitPFPButton");
 
-const FormColorSection = document.querySelector("#UserForm-FormColor");
+const FormColorSection = document.querySelector("#Form-ProfileColor");
 let FormColorInput = document.querySelector("#UserInfo-Color"); 
 let FormColor;
 let SubmitColorButton = document.querySelector("#UserForm-ColorButton");
@@ -88,11 +93,11 @@ function PlayerFunc(value) {
     if (checker != undefined) { 
         if (isNaN(checker)) { 
             if (!checker.includes(".png")) { 
-                PlayerName = value;
+                PlayerName = checker;
             } else if (checker.includes("#")) { 
-                PlayerColor = value;
+                PlayerColor = checker;
             } else { 
-                PlayerPic = value;
+                PlayerPic = checker;
             }
         }
     }
@@ -127,6 +132,7 @@ function ComputerFunc(name, level, pic, color) {
 }
 
 
+
 function ShowPage(page) {  
 
     const AllPages = document.querySelectorAll(".MainPage > div");
@@ -147,9 +153,9 @@ function HidePage(page) {
 }
 
 function ShowSection(Section) { 
-    const AllSections = document.querySelectorAll(".MainPage > .UserInfoChoicePage > form");
+    const AllSections = document.querySelectorAll(".MainPage > .UserInfoChoicePage > #UserForm-Form > div");
 
-    AllSections.forEach(form => form.style.display = "none");
+    AllSections.forEach(div => div.style.display = "none");
 
     Section.style.display = "grid";
 
@@ -164,9 +170,8 @@ function Start() {
     ShowPage(TitleScreenPage); 
 
     StartGameButton.addEventListener("click", () => {
-        MakeUser();
+         return MakeUser();
     });
-
 }
 
 
@@ -177,12 +182,8 @@ function MakeUser() {
         if (PlayerName === undefined) { 
             ProfileName();
         } 
-        if (PlayerPic === undefined) { 
-            ProfilePic();
-        } 
-        if (PlayerColor === undefined) { 
-            ProfileColor();
-        }
+
+    
 }
 
     
@@ -198,50 +199,17 @@ function ProfileName() {
     });
 }
 
-function ProfilePic() { 
 
-    let ApplePFP = FormApplePFP.addEventListener("click");
-    let InvaderPFP = FormInvaderPFP.addEventListener("click");
-    let StarPFP = FormStarPFP.addEventListener("click");
-                
 
-    ShowSection(FormPFPSection);
-                
-    SubmitPFPButton.addEventListener("click", () => {
-        if (ApplePFP) { 
-            PlayerPic = FormApplePFP.src;
-        } else if (InvaderPFP) { 
-            PlayerPic = FormInvaderPFP.src;
-        } else if (StarPFP) { 
-            PlayerPic = StarPFP.src;
-        }
 
-        if (UserData === false) { 
-            MakeUser();
-        }
-    });
+let i = true;
+
+if (i === true) { 
+    Start(); 
+    i = false;
 }
 
-function ProfileColor() { 
-
-    ShowSection(FormColorSection);
-
-    SubmitColorButton.addEventListener("click", () => {
-        FormColor = FormColorInput.value; 
-        PlayerColor = FormColor;
-
-        if (UserData === false) { 
-            MakeUser(); 
-        }
-    });
-}
-
-
-
-
-
-
-
+console.log(Player);
 
 
 

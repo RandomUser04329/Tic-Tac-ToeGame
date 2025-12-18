@@ -33,27 +33,28 @@
             <div class = "UserInfoChoicePage"> 
                 <h1 id = "UserInfo-TitleHeader">Create a profile first</h1>
                 
-                <form id = "UserForm-FormName">
-                    <label for = "UserInfo-Name" id = "UserInfo-UserLabel">Give a Name</label>
-                    <input type = "text" id = "UserInfo-Name" required> 
-                    <button id = "SubmitNameButton" value = "UserName"  for = "UserForm-FormName" required>Next</button>
-                </form>
-
-                
-                <form id = "UserForm-FormPFP"> 
-                    <label id = "UserInfo-UserLabel">Choose a Profile Picture</label>
-                    <div class = "FormPFP-ImageBox">
-                        <image src = "./images/Apple Profile.png" id = "UserInfo-ApplePFP" value = "ApplePFP">
-                        <image src = "./images/Invader Profile.png" id = "UserInfo-InvaderPFP" value = "InvaderPFP">
-                        <image src = "./images/Star Profile.png" id = "UserInfo-StarPFP" value = "StarPFP">  
+                <form id = "UserForm-Form">
+                    <div id = "Form-ProfileName"> 
+                        <label for = "Form-ProfileName" id = "UserInfo-UserLabel">Give a Name</label>
+                        <input type = "text" id = "UserInfo-Name" required> 
+                        <button id = "SubmitNameButton" value = "UserName"  for = "UserForm-FormName" required>Next</button>
                     </div>
-                    <button id = "SubmitPFPButton" value = "ProfilePicture" for = "UserForm-FormPFP" required>Next</button>
-                </form>
 
-                <form id = "UserForm-FormColor">
-                    <label for = "UserInfo-Color" id = "UserInfo-UserLabel">Choose a Color</label>
-                    <input type = "color" id = "UserInfo-Color" required>
-                    <button id = "UserForm-ColorButton" for = "UserInfo-Color" type = "submit">Done</button> 
+                    <div id = "Form-ProfilePicture">
+                        <label for = "Form-ProfilePicture" id = "UserInfo-UserLabel">Choose a Profile Picture</label>
+                        <div class = "FormPFP-ImageBox">
+                            <image src = "./images/Apple Profile.png" id = "UserInfo-ApplePFP" value = "ApplePFP">
+                            <image src = "./images/Invader Profile.png" id = "UserInfo-InvaderPFP" value = "InvaderPFP">
+                            <image src = "./images/Star Profile.png" id = "UserInfo-StarPFP" value = "StarPFP">  
+                        </div>
+                        <button id = "SubmitPFPButton" value = "ProfilePicture" for = "UserForm-FormPFP" required>Next</button>
+                    </div>
+
+                    <div id = "Form-ProfileColor">
+                        <label for = "UserInfo-Color" id = "UserInfo-UserLabel">Choose a Color</label>
+                        <input type = "color" id = "UserInfo-Color" required>
+                        <button id = "UserForm-ColorButton" for = "UserInfo-Color" type = "submit">Done</button> 
+                    </div>
                 </form>
 
 
