@@ -56,8 +56,7 @@
                         <button id = "UserForm-ColorButton" for = "UserInfo-Color" required >Done</button> 
                     </div>
                 </form>
-
-
+                </div>
             </div>
 
 
@@ -72,14 +71,9 @@
 
 
             <div class = "RoundChoicePage"> 
-                <h1 id = "RoundChoice-Header">Enter the amount of rounds you want to play
-                    (0 - 10)
-                </h1>
-
-                <input id = "RoundChoice-Input" type = "number" required>
-
-                <button id = "RoundChoice-Button" type = "submit" >Next</button>
-
+                <h1 id = "RoundChoice-Header">Enter the amount of rounds you want to play </h1>
+                <input id = "RoundChoice-Input" type = "number"  min = "1" max = "10" placeholder = "1-10" required>
+                <button id = "RoundChoice-Button" type = "submit" required >Next</button>
             </div>
 
 
@@ -245,18 +239,6 @@
                 
 
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         </div>

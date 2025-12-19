@@ -42,7 +42,8 @@ let SubmitColorButton = document.querySelector("#UserForm-ColorButton");
 
 //Round selection page + selectors
 const RoundChoicePage = document.querySelector(".RoundChoicePage");
-
+let Rounds = 0;
+let GameRounds;
 let RoundChoiceInput = document.querySelector("#RoundChoice-Input");
 let RoundChoiceButton = document.querySelector("#RoundChoice-Button");
 
@@ -170,7 +171,6 @@ function MakeUser() {
 
     if (PlayerName != undefined && PlayerPic != undefined && PlayerColor != undefined) { 
         PlayerFunc(PlayerName, 0, PlayerPic, PlayerColor);
-        HidePage(UserCreationPage);
         RoundSelection();   
     }
 }
@@ -180,7 +180,7 @@ function ProfileName() {
     ShowSection(FormNameSection); 
 
     SubmitNameButton.addEventListener("click", () => {
-        FormName = FormInputField.textContent;
+        FormName = FormInputField.value;
         PlayerName = FormName; 
         return MakeUser(); 
     });
@@ -219,19 +219,34 @@ function ProfilePicture() {
 function ProfileColor() { 
     ShowSection(FormColorSection); 
 
-    FormColorInput.addEventListener("change", () => { 
-        FormColorInput = FormColorSection.value;
+    FormColorInput.addEventListener("input", () => { 
+        FormColor = FormColorInput.value;
         SubmitColorButton.addEventListener("click", () => {
-            PlayerColor = FormColorInput; 
+            PlayerColor = FormColor; 
             return MakeUser(); 
         }); 
     });
 }
 
+
+
 function RoundSelection() { 
     ShowPage(RoundChoicePage); 
+    
+    RoundChoiceInput.addEventListener("change", () => {
+        Rounds = RoundChoiceInput.value;
+        RoundChoiceButton.addEventListener("click", () => { 
+            GameRounds = Rounds;
+            Game(); 
+        });
+    });
+
+
     console.log(Player);
+
 }
+
+
 
 
 Start();
