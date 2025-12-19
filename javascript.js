@@ -49,6 +49,7 @@ let RoundChoiceButton = document.querySelector("#RoundChoice-Button");
 
 //Game Board Page
 const GameBoardPage = document.querySelector(".GamePage");
+let RoundDisplay = document.querySelector("#GamePage-RoundDisplay");
 
 //Round Lose Page(If the user loses)
 const UserLosesRoundPage = document.querySelector(".RoundLosePage");
@@ -244,6 +245,27 @@ function RoundSelection() {
 
     console.log(Player);
 
+}
+
+
+function Game() { 
+    ShowPage(GameBoardPage); 
+
+
+    let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button"); 
+
+    //Displays the current round the user is on
+    let currentRound = 1;
+
+    for (let i = 1; i < GameRounds; ++i) { 
+        RoundDisplay.textContent = "Rounds " + currentRound; 
+
+        
+    }
+
+
+
+    
 }
 
 
