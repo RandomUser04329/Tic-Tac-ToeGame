@@ -442,7 +442,7 @@ body {
 
 /* Game Page */
 .GamePage {
-    display: none;
+    display: grid;
     padding: 0;
     height: 600px;
     width: 600px;
@@ -474,7 +474,7 @@ body {
     height: 133px;
     border: 1px solid black;
     background-color: white;
-    font-size: 36px; 
+    font-size: 72px; 
     text-align: center;
     cursor: pointer;
 }
@@ -485,6 +485,7 @@ body {
 #GameBoard-BoardButton7:hover, #GameBoard-BoardButton8:hover, 
 #GameBoard-BoardButton9:hover { 
     background-color: rgb(225, 225, 225, 0.5);
+    color: lightblue;
 }
 
 

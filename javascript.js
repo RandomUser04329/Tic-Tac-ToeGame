@@ -252,26 +252,45 @@ function Game() {
     ShowPage(GameBoardPage); 
 
 
-    let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button"); 
+    //let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button"); 
 
     //Displays the current round the user is on
     let currentRound = 1;
 
+    /*
     for (let i = 1; i < GameRounds; ++i) { 
         RoundDisplay.textContent = "Rounds " + currentRound; 
-
-        
     }
+    */
+
+    while (currentRound < GameRounds) {
+        BoardButtons.addEventListener("mouseover", () => {
+            BoardButtons.textContent = "X"; 
+        })
+    }
+    
 
 
 
     
 }
 
+let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button")
 
+let Square1 = document.querySelector("#GameBoard-BoardButton1");
 
+//FORLATER: Either make all the buttons into an array,
+//then if the user selects one, then the user "owns" that index and lets the 
+//computer Ai choose any random cube using Math.Random or something else. 
 
-Start();
+//Then, match the indexs (Box 1, Box 2 and Box 3 are a match) or
+// (Box 1, Box 5, Box 9 are a match) and either the user or the AI wins the round.
+
+BoardButtons.addEventListener("mouseenter", () => {
+    BoardButtons.textContent = "X"; 
+})
+
+//Start();
 
 
 
