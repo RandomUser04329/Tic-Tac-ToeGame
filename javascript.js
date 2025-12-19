@@ -82,32 +82,12 @@ let PlayerPic = undefined;
 let PlayerColor = undefined;
 
 //Player Function
-function PlayerFunc(value) {
-
-    let checker; 
-
-    for (let i = 0; i < value.length; ++i) { 
-        checker = value[i];
-    }
-
-    if (checker != undefined) { 
-        if (isNaN(checker)) { 
-            if (!checker.includes(".png")) { 
-                PlayerName = checker;
-            } else if (checker.includes("#")) { 
-                PlayerColor = checker;
-            } else { 
-                PlayerPic = checker;
-            }
-        }
-    }
-
-    
+function PlayerFunc(name, level, picture, color) {
     Player = { 
-        Name: PlayerName,
-        level: 0,
-        Picture: PlayerPic,
-        Color: PlayerColor
+        Name: name,
+        level: level,
+        Picture: picture,
+        Color: color
     }
     
     
@@ -182,20 +162,27 @@ function MakeUser() {
     
     if (PlayerName === undefined) { 
         ProfileName();
-    } 
+    } else if (PlayerPic === undefined) { 
+        ProfilePicture();
+    } else if (PlayerColor === undefined) { 
+        ProfileColor(); 
+    }
 
-    
+    if (PlayerName != undefined && PlayerPic != undefined && PlayerColor != undefined) { 
+        PlayerFunc(PlayerName, 0, PlayerPic, PlayerColor);
+        HidePage(UserCreationPage);
+        RoundSelection();   
+    }
 }
 
     
 function ProfileName() { 
-    //ShowSection(FormNameSection);
     ShowSection(FormNameSection); 
 
     SubmitNameButton.addEventListener("click", () => {
-       
         FormName = FormInputField.textContent;
-        ProfilePicture();
+        PlayerName = FormName; 
+        return MakeUser(); 
     });
 }
 
@@ -204,20 +191,26 @@ function ProfilePicture() {
 
 
     FormApplePFP.addEventListener("click", () => {
+        FormPFPSrc = FormApplePFP.src;
         SubmitPFPButton.addEventListener("click", () => {
-            ProfileColor(); 
+            PlayerPic = FormPFPSrc;
+            return MakeUser();
         });
     })
 
     FormInvaderPFP.addEventListener("click", () => {
+        FormPFPSrc = FormInvaderPFP.src;
         SubmitPFPButton.addEventListener("click", () => {
-            ProfileColor();
+            PlayerPic = FormPFPSrc; 
+            return MakeUser(); 
         });
     })
 
     FormStarPFP.addEventListener("click", () => {
+        FormPFPSrc = FormStarPFP.src;
         SubmitPFPButton.addEventListener("click", () => {
-            ProfileColor();
+            PlayerPic = FormPFPSrc;
+            return MakeUser(); 
         });
     })
 }
@@ -226,10 +219,18 @@ function ProfilePicture() {
 function ProfileColor() { 
     ShowSection(FormColorSection); 
 
+    FormColorInput.addEventListener("change", () => { 
+        FormColorInput = FormColorSection.value;
+        SubmitColorButton.addEventListener("click", () => {
+            PlayerColor = FormColorInput; 
+            return MakeUser(); 
+        }); 
+    });
+}
 
-    SubmitColorButton.addEventListener("click", () => {
-
-    }); 
+function RoundSelection() { 
+    ShowPage(RoundChoicePage); 
+    console.log(Player);
 }
 
 
@@ -237,7 +238,6 @@ Start();
 
 
 
-console.log(Player);
 
 
 
