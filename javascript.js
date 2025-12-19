@@ -131,8 +131,6 @@ function ComputerFunc(name, level, pic, color) {
     }
 }
 
-
-/*
 function ShowPage(page) {  
 
     const AllPages = document.querySelectorAll(".MainPage > div");
@@ -163,27 +161,28 @@ function ShowSection(Section) {
 
     return;
 }
-*/
+
 
 //A boolean to check whether the Players Info has all data or is missing a piece
 let UserData = false;
 
-TitleScreenPage.style.display = "grid";
-    
 
-StartGameButton.addEventListener("click", () => {
-    MakeUser();
-});
+function Start() { 
+        
+    ShowPage(TitleScreenPage); 
 
-
+    StartGameButton.addEventListener("click", () => {
+        MakeUser();
+    });
+}
 
 function MakeUser() { 
-    TitleScreenPage.style.display = "none";
-    UserCreationPage.style.display = "grid";
 
-        if (PlayerName === undefined) { 
-            ProfileName();
-        } 
+    ShowPage(UserCreationPage); 
+    
+    if (PlayerName === undefined) { 
+        ProfileName();
+    } 
 
     
 }
@@ -191,27 +190,50 @@ function MakeUser() {
     
 function ProfileName() { 
     //ShowSection(FormNameSection);
-    FormNameSection.style.display = "grid";
+    ShowSection(FormNameSection); 
 
     SubmitNameButton.addEventListener("click", () => {
-
+       
         FormName = FormInputField.textContent;
-        PlayerFunc(FormName); 
-
         ProfilePicture();
     });
 }
 
 function ProfilePicture() { 
-    FormPictureSection.style.display = "grid";
-    FormNameSection.style.display = "none";
-    //ShowSection(FormPictureSection);
+    ShowSection(FormPictureSection);
 
-    SubmitPFPButton.addEventListener("click", () => {
 
-    });
+    FormApplePFP.addEventListener("click", () => {
+        SubmitPFPButton.addEventListener("click", () => {
+            ProfileColor(); 
+        });
+    })
 
+    FormInvaderPFP.addEventListener("click", () => {
+        SubmitPFPButton.addEventListener("click", () => {
+            ProfileColor();
+        });
+    })
+
+    FormStarPFP.addEventListener("click", () => {
+        SubmitPFPButton.addEventListener("click", () => {
+            ProfileColor();
+        });
+    })
 }
+
+
+function ProfileColor() { 
+    ShowSection(FormColorSection); 
+
+
+    SubmitColorButton.addEventListener("click", () => {
+
+    }); 
+}
+
+
+Start();
 
 
 
