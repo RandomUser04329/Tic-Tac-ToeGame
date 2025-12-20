@@ -278,6 +278,7 @@ function Game() {
 let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button")
 
 let Square1 = document.querySelector("#GameBoard-BoardButton1");
+let Square2 = document.querySelector("#GameBoard-BoardButton2");
 
 //FORLATER: Either make all the buttons into an array,
 //then if the user selects one, then the user "owns" that index and lets the 
@@ -286,9 +287,24 @@ let Square1 = document.querySelector("#GameBoard-BoardButton1");
 //Then, match the indexs (Box 1, Box 2 and Box 3 are a match) or
 // (Box 1, Box 5, Box 9 are a match) and either the user or the AI wins the round.
 
-BoardButtons.addEventListener("mouseenter", () => {
-    BoardButtons.textContent = "X"; 
+Square1.addEventListener("mouseenter", () => {
+    Square1.textContent = "X"; 
+    Square1.classList.add("hover");
+
 })
+
+Square2.addEventListener("mouseenter", () => {
+    Square2.textContent = "X"; 
+    Square2.classList.add("hover");
+
+})
+
+Square1.addEventListener("mouseleave", () => {
+    Square1.textContent = "";
+}); 
+Square2.addEventListener("mouseleave", () => {
+    Square2.textContent = "";
+}); 
 
 //Start();
 
