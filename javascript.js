@@ -47,9 +47,17 @@ let GameRounds;
 let RoundChoiceInput = document.querySelector("#RoundChoice-Input");
 let RoundChoiceButton = document.querySelector("#RoundChoice-Button");
 
-//Game Board Page
+//Game Board Page + Selectors
 const GameBoardPage = document.querySelector(".GamePage");
 let RoundDisplay = document.querySelector("#GamePage-RoundDisplay");
+
+//Player Display Selectors
+let PlayerPFPSelector = document.querySelector("#UserProfile-UserPFP");
+let PlayerNameSelector = document.querySelector("#UserProfile-UserName");
+
+//AI Display Selectors
+let ComputerPFPSelector = document.querySelector("#ComputerProfile-ComputerPFP");
+
 
 //Round Lose Page(If the user loses)
 const UserLosesRoundPage = document.querySelector(".RoundLosePage");
@@ -236,6 +244,7 @@ function RoundSelection() {
     
     RoundChoiceInput.addEventListener("change", () => {
         Rounds = RoundChoiceInput.value;
+        
         RoundChoiceButton.addEventListener("click", () => { 
             GameRounds = Rounds;
             Game(); 
@@ -251,70 +260,59 @@ function RoundSelection() {
 function Game() { 
     ShowPage(GameBoardPage); 
 
+    //Sets the Players setting choices to display
+    //PlayerPFPSelector.src = Player.Picture;
+    //PlayerNameSelector.textContent = Player.Name;
+    //PlayerNameSelector.style.color = Player.Color; 
 
-    //let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button"); 
+
+    let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+
+    //Choices for both the Player/Computer, except AI uses Math.random from to choose and 
+    //then uses establishes that value with whatever box value it equals to.
+    let PlayerChoice;
+    let ComputerChoice;
+
+    //let Button1 = document.querySelector("#GameBoard-BoardButton1");
+    BoardButtons.forEach(box => {
+        box.addEventListener("mouseenter", () => {
+            box.classList.add("onHover");
+        });
+    });
+
+    BoardButtons.forEach(box => {
+        box.addEventListener("mouseleave", () => {
+            box.classList.remove("onHover");
+        });
+    });
+
+    
+    BoardButtons.forEach(box => { 
+        box.addEventListener("click", () => { 
+            box.classList.toggle("playerClicked");
+            box.style.fontSize = "130px";
+            box.style.color = Player.Color;
+        })
+    });
+
+
+    //FORLATER: continue on with the function and make it to where you can only choose a square when its 
+    // your turn.
+
 
     //Displays the current round the user is on
     let currentRound = 1;
-
-    /*
-    for (let i = 1; i < GameRounds; ++i) { 
-        RoundDisplay.textContent = "Rounds " + currentRound; 
-    }
-    */
-
-    while (currentRound < GameRounds) {
-        BoardButtons.addEventListener("mouseover", () => {
-            BoardButtons.textContent = "X"; 
-        })
-    }
     
-
-
-
+    BoardButtons.forEach(button => {
+        console.log(button.value); 
+    });
     
 }
-
-let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button")
-
-let Square1 = document.querySelector("#GameBoard-BoardButton1");
-let Square2 = document.querySelector("#GameBoard-BoardButton2");
-
-//FORLATER: Either make all the buttons into an array,
-//then if the user selects one, then the user "owns" that index and lets the 
-//computer Ai choose any random cube using Math.Random or something else. 
-
-//Then, match the indexs (Box 1, Box 2 and Box 3 are a match) or
-// (Box 1, Box 5, Box 9 are a match) and either the user or the AI wins the round.
-/*
-
-
-/* USE THIS */
-BoardButtons.forEach(box => {
-    box.addEventListener("mouseenter", () => {
-        box.textContent = "X";
-        box.classList.add("onHover");
-    });
-});
-
-BoardButtons.forEach(box => {
-    box.addEventListener("mouseleave", () => {
-        box.textContent = "";
-        box.classList.remove("onHover");
-    });
-});
-
-
-BoardButtons.forEach(box => { 
-    box.addEventListener("click", () => { 
-        box.classList.toggle("playerClicked");
-    })
-});
-
 
 
 //Start();
 
+Game(); 
 
 
 
@@ -328,23 +326,3 @@ BoardButtons.forEach(box => {
 
 
 
-
-
-
-
-
-/*
-const objK = { 
-    key1: [1, 2, 3, 4],
-    key2: [5, 6, 7, 8],
-    key3: { 
-        key1: [2, 4, 6], 
-        key2: [3, 6, 9]
-    }
-}
-
-
-for (let i of objK.key3.key2) {
-    console.log(i);
-}
-*/
