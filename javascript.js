@@ -286,25 +286,32 @@ let Square2 = document.querySelector("#GameBoard-BoardButton2");
 
 //Then, match the indexs (Box 1, Box 2 and Box 3 are a match) or
 // (Box 1, Box 5, Box 9 are a match) and either the user or the AI wins the round.
+/*
 
-Square1.addEventListener("mouseenter", () => {
-    Square1.textContent = "X"; 
-    Square1.classList.add("hover");
 
-})
+/* USE THIS */
+BoardButtons.forEach(box => {
+    box.addEventListener("mouseenter", () => {
+        box.textContent = "X";
+        box.classList.add("onHover");
+    });
+});
 
-Square2.addEventListener("mouseenter", () => {
-    Square2.textContent = "X"; 
-    Square2.classList.add("hover");
+BoardButtons.forEach(box => {
+    box.addEventListener("mouseleave", () => {
+        box.textContent = "";
+        box.classList.remove("onHover");
+    });
+});
 
-})
 
-Square1.addEventListener("mouseleave", () => {
-    Square1.textContent = "";
-}); 
-Square2.addEventListener("mouseleave", () => {
-    Square2.textContent = "";
-}); 
+BoardButtons.forEach(box => { 
+    box.addEventListener("click", () => { 
+        box.classList.toggle("playerClicked");
+    })
+});
+
+
 
 //Start();
 
