@@ -493,7 +493,6 @@ body {
     transition: color 0.2s;
 }
 
-
 #GameBoard-BoardButton1:active { 
     color: rgba(0, 187, 255, 1);
     font-size: 130px;

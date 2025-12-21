@@ -81,8 +81,8 @@ const PlayAgainPage = document.querySelector(".PlayAgainPage");
 
 
 
-
-
+//Max amount of choices either players can have for the Tic tac game per round
+let size = 4;
 
 //Factory Function + Object keys for User
 let Player;
@@ -90,6 +90,7 @@ let PlayerName = undefined;
 let PlayerLevel = undefined;
 let PlayerPic = undefined;
 let PlayerColor = undefined;
+let PlayerChoices = new Array(size);
 
 //Player Function
 function PlayerFunc(name, level, picture, color) {
@@ -98,18 +99,18 @@ function PlayerFunc(name, level, picture, color) {
         level: level,
         Picture: picture,
         Color: color
-    }
-    
-    
+    }    
     return Player;
 }
+
+
 
 let Computer;
 let ComputerName;
 let ComputerLevel;
 let ComputerPic;
 let ComputerColor;
-
+let ComputerChoices = new Array(size); 
 
 //Computer Function
 function ComputerFunc(name, level, pic, color) { 
@@ -120,6 +121,25 @@ function ComputerFunc(name, level, pic, color) {
         ComputerColor: color,
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function ShowPage(page) {  
 
@@ -270,39 +290,56 @@ function Game() {
 
     //Choices for both the Player/Computer, except AI uses Math.random from to choose and 
     //then uses establishes that value with whatever box value it equals to.
-    let PlayerChoice;
-    let ComputerChoice;
+    let PlayerChoice = 0;
+    let ComputerChoice = 0;
 
-    //let Button1 = document.querySelector("#GameBoard-BoardButton1");
+    //The current round (always starts at one)
+    let currentRound = 1;
+
+    while (currentRound != GameRounds) { 
+        PlayerChoice(); 
+        break;
+    }
+
+
+    function PlayerChoice() { 
+        BoardButtons.forEach(box => {
+            box.addEventListener("mouseenter", () => {
+                box.classList.add("onHover");
+            });
+
+            box.addEventListener("mouseleave", () => {
+                box.classList.remove("onHover");
+            });
+
+            box.addEventListener("click", () => { 
+                box.classList.toggle("playerClicked");
+                box.style.fontSize = "130px";
+                box.style.color = Player.Color;
+            });
+        });
+
+    }
+    
     BoardButtons.forEach(box => {
         box.addEventListener("mouseenter", () => {
             box.classList.add("onHover");
         });
-    });
 
-    BoardButtons.forEach(box => {
         box.addEventListener("mouseleave", () => {
             box.classList.remove("onHover");
         });
-    });
 
-    
-    BoardButtons.forEach(box => { 
         box.addEventListener("click", () => { 
             box.classList.toggle("playerClicked");
             box.style.fontSize = "130px";
             box.style.color = Player.Color;
-        })
+        });
+
     });
 
 
-    //FORLATER: continue on with the function and make it to where you can only choose a square when its 
-    // your turn.
 
-
-    //Displays the current round the user is on
-    let currentRound = 1;
-    
     BoardButtons.forEach(button => {
         console.log(button.value); 
     });
@@ -325,4 +362,27 @@ Game();
 
 
 
+/*
 
+ BoardButtons.forEach(box => {
+        box.addEventListener("mouseenter", () => {
+            box.classList.add("onHover");
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.classList.remove("onHover");
+        });
+
+        box.addEventListener("click", () => { 
+            box.classList.toggle("playerClicked");
+            box.style.fontSize = "130px";
+            box.style.color = Player.Color;
+        });
+
+    });
+
+BoardButtons.forEach(button => {
+    console.log(button.value); 
+});
+
+*/
