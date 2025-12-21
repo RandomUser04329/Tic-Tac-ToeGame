@@ -286,57 +286,60 @@ function Game() {
     //PlayerNameSelector.style.color = Player.Color; 
 
 
-    let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+    let BoardButtons; //= document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
     //Choices for both the Player/Computer, except AI uses Math.random from to choose and 
     //then uses establishes that value with whatever box value it equals to.
-    let PlayerChoice = 0;
-    let ComputerChoice = 0;
+    let PlayerChoice;
+    let ComputerChoice;
+
+
+    //Array indicator (only 4 choices)
+    let i; 
 
     //The current round (always starts at one)
     let currentRound = 1;
 
     while (currentRound != GameRounds) { 
-        PlayerChoice(); 
+        PlayerTurn(); 
         break;
     }
 
 
-    function PlayerChoice() { 
-        BoardButtons.forEach(box => {
-            box.addEventListener("mouseenter", () => {
-                box.classList.add("onHover");
-            });
+    function PlayerTurn() {
 
-            box.addEventListener("mouseleave", () => {
-                box.classList.remove("onHover");
-            });
+        PlayerChoice = 0; 
+        //BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
-            box.addEventListener("click", () => { 
-                box.classList.toggle("playerClicked");
-                box.style.fontSize = "130px";
-                box.style.color = Player.Color;
-            });
-        });
 
+            while (PlayerChoice === 0) {
+                BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+                break;
+            }
+            BoardButtons.forEach(box => {
+                    box.addEventListener("mouseover", () => {
+                        box.classList.add("onHover");
+                        box.style.fontSize = "130px";
+                        box.style.transition = "ease-in 0.03s";
+                    });
+
+                    box.addEventListener("mouseout", () => {
+                        box.classList.remove("onHover");
+                        box.style.fontSize = "0";
+                    });
+
+                    box.addEventListener("click", () => {
+                        box.addEventListener("mouseout", () => {
+                            box.classList.add("active");
+                            box.style.fontSize = "130px";
+                        });
+                        box.style.color = "black";//Player.Color;
+                        PlayerChoice = box.value;  
+                    });
+            })
+        } 
+       
     }
-    
-    BoardButtons.forEach(box => {
-        box.addEventListener("mouseenter", () => {
-            box.classList.add("onHover");
-        });
-
-        box.addEventListener("mouseleave", () => {
-            box.classList.remove("onHover");
-        });
-
-        box.addEventListener("click", () => { 
-            box.classList.toggle("playerClicked");
-            box.style.fontSize = "130px";
-            box.style.color = Player.Color;
-        });
-
-    });
 
 
 
