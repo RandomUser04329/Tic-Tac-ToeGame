@@ -75,7 +75,7 @@ const PlayAgainPage = document.querySelector(".PlayAgainPage");
 
 
 
-
+//---------------------------------------------------------
 
 
 
@@ -105,6 +105,10 @@ function PlayerFunc(name, level, picture, color) {
 
 
 
+//---------------------------------------------------------
+
+
+
 let Computer;
 let ComputerName;
 let ComputerLevel;
@@ -122,22 +126,7 @@ function ComputerFunc(name, level, pic, color) {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//---------------------------------------------------------
 
 
 
@@ -173,9 +162,10 @@ function ShowSection(Section) {
 }
 
 
+//---------------------------------------------------------
+
 //A boolean to check whether the Players Info has all data or is missing a piece
 let UserData = false;
-
 
 function Start() { 
         
@@ -277,6 +267,10 @@ function RoundSelection() {
 }
 
 
+//---------------------------------------------------------
+
+
+
 function Game() { 
     ShowPage(GameBoardPage); 
 
@@ -285,8 +279,7 @@ function Game() {
     //PlayerNameSelector.textContent = Player.Name;
     //PlayerNameSelector.style.color = Player.Color; 
 
-
-    let BoardButtons; //= document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+    let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
     //Choices for both the Player/Computer, except AI uses Math.random from to choose and 
     //then uses establishes that value with whatever box value it equals to.
@@ -294,10 +287,9 @@ function Game() {
     let ComputerChoice;
 
 
-    //Indicators on whose turn it is (Booleans)
-    let UserTurn; 
-    let ComputerTurn = false;
-
+    //Indicator on whose turn it is (Boolean)
+    let UserTurn = true;
+    let ButtonClicked = false
 
     //Array indicator for the size of the player choices (only 4 turns)
     let i; 
@@ -305,18 +297,11 @@ function Game() {
     //The current round (always starts at one)
     let currentRound = 1;
 
-    while (currentRound != GameRounds) { 
-        PlayerTurn(); 
-        break;
-    }
-
 
     function PlayerTurn() {
-        
-        UserTurn = true;
-        PlayerChoice = 0; 
-        BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
+        PlayerChoice = 0; 
+        
         function ButtonAnimations() { 
             BoardButtons.forEach(box => {
                 box.addEventListener("mouseover", () => {
@@ -324,62 +309,59 @@ function Game() {
                     box.style.fontSize = "130px";
                     box.style.transition = "ease-in 0.03s";
                 });
-
-                box.addEventListener("mouseout", () => {
-                    box.classList.remove("onHover");
-                    box.style.fontSize = "0";
-                });
+                
+                if (box.style.color === "black") { 
+                    box.addEventListener("mouseout", () => { 
+                        box.classList.remove("onHover");
+                        box.style.fontSize = "130px"; 
+                    })
+                } else { 
+                    box.addEventListener("mouseout", () => { 
+                        box.classList.remove("onHover");
+                        box.style.fontSize = "0";
+                    })
+                }
 
                 box.addEventListener("click", () => {
+                    box.style.color = "black";//Player.Color;
                     box.addEventListener("mouseout", () => {
                         box.classList.add("active");
                         box.style.fontSize = "130px";
                     });
-                    box.style.color = "black";//Player.Color;
                 });
             });
         }
-
-        if (UserTurn === true) {
+        
             BoardButtons.forEach(box => {
-                box.addEventListener("mouseover", ButtonAnimations());
-                box.addEventListener("mouseout", ButtonAnimations());
-                box.addEventListener("click", ButtonAnimations());
-                box.addEventListener("click", () => { 
-                    PlayerChoice = box.value;
+                box.addEventListener("mouseover", ButtonAnimations);
+                box.addEventListener("mouseout", ButtonAnimations);
+                box.addEventListener("click", ButtonAnimations);
+                box.addEventListener("click", function() { 
+                    ButtonClicked = true;
                     UserTurn = false;
+                    //console.log(buttonClicked);
+                    //console.log(UserTurn);
                 });
             });
-        } 
-           
-        /* 
-        BoardButtons.forEach(box => {
-            box.addEventListener("mouseover", () => {
-                box.classList.add("onHover");
-                box.style.fontSize = "130px";
-                box.style.transition = "ease-in 0.03s";
-            });
+        
+        
+        return ButtonClicked;
 
-            box.addEventListener("mouseout", () => {
-                box.classList.remove("onHover");
-                box.style.fontSize = "0";
-            });
+    }
 
-            box.addEventListener("click", () => {
-                box.addEventListener("mouseout", () => {
-                    box.classList.add("active");
-                    box.style.fontSize = "130px";
-                });
-                box.style.color = "black";//Player.Color;
-                PlayerChoice = box.value;  
-            });
-        });
-        */
+    function ComputerTurn() { 
+
+    }
+
+
+    while (ButtonClicked === false) { 
+        PlayerTurn();
+        if (ButtonClicked != false) { 
+            ComputerTurn();
+            break;
+        }
     } 
 
-    BoardButtons.forEach(button => {
-        console.log(button.value); 
-    });
 }
     
 
