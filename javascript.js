@@ -294,7 +294,12 @@ function Game() {
     let ComputerChoice;
 
 
-    //Array indicator (only 4 choices)
+    //Indicators on whose turn it is (Booleans)
+    let UserTurn; 
+    let ComputerTurn = false;
+
+
+    //Array indicator for the size of the player choices (only 4 turns)
     let i; 
 
     //The current round (always starts at one)
@@ -307,48 +312,76 @@ function Game() {
 
 
     function PlayerTurn() {
-
+        
+        UserTurn = true;
         PlayerChoice = 0; 
-        //BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+        BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
-
-            while (PlayerChoice === 0) {
-                BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
-                break;
-            }
+        function ButtonAnimations() { 
             BoardButtons.forEach(box => {
-                    box.addEventListener("mouseover", () => {
-                        box.classList.add("onHover");
-                        box.style.fontSize = "130px";
-                        box.style.transition = "ease-in 0.03s";
-                    });
+                box.addEventListener("mouseover", () => {
+                    box.classList.add("onHover");
+                    box.style.fontSize = "130px";
+                    box.style.transition = "ease-in 0.03s";
+                });
 
+                box.addEventListener("mouseout", () => {
+                    box.classList.remove("onHover");
+                    box.style.fontSize = "0";
+                });
+
+                box.addEventListener("click", () => {
                     box.addEventListener("mouseout", () => {
-                        box.classList.remove("onHover");
-                        box.style.fontSize = "0";
+                        box.classList.add("active");
+                        box.style.fontSize = "130px";
                     });
+                    box.style.color = "black";//Player.Color;
+                });
+            });
+        }
 
-                    box.addEventListener("click", () => {
-                        box.addEventListener("mouseout", () => {
-                            box.classList.add("active");
-                            box.style.fontSize = "130px";
-                        });
-                        box.style.color = "black";//Player.Color;
-                        PlayerChoice = box.value;  
-                    });
-            })
+        if (UserTurn === true) {
+            BoardButtons.forEach(box => {
+                box.addEventListener("mouseover", ButtonAnimations());
+                box.addEventListener("mouseout", ButtonAnimations());
+                box.addEventListener("click", ButtonAnimations());
+                box.addEventListener("click", () => { 
+                    PlayerChoice = box.value;
+                    UserTurn = false;
+                });
+            });
         } 
-       
-    }
+           
+        /* 
+        BoardButtons.forEach(box => {
+            box.addEventListener("mouseover", () => {
+                box.classList.add("onHover");
+                box.style.fontSize = "130px";
+                box.style.transition = "ease-in 0.03s";
+            });
 
+            box.addEventListener("mouseout", () => {
+                box.classList.remove("onHover");
+                box.style.fontSize = "0";
+            });
 
+            box.addEventListener("click", () => {
+                box.addEventListener("mouseout", () => {
+                    box.classList.add("active");
+                    box.style.fontSize = "130px";
+                });
+                box.style.color = "black";//Player.Color;
+                PlayerChoice = box.value;  
+            });
+        });
+        */
+    } 
 
     BoardButtons.forEach(button => {
         console.log(button.value); 
     });
-    
 }
-
+    
 
 //Start();
 
