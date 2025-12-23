@@ -441,7 +441,7 @@ body {
 
 /* Game Page */
 .GamePage {
-    display: grid;
+    display: none;
     padding: 0;
     height: 600px;
     width: 600px;
@@ -481,7 +481,6 @@ body {
     color:rgba(0, 0, 0, 0.05);
     background-color: white; 
     font-family: MyFont1;
-    cursor: pointer;
 }
 
 .onHover { 

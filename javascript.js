@@ -256,151 +256,128 @@ function RoundSelection() {
         Rounds = RoundChoiceInput.value;
         
         RoundChoiceButton.addEventListener("click", () => { 
-            GameRounds = Rounds;
-            Game(); 
+            //GameRounds = Rounds;
+            HidePage(RoundChoicePage);
         });
     });
 
-
     console.log(Player);
 
+    return GameRounds;
 }
 
 
 //---------------------------------------------------------
 
+//Current Round of the game (Always starts at one)
+
+//Test value for now
+GameRounds = 5;
+
+//Indicators for the game
+let i; 
+let CurrRound = 1;
+let PlayerTurn;
+
+//Declares the choices of the user/Ai they make per round 
+let PlayersChoice;
+let ComputersChoice;
+
+//The Gameboard buttons (used for the animations and to find which value is pressed)
+let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
 
 function Game() { 
-    ShowPage(GameBoardPage); 
+    ShowPage(GameBoardPage);
 
     //Sets the Players setting choices to display
     //PlayerPFPSelector.src = Player.Picture;
     //PlayerNameSelector.textContent = Player.Name;
-    //PlayerNameSelector.style.color = Player.Color; 
+    //PlayerNameSelector.style.color = Player.Color;
 
-    let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+    let Decider;
+    ComputersChoice = 0;
+    PlayersChoice = 0;
 
-    //Choices for both the Player/Computer, except AI uses Math.random from to choose and 
-    //then uses establishes that value with whatever box value it equals to.
-    let PlayerChoice;
-    let ComputerChoice;
-
-
-    //Indicator on whose turn it is (Boolean)
-    let UserTurn = true;
-    let ButtonClicked = false
-
-    //Array indicator for the size of the player choices (only 4 turns)
-    let i; 
-
-    //The current round (always starts at one)
-    let currentRound = 1;
-
-
-    function PlayerTurn() {
-
-        PlayerChoice = 0; 
-        
-        function ButtonAnimations() { 
-            BoardButtons.forEach(box => {
-                box.addEventListener("mouseover", () => {
-                    box.classList.add("onHover");
-                    box.style.fontSize = "130px";
-                    box.style.transition = "ease-in 0.03s";
-                });
-                
-                if (box.style.color === "black") { 
-                    box.addEventListener("mouseout", () => { 
-                        box.classList.remove("onHover");
-                        box.style.fontSize = "130px"; 
-                    })
-                } else { 
-                    box.addEventListener("mouseout", () => { 
-                        box.classList.remove("onHover");
-                        box.style.fontSize = "0";
-                    })
-                }
-
-                box.addEventListener("click", () => {
-                    box.style.color = "black";//Player.Color;
-                    box.addEventListener("mouseout", () => {
-                        box.classList.add("active");
-                        box.style.fontSize = "130px";
-                    });
-                });
-            });
-        }
-        
-            BoardButtons.forEach(box => {
-                box.addEventListener("mouseover", ButtonAnimations);
-                box.addEventListener("mouseout", ButtonAnimations);
-                box.addEventListener("click", ButtonAnimations);
-                box.addEventListener("click", function() { 
-                    ButtonClicked = true;
-                    UserTurn = false;
-                    //console.log(buttonClicked);
-                    //console.log(UserTurn);
-                });
-            });
-        
-        
-        return ButtonClicked;
-
+    PlayerTurn = true; 
+    /*
+    for (i = CurrRound; i < GameRounds; ++i) {
+        Decider = Math.floor(Math.random() * (2 - 1) + 1); // A value from 1 - 2 deciding who goes first (Player is 2, Computer is 1)
+        //ComputersChoice = Math.floor(Math.random() * (BoardButtons.length - 1) + 1);
+        break;
     }
 
-    function ComputerTurn() { 
-
+    if (Decider === 1) { 
+        PlayerTurn = false;
+    } else if (Decider === 2) { 
+        PlayerTurn = true;
     }
+    */
+    console.log(Decider);
+    console.log(PlayerTurn);
 
-
-    while (ButtonClicked === false) { 
-        PlayerTurn();
-        if (ButtonClicked != false) { 
-            ComputerTurn();
-            break;
-        }
-    } 
-
+    if (PlayerTurn === true) { 
+        PlayerMove();
+    } else if (PlayerTurn === false) { 
+        //Computers turn 
+    }
 }
+
+function PlayerMove() {
+    
+    function ButtonAnimations() { 
+        BoardButtons.forEach(box => {
+            box.addEventListener("mouseover", () => {
+                box.classList.add("onHover");
+                box.style.fontSize = "130px";
+                box.style.transition = "ease-in 0.03s";
+                box.style.cursor = "pointer";
+            });
+                    
+            if (box.style.color === "black") { 
+                box.addEventListener("mouseout", () => { 
+                    box.classList.remove("onHover");
+                    box.style.fontSize = "130px"; 
+                })
+            } else { 
+                box.addEventListener("mouseout", () => { 
+                    box.classList.remove("onHover");
+                    box.style.fontSize = "0";
+                })
+            }
+
+            box.addEventListener("click", () => {
+                box.style.color = "black";//Player.Color;
+                box.addEventListener("mouseout", () => {
+                    box.classList.add("active");
+                    box.style.fontSize = "130px";
+                });
+            });
+        });
+    }
+    
     
 
-//Start();
+    if (PlayersChoice === 0) { 
+        BoardButtons.forEach(box => { 
+            box.addEventListener("mouseover", ButtonAnimations); 
+            box.addEventListener("mouseout", ButtonAnimations);
+            box.addEventListener("click", ButtonAnimations);
+            PlayersChoice = box.value;
+        })
+    } else if (PlayersChoice != 0) { 
+        BoardButtons.forEach(box => { 
+            box.removeEventListener("mouseover", ButtonAnimations, true);
+            box.removeEventListener("mouseout", ButtonAnimations, true);
+        })
+        return Game(); 
+    }
+}
 
-Game(); 
+
+for (i = CurrRound; i < GameRounds; i++) { 
+    Game();
+    break;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-/*
-
- BoardButtons.forEach(box => {
-        box.addEventListener("mouseenter", () => {
-            box.classList.add("onHover");
-        });
-
-        box.addEventListener("mouseleave", () => {
-            box.classList.remove("onHover");
-        });
-
-        box.addEventListener("click", () => { 
-            box.classList.toggle("playerClicked");
-            box.style.fontSize = "130px";
-            box.style.color = Player.Color;
-        });
-
-    });
-
-BoardButtons.forEach(button => {
-    console.log(button.value); 
-});
-
-*/
