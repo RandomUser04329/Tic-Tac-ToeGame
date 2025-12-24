@@ -286,6 +286,79 @@ let ComputersChoice;
 //The Gameboard buttons (used for the animations and to find which value is pressed)
 let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
+//Button clicked to turn the animations on/off
+let BoardClicked; 
+
+function PlayerMove(ButtonClicked) {
+
+    function ButtonPressed() {
+        ButtonClicked = true; 
+    }
+
+    BoardButtons.addEventListener("mouseover", () => {
+        BoardButtons.classList.add("onHover");
+        BoardButtons.style.fontSize = "130px";
+        BoardButtons.style.transition = "ease-in 0.03s";
+        BoardButtons.style.cursor = "pointer";
+    });
+
+    if (BoardButtons.style.color === "black") { 
+        BoardButtons.addEventListener("mouseout", () => { 
+            BoardButtons.classList.remove("onHover");
+            BoardButtons.style.fontSize = "130px"; 
+        })
+    } else { 
+        BoardButtons.addEventListener("mouseout", () => { 
+            BoardButtons.classList.remove("onHover");
+            BoardButtons.style.fontSize = "0";
+        })
+    }
+    
+
+    /*
+    BoardButtons.forEach(box => { 
+        box.addEventListener("mouseover", () => {
+            box.classList.add("onHover");
+            box.style.fontSize = "130px";
+            box.style.transition = "ease-in 0.03s";
+            box.style.cursor = "pointer";
+        }); 
+        if (box.style.color === "black") { 
+            box.addEventListener("mouseout", () => { 
+                box.classList.remove("onHover");
+                box.style.fontSize = "130px"; 
+            })
+        } else { 
+            box.addEventListener("mouseout", () => { 
+                box.classList.remove("onHover");
+                box.style.fontSize = "0";
+            })
+        }
+        box.addEventListener("click", () => {
+            box.style.color = "black";//Player.Color;
+            box.addEventListener("mouseout", () => {
+                box.classList.add("active");
+                box.style.fontSize = "130px";
+            });
+            PlayersChoice = box.value;
+        });
+        box.addEventListener("click", ButtonPressed);
+    });
+    */
+
+
+    //while (true) { 
+        if (ButtonClicked === true) {
+            BoardButtons.removeEventListener("mouseover", true); 
+            BoardButtons.removeEventListener("mouseout", true);
+        } //else {
+            //continue;
+        //}
+    //}
+    
+
+}
+
 
 function Game() { 
     ShowPage(GameBoardPage);
@@ -299,7 +372,6 @@ function Game() {
     ComputersChoice = 0;
     PlayersChoice = 0;
 
-    PlayerTurn = true; 
     /*
     for (i = CurrRound; i < GameRounds; ++i) {
         Decider = Math.floor(Math.random() * (2 - 1) + 1); // A value from 1 - 2 deciding who goes first (Player is 2, Computer is 1)
@@ -316,63 +388,15 @@ function Game() {
     console.log(Decider);
     console.log(PlayerTurn);
 
-    if (PlayerTurn === true) { 
-        PlayerMove();
-    } else if (PlayerTurn === false) { 
-        //Computers turn 
-    }
-}
-
-function PlayerMove() {
-    
-    function ButtonAnimations() { 
-        BoardButtons.forEach(box => {
-            box.addEventListener("mouseover", () => {
-                box.classList.add("onHover");
-                box.style.fontSize = "130px";
-                box.style.transition = "ease-in 0.03s";
-                box.style.cursor = "pointer";
-            });
-                    
-            if (box.style.color === "black") { 
-                box.addEventListener("mouseout", () => { 
-                    box.classList.remove("onHover");
-                    box.style.fontSize = "130px"; 
-                })
-            } else { 
-                box.addEventListener("mouseout", () => { 
-                    box.classList.remove("onHover");
-                    box.style.fontSize = "0";
-                })
-            }
-
-            box.addEventListener("click", () => {
-                box.style.color = "black";//Player.Color;
-                box.addEventListener("mouseout", () => {
-                    box.classList.add("active");
-                    box.style.fontSize = "130px";
-                });
-            });
-        });
-    }
-    
-    
-
     if (PlayersChoice === 0) { 
-        BoardButtons.forEach(box => { 
-            box.addEventListener("mouseover", ButtonAnimations); 
-            box.addEventListener("mouseout", ButtonAnimations);
-            box.addEventListener("click", ButtonAnimations);
-            PlayersChoice = box.value;
-        })
-    } else if (PlayersChoice != 0) { 
-        BoardButtons.forEach(box => { 
-            box.removeEventListener("mouseover", ButtonAnimations, true);
-            box.removeEventListener("mouseout", ButtonAnimations, true);
-        })
-        return Game(); 
+        BoardClicked = false; 
+        PlayerMove(BoardClicked);
+    } else { 
+        BoardClicked = true;
     }
 }
+
+
 
 
 for (i = CurrRound; i < GameRounds; i++) { 
