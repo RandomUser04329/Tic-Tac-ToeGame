@@ -287,113 +287,71 @@ let ComputersChoice;
 let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
 //Button clicked to turn the animations on/off
-let BoardClicked; 
-
-function PlayerMove(ButtonClicked) {
-
-    function ButtonPressed() {
-        ButtonClicked = true; 
-    }
-
-    BoardButtons.addEventListener("mouseover", () => {
-        BoardButtons.classList.add("onHover");
-        BoardButtons.style.fontSize = "130px";
-        BoardButtons.style.transition = "ease-in 0.03s";
-        BoardButtons.style.cursor = "pointer";
-    });
-
-    if (BoardButtons.style.color === "black") { 
-        BoardButtons.addEventListener("mouseout", () => { 
-            BoardButtons.classList.remove("onHover");
-            BoardButtons.style.fontSize = "130px"; 
-        })
-    } else { 
-        BoardButtons.addEventListener("mouseout", () => { 
-            BoardButtons.classList.remove("onHover");
-            BoardButtons.style.fontSize = "0";
-        })
-    }
-    
-
-    /*
-    BoardButtons.forEach(box => { 
-        box.addEventListener("mouseover", () => {
-            box.classList.add("onHover");
-            box.style.fontSize = "130px";
-            box.style.transition = "ease-in 0.03s";
-            box.style.cursor = "pointer";
-        }); 
-        if (box.style.color === "black") { 
-            box.addEventListener("mouseout", () => { 
-                box.classList.remove("onHover");
-                box.style.fontSize = "130px"; 
-            })
-        } else { 
-            box.addEventListener("mouseout", () => { 
-                box.classList.remove("onHover");
-                box.style.fontSize = "0";
-            })
-        }
-        box.addEventListener("click", () => {
-            box.style.color = "black";//Player.Color;
-            box.addEventListener("mouseout", () => {
-                box.classList.add("active");
-                box.style.fontSize = "130px";
-            });
-            PlayersChoice = box.value;
-        });
-        box.addEventListener("click", ButtonPressed);
-    });
-    */
-
-
-    //while (true) { 
-        if (ButtonClicked === true) {
-            BoardButtons.removeEventListener("mouseover", true); 
-            BoardButtons.removeEventListener("mouseout", true);
-        } //else {
-            //continue;
-        //}
-    //}
-    
-
-}
+let ButtonClicked; 
 
 
 function Game() { 
     ShowPage(GameBoardPage);
 
+    function PlayerMove() {
+        ButtonClicked = false;
+
+        BoardButtons.forEach(box => { 
+            box.addEventListener("mouseover", () => {
+                box.classList.add("onHover");
+                box.style.fontSize = "130px";
+                box.style.transition = "ease-in 0.03s";
+                box.style.cursor = "pointer";
+            }); 
+            if (box.style.color === "black") { 
+                box.addEventListener("mouseout", () => { 
+                    box.classList.remove("onHover");
+                    box.style.fontSize = "130px"; 
+                })
+            } else { 
+                box.addEventListener("mouseout", () => { 
+                    box.classList.remove("onHover");
+                    box.style.fontSize = "0";
+                })
+            }
+            box.addEventListener("click", () => {
+                box.style.color = "black";//Player.Color;
+                box.addEventListener("mouseout", () => {
+                    box.classList.add("active");
+                    box.style.fontSize = "130px";
+                });
+                PlayersChoice = box.value;
+                ButtonClicked = true;
+            });
+        }); 
+
+        if (ButtonClicked === true) {
+            BoardButtons.removeEventListener("mouseover", true); 
+            BoardButtons.removeEventListener("mouseout", true);
+            return; 
+        } 
+
+    }
+
     //Sets the Players setting choices to display
     //PlayerPFPSelector.src = Player.Picture;
     //PlayerNameSelector.textContent = Player.Name;
     //PlayerNameSelector.style.color = Player.Color;
+    //let Decider;
 
-    let Decider;
-    ComputersChoice = 0;
+    ButtonClicked = false;
     PlayersChoice = 0;
 
-    /*
-    for (i = CurrRound; i < GameRounds; ++i) {
-        Decider = Math.floor(Math.random() * (2 - 1) + 1); // A value from 1 - 2 deciding who goes first (Player is 2, Computer is 1)
-        //ComputersChoice = Math.floor(Math.random() * (BoardButtons.length - 1) + 1);
-        break;
+    while (PlayersChoice === 0) { 
+        if (ButtonClicked === false) { 
+            PlayerMove();
+            break;
+        } else if (ButtonClicked === true) { 
+            break;
+        }
     }
 
-    if (Decider === 1) { 
-        PlayerTurn = false;
-    } else if (Decider === 2) { 
-        PlayerTurn = true;
-    }
-    */
-    console.log(Decider);
     console.log(PlayerTurn);
-
-    if (PlayersChoice === 0) { 
-        BoardClicked = false; 
-        PlayerMove(BoardClicked);
-    } else { 
-        BoardClicked = true;
-    }
 }
 
 
