@@ -90,7 +90,7 @@ let PlayerName = undefined;
 let PlayerLevel = undefined;
 let PlayerPic = undefined;
 let PlayerColor = undefined;
-let PlayerChoices = new Array(size);
+let PlayerMarks = new Array(size);
 
 //Player Function
 function PlayerFunc(name, level, picture, color) {
@@ -114,7 +114,7 @@ let ComputerName;
 let ComputerLevel;
 let ComputerPic;
 let ComputerColor;
-let ComputerChoices = new Array(size); 
+let ComputerMarks = new Array(size); 
 
 //Computer Function
 function ComputerFunc(name, level, pic, color) { 
@@ -257,6 +257,7 @@ function RoundSelection() {
         
         RoundChoiceButton.addEventListener("click", () => { 
             GameRounds = Rounds;
+            Game();
         });
     });
 
@@ -266,27 +267,23 @@ function RoundSelection() {
 
 //---------------------------------------------------------
 
-//Current Round of the game (Always starts at one)
 
 //Test value for now
-GameRounds = 5;
+GameRounds = 3;
 
 //Indicators for the game
-let i; 
 let CurrRound = 1;
-let Decider;
 
 //Declares the choices of the user/Ai they make for the boxes within a round
 let PlayersChoice;
 let ComputersChoice;
 
+let MaxTurns = 5;
+let PTurns = 0;
+let CTurns = 0;
+
 //The Gameboard buttons (used for the animations and to find which value is pressed)
 let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
-
-//Sees whether either players clicked to let the next one make their move.
-let PlayerClicked = false;
-let ComputerClicked = false;
-
 
 function Game() { 
     ShowPage(GameBoardPage);
@@ -303,110 +300,151 @@ function Game() {
     function PlayerMove() {
 
         function MouseOver(box) { 
-                box.target.classList.add("onHover");
-                box.target.style.fontSize = "130px";
-                box.target.style.transition = "ease-in 0.03s";
-                box.target.style.cursor = "pointer";
+            box.target.classList.add("onHover");
+            box.target.style.fontSize = "130px";
+            box.target.style.transition = "ease-in 0.03s";
+            box.target.style.cursor = "pointer";
         }
             
         function MouseOut(box) {               
-                box.target.classList.remove("onHover");
-                box.target.style.fontSize = "0px"; 
+            box.target.classList.remove("onHover");
+            box.target.style.fontSize = "0px"; 
         }
             
         function Click(box) {
-                box.target.style.color = "black";//Player.Color;
-                box.target.classList.add("active");
-                box.target.style.fontSize = "130px";
-                PlayersChoice = parseInt(box.target.value);
-                PlayerClicked = true;
-                BoardButtons.forEach(box => {
-                    box.removeEventListener("mouseover", MouseOver);
-                    box.removeEventListener("mouseout", MouseOut);
-                    box.removeEventListener("click", Click);
-                    box.disabled = true;
-                });
-
-                if (PlayerClicked === true) { 
-                    setTimeout(() => { 
-                        Game();
-                    }, 2000);
-                }
+            box.target.style.color = "black";//Player.Color;
+            box.target.classList.add("active");
+            box.target.style.fontSize = "130px";
+            PlayersChoice = box.target;
+            PTurns++;
+            BoardButtons.forEach(box => {
+                box.removeEventListener("mouseover", MouseOver);
+                box.removeEventListener("mouseout", MouseOut);
+                box.removeEventListener("click", Click);
+                box.disabled = true;
+            });
+            TurnDecider();
         } 
 
+
         BoardButtons.forEach(box => {
+            if (box.textContent != "O") {
                 box.addEventListener("mouseover", MouseOver);
-                box.addEventListener("mouseout", MouseOut);
+                if (box.textContent === "X") {
+                    box.addEventListener("mouseout", MouseOut);
+                }
                 box.addEventListener("click", Click);
                 box.disabled = false;
+            }
         })
-            
     }
 
     function ComputerMove() {
 
-        let num = Math.floor(Math.random() * 9 + 1 - 1);
+        let num = Math.floor(Math.random() * 9 + 1);
 
+        console.log(num);
         for (let i = 0; i < BoardButtons.length; i++)  {
-            if (parseInt(BoardButtons[i].value) === num && num != PlayersChoice) { 
-                ComputersChoice = parseInt(BoardButtons[i].value);
+            if (parseInt(BoardButtons[i].value) === num) {
+                if (BoardButtons[i].textContent != "X") { 
+                    continue;
+                } 
+                ComputersChoice = BoardButtons[i];
                 BoardButtons[i].textContent = "O";
                 BoardButtons[i].style.color = "red";
                 BoardButtons[i].style.fontSize = "130px";
                 BoardButtons[i].disabled = true;
-                ComputerClicked = true;
+                CTurns++;
+                TurnDecider();
                 break;
             }
         }
 
-        if (ComputerClicked === true) { 
-            setTimeout(() => {
-                Game();
-            }, 2000);
-        }
     }
 
-    if (Decider === undefined && PlayerClicked === false && ComputerClicked === false) { 
-        Decider = Math.floor(Math.random() * 2 + 1);
-        if (Decider === 1) { 
-            setTimeout(() => {
-                RoundDisplay.textContent = "Your Turn.";
-                setTimeout(() => {
-                    PlayerMove();
+    function TurnDecider() { 
+
+        console.log(PTurns);
+        console.log(CTurns);
+
+        if (PTurns === 0 && CTurns === 0) { 
+            let randomizer = Math.floor(Math.random() * 2 + 1);
+            if (randomizer === 1) { 
+                setTimeout(() => { 
+                    RoundDisplay.textContent = "Your Turn.";
+                    setTimeout(() => {
+                        PlayerMove();
+                    }, 1500)
                 }, 1000);
-            }, 2000);
-        } else if (Decider === 2) { 
-            setTimeout(() => {
+            } else if (randomizer === 2) { 
+                setTimeout(() => { 
+                    RoundDisplay.textContent = "Bots Turn.";
+                    setTimeout(() => {
+                        ComputerMove();
+                    }, 1500)
+                }, 1000);
+            }
+        } else if (PTurns > CTurns && PTurns < MaxTurns) { 
+            setTimeout(() => { 
                 RoundDisplay.textContent = "Bots Turn.";
                 setTimeout(() => {
                     ComputerMove();
-                }, 1000);
-            }, 2000);
-        }
-    } else if (Decider != undefined && PlayerClicked === false && ComputerClicked != false) { 
-        setTimeout(() => {
-            RoundDisplay.textContent = "Your Turn.";
-            setTimeout(() => {
-                PlayerMove();
+                }, 1500)
             }, 1000);
-        }, 2000);
-    } else if (Decider != undefined && PlayerClicked != false && ComputerClicked === false) { 
-        setTimeout(() => {
-            RoundDisplay.textContent = "Bots Turn.";
-            setTimeout(() => {
-                ComputerMove();
-            }, 2000);
-        }, 1000);
+        } else if (PTurns < CTurns && CTurns < MaxTurns) { 
+            setTimeout(() => { 
+                RoundDisplay.textContent = "Your Turn.";
+                setTimeout(() => {
+                    PlayerMove();
+                }, 1500)
+            }, 1000);
+        } else if (PTurns === CTurns && PTurns < MaxTurns && CTurns < MaxTurns) { 
+            let xCount = 0; 
+            let oCount = 0;
+
+            for (let i = 0; i < BoardButtons.length; i++) { 
+                if (BoardButtons[i].textContent === "O") { 
+                    oCount++;
+                } else if (BoardButtons[i].textContent === "X") {
+                    xCount++;
+                }
+            }
+
+            if (xCount > oCount) { 
+                setTimeout(() => { 
+                    RoundDisplay.textContent = "Bots Turn.";
+                    setTimeout(() => {
+                        ComputerMove();
+                    }, 1500)
+                }, 1000);
+            } else if (xCount < oCount) { 
+                setTimeout(() => { 
+                    RoundDisplay.textContent = "Your Turn.";
+                    setTimeout(() => {
+                        PlayerMove();
+                    }, 1500)
+                }, 1000);
+            }
+
+        } else if (PTurns === MaxTurns && CTurns === MaxTurns) { 
+
+        }
+
     }
+
+    function Roundsleft() { 
+        for (let i = CurrRound; i < GameRounds; i++) { 
+            RoundDisplay.textContent = "Round " + i; 
+            TurnDecider();
+            break;
+        }
+    }
+
+    Roundsleft(); 
 }
 
 
-for (i = CurrRound; i < GameRounds; i++) { 
-    RoundDisplay.textContent = "Round " + i;
-    Game();
-    break;
-}
-
+Game();
 
 /*TODO FOR LATER: 
 The Game now has a working bot/Player select functions and both can pick a box on the gameboard as their selected choice.
