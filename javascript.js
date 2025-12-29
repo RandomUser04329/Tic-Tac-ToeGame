@@ -282,6 +282,9 @@ let MaxTurns = 5;
 let PTurns = 0;
 let CTurns = 0;
 
+let xCount; 
+let oCount;
+
 //The Gameboard buttons (used for the animations and to find which value is pressed)
 let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
@@ -304,11 +307,13 @@ function Game() {
             box.target.style.fontSize = "130px";
             box.target.style.transition = "ease-in 0.03s";
             box.target.style.cursor = "pointer";
+            box.target.textContent = "X";
         }
             
         function MouseOut(box) {               
             box.target.classList.remove("onHover");
             box.target.style.fontSize = "0px"; 
+            box.target.textContent = "";
         }
             
         function Click(box) {
@@ -328,13 +333,13 @@ function Game() {
 
 
         BoardButtons.forEach(box => {
-            if (box.textContent != "O") {
+            if (box.textContent != "X") {
+                if (box.textContent != "O") {
                 box.addEventListener("mouseover", MouseOver);
-                if (box.textContent === "X") {
-                    box.addEventListener("mouseout", MouseOut);
-                }
+                box.addEventListener("mouseout", MouseOut);
                 box.addEventListener("click", Click);
                 box.disabled = false;
+                }
             }
         })
     }
@@ -342,13 +347,10 @@ function Game() {
     function ComputerMove() {
 
         let num = Math.floor(Math.random() * 9 + 1);
-
-        console.log(num);
+        
         for (let i = 0; i < BoardButtons.length; i++)  {
             if (parseInt(BoardButtons[i].value) === num) {
-                if (BoardButtons[i].textContent != "X") { 
-                    continue;
-                } 
+                if (BoardButtons[i].textContent != "X") {
                 ComputersChoice = BoardButtons[i];
                 BoardButtons[i].textContent = "O";
                 BoardButtons[i].style.color = "red";
@@ -357,6 +359,7 @@ function Game() {
                 CTurns++;
                 TurnDecider();
                 break;
+                }
             }
         }
 
@@ -364,8 +367,21 @@ function Game() {
 
     function TurnDecider() { 
 
-        console.log(PTurns);
-        console.log(CTurns);
+        xCount = 0;
+        oCount = 0;
+
+        for (let i = 0; i < BoardButtons.length; i++) { 
+            if (BoardButtons[i].textContent === "O") { 
+                oCount++;
+            } else if (BoardButtons[i].textContent === "X") {
+                 xCount++;
+            }
+        }
+
+        //TODO: Figure out how to get a better functioning system on deciding who goes next after both players have gone.
+        //Then figure out how to get the game to detect a match from the gameboard and whomever got the match wins the round and 
+        //the process starts all over until the gamerounds are met which then goes into a summary and decides who wins/loses.
+        //then the final page will just be either restart or quit. 
 
         if (PTurns === 0 && CTurns === 0) { 
             let randomizer = Math.floor(Math.random() * 2 + 1);
@@ -399,16 +415,9 @@ function Game() {
                 }, 1500)
             }, 1000);
         } else if (PTurns === CTurns && PTurns < MaxTurns && CTurns < MaxTurns) { 
-            let xCount = 0; 
-            let oCount = 0;
 
-            for (let i = 0; i < BoardButtons.length; i++) { 
-                if (BoardButtons[i].textContent === "O") { 
-                    oCount++;
-                } else if (BoardButtons[i].textContent === "X") {
-                    xCount++;
-                }
-            }
+            console.log(oCount);
+            console.log(xCount); 
 
             if (xCount > oCount) { 
                 setTimeout(() => { 
@@ -426,11 +435,11 @@ function Game() {
                 }, 1000);
             }
 
-        } else if (PTurns === MaxTurns && CTurns === MaxTurns) { 
-
         }
 
     }
+
+    //If 
 
     function Roundsleft() { 
         for (let i = CurrRound; i < GameRounds; i++) { 
@@ -446,13 +455,4 @@ function Game() {
 
 Game();
 
-/*TODO FOR LATER: 
-The Game now has a working bot/Player select functions and both can pick a box on the gameboard as their selected choice.
-Now you have to figure out how to get it to where once one player goes, then it goes back into the game() function, and 
-sees whether the player has gone or the computer has gone, this could probably be done with a boolean (PlayerClicked/ComputerClicked) or
-a loop but probably not. 
-Then once either one goes, it keeps doing the same thing until either one of the players gets a match. 
-Now for the match part, I still dont know yet but thats for after this part.
-Then the last step will tally up all the matches by whoever won the most rounds and whomever has the most tallies wins the game 
-and then goes to the end page. 
-and thats it.. */
+
