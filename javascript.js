@@ -299,76 +299,83 @@ function Game() {
     PlayersChoice = 0;
     ComputersChoice = 0;
 
+    if (PWinRound === false && CWinRound === false) { 
+        Roundsleft(); 
+    }
+
     function GameBoard() { 
         for (let i = 0; i < BoardButtons.length; i++) { 
             if (BoardButtons[1].textContent === "X" && BoardButtons[2].textContent === "X" && BoardButtons[3].textContent === "X") { 
                 PWinRound = true;
-                RoundSummary(); 
+                //RoundSummary(); 
                 break;
             } else if (BoardButtons[4].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[6].textContent === "X") { 
                 PWinRound = true; 
-                RoundSummary(); 
+                //RoundSummary(); 
                 break;
             } else if (BoardButtons[7].textContent === "X" && BoardButtons[8].textContent === "X" && BoardButtons[9].textContent === "X") { 
                 PWinRound = true; 
-                RoundSummary(); 
+                //RoundSummary(); 
                 break;
             } else if (BoardButtons[1].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[7].textContent === "X") { 
                 PWinRound = true; 
-                RoundSummary(); 
+                //RoundSummary(); 
                 break;
             } else if (BoardButtons[2].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[8].textContent === "X") { 
                 PWinRound = true; 
-                RoundSummary(); 
+                //RoundSummary(); 
                 break;
             } else if (BoardButtons[3].textContent === "X" && BoardButtons[6].textContent === "X" && BoardButtons[9].textContent === "X") { 
                 PWinRound = true; 
-                RoundSummary(); 
+                //RoundSummary(); 
                 break;
             } else if (BoardButtons[1].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[9].textContent === "X") { 
                 PWinRound = true; 
-                RoundSummary(); 
+                //RoundSummary(); 
                 break;
             } else if (BoardButtons[3].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[7].textContent === "X") { 
                 PWinRound = true; 
-                RoundSummary(); 
+                //RoundSummary(); 
                 break;
             } else { 
                 if (BoardButtons[1].textContent === "O" && BoardButtons[2].textContent === "O" && BoardButtons[3].textContent === "O") { 
                     CWinRound = true;
-                    RoundSummary(); 
+                    //RoundSummary(); 
                     break;
                 } else if (BoardButtons[4].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[6].textContent === "O") { 
                     CWinRound = true; 
-                    RoundSummary(); 
+                    //RoundSummary(); 
                     break;
                 } else if (BoardButtons[7].textContent === "O" && BoardButtons[8].textContent === "O" && BoardButtons[9].textContent === "O") { 
                     CWinRound = true; 
-                    RoundSummary(); 
+                    //RoundSummary(); 
                     break;
                 } else if (BoardButtons[1].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[7].textContent === "O") { 
                     CWinRound = true; 
-                    RoundSummary(); 
+                    //RoundSummary(); 
                     break;
                 } else if (BoardButtons[2].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[8].textContent === "O") { 
                     CWinRound = true; 
-                    RoundSummary(); 
+                    //RoundSummary(); 
                     break;
                 } else if (BoardButtons[3].textContent === "O" && BoardButtons[6].textContent === "O" && BoardButtons[9].textContent === "O") { 
                     CWinRound = true; 
-                    RoundSummary(); 
+                    //RoundSummary(); 
                     break;
                 } else if (BoardButtons[1].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[9].textContent === "O") { 
                     CWinRound = true; 
-                    RoundSummary(); 
+                    //RoundSummary(); 
                     break;
                 } else if (BoardButtons[3].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[7].textContent === "O") { 
                     CWinRound = true; 
-                    RoundSummary(); 
+                    //RoundSummary(); 
                     break;
                 }
             }
         }
+        return; 
+        //TODO: Its got the Gameboard working, just figure out why the computerMove function still places an O over the players choice and how to stop the game once 
+        // a match is found or made. 
     }
 
     function PlayerMove() {
@@ -400,7 +407,6 @@ function Game() {
             });
             PTurns++;
             TurnDecider();
-            GameBoard();
         } 
 
 
@@ -416,19 +422,17 @@ function Game() {
         })
     }
 
-
-    //FIXME: the computer not selecting a different box after choosing one that the user has already selected
     function ComputerMove() {
 
         let num = Math.floor(Math.random() * 9 + 1);
         
         if (num != parseInt(PlayersChoice.value)) {
             CTurns++;
-            console.log("hit");
         for (let i = 0; i < BoardButtons.length; i++)  {
+            console.log(num);
             if (parseInt(BoardButtons[i].value) === num) {
                 if (num === parseInt(PlayersChoice.value)) {
-                    console.log(num);
+                    num = Math.floor(Math.random() * 9 + 1);
                     continue;
                 }
                 ComputersChoice = BoardButtons[i];
@@ -437,7 +441,6 @@ function Game() {
                 BoardButtons[i].style.fontSize = "130px";
                 BoardButtons[i].disabled = true;
                 TurnDecider();
-                GameBoard();
                 break;
             }
         }
@@ -446,12 +449,74 @@ function Game() {
         }
     }
 
-    
-
     function TurnDecider() { 
-        console.log(PTurns);
-        console.log(CTurns);
+
+        if (PWinRound === false && CWinRound === false) { 
+            GameBoard(); 
+            if ((CTurns + PTurns) <= BoardButtons.length) {
+            if (PTurns === 0 && CTurns === 0) { 
+                let randomizer = Math.floor(Math.random() * 2 + 1);
+                if (randomizer === 1) { 
+                    setTimeout(() => { 
+                        RoundDisplay.textContent = "Your Turn.";
+                        setTimeout(() => {
+                            PlayerMove();
+                        }, 1500)
+                    }, 1000);
+                } else if (randomizer === 2) { 
+                    setTimeout(() => { 
+                        RoundDisplay.textContent = "Bots Turn.";
+                        setTimeout(() => {
+                            ComputerMove();
+                        }, 1500)
+                    }, 1000);
+                }
+            } else {
+                if (PTurns > CTurns) {
+                    setTimeout(() => { 
+                        RoundDisplay.textContent = "Bots Turn.";
+                        setTimeout(() => {
+                            ComputerMove();
+                        }, 1500)
+                    }, 1000);
+                } else if (PTurns < CTurns) {
+                    setTimeout(() => { 
+                        RoundDisplay.textContent = "Your Turn.";
+                        setTimeout(() => {
+                            PlayerMove();
+                        }, 1500)
+                    }, 1000);
+                } else if (CTurns === PTurns) { 
+                    if (RoundDisplay.textContent === "Bots Turn.") {
+                        setTimeout(() => { 
+                            RoundDisplay.textContent = "Your Turn.";
+                            setTimeout(() => {
+                                PlayerMove();
+                            }, 1500)
+                        }, 1000);
+                    } else if (RoundDisplay.textContent === "Your Turn.") {
+                        setTimeout(() => { 
+                            RoundDisplay.textContent = "Bots Turn.";
+                            setTimeout(() => {
+                                ComputerMove();
+                            }, 1500)
+                        }, 1000);
+                    }
+                } 
+            }
+            } else if ((CTurns + PTurns) >= BoardButtons.length) { 
+            setTimeout(() => {
+                RoundDisplay.textContent = "Draw.";
+                setTimeout(() =>{ 
+                    RoundSummary(); 
+                }, 1500);
+            }, 1000);
+            }
+        } else { 
+            return RoundSummary();
+        }
     
+        /*
         if ((CTurns + PTurns) <= BoardButtons.length) {
             if (PTurns === 0 && CTurns === 0) { 
                 let randomizer = Math.floor(Math.random() * 2 + 1);
@@ -472,7 +537,6 @@ function Game() {
                 }
             } else {
                 if (PTurns > CTurns) {
-                    console.log("here 1")
                     setTimeout(() => { 
                         RoundDisplay.textContent = "Bots Turn.";
                         setTimeout(() => {
@@ -480,7 +544,6 @@ function Game() {
                         }, 1500)
                     }, 1000);
                 } else if (PTurns < CTurns) {
-                    console.log("here 2")
                     setTimeout(() => { 
                         RoundDisplay.textContent = "Your Turn.";
                         setTimeout(() => {
@@ -488,16 +551,14 @@ function Game() {
                         }, 1500)
                     }, 1000);
                 } else if (CTurns === PTurns) { 
-                    if (RoundDisplay.textContent === "Bots Turn.") { 
-                        console.log("here 3");
+                    if (RoundDisplay.textContent === "Bots Turn.") {
                         setTimeout(() => { 
                             RoundDisplay.textContent = "Your Turn.";
                             setTimeout(() => {
                                 PlayerMove();
                             }, 1500)
                         }, 1000);
-                    } else if (RoundDisplay.textContent === "Your Turn.") { 
-                        console.log("here 4")
+                    } else if (RoundDisplay.textContent === "Your Turn.") {
                         setTimeout(() => { 
                             RoundDisplay.textContent = "Bots Turn.";
                             setTimeout(() => {
@@ -515,22 +576,7 @@ function Game() {
                 }, 1500);
             }, 1000);
         }
-    }
-
-    function RoundSummary() { 
-        if (PWinRound === true) { 
-            setTimeout(() => {
-                RoundDisplay.textContent = "You win the round."
-                PlayerWinsRound++;
-                PWinRound = false;
-            }, 1500);
-        } else if (CWinRound === true) { 
-            setTimeout(() => {
-                RoundDisplay.textContent = "Bot wins the round.";
-                ComputerWinsRound++;
-                CWinRound = false; 
-            }, 1500);
-        }
+        */
     }
 
     function Roundsleft() { 
@@ -541,8 +587,23 @@ function Game() {
         }
     }
 
-    Roundsleft(); 
 }
+
+    function RoundSummary() { 
+        if (PWinRound === true) { 
+            setTimeout(() => {
+                RoundDisplay.textContent = "You win the round."
+                PlayerWinsRound++;
+                PWinRound = false;
+            }, 500);
+        } else if (CWinRound === true) { 
+            setTimeout(() => {
+                RoundDisplay.textContent = "Bot wins the round.";
+                ComputerWinsRound++;
+                CWinRound = false; 
+            }, 500);
+        }
+    }
 
 
 Game();
