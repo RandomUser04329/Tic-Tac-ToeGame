@@ -279,6 +279,8 @@ let PlayersChoice = 0;
 let BotsChoice = 0;
 let PlayersChoices = []; 
 let BotsChoices = [];
+let PChoicesArrIndex = 0;
+let BChoicesArrIndex = 0;
 
 let PTurns = 0;
 let BTurns = 0;
@@ -289,7 +291,7 @@ let PlayerWinsRound = 0;
 let BotWinsRound = 0; 
 
 //The Gameboard buttons (used for the animations and to find which value is pressed)
-let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");;
 
 function Game() { 
     ShowPage(GameBoardPage);
@@ -303,104 +305,98 @@ function Game() {
         Roundsleft(); 
     }
 
-    /*
     function GameBoard() {
 
-        for (let i = 0; i < BoardButtons.length; i++) { 
-            if (BoardButtons[1].textContent === "X" && BoardButtons[2].textContent === "X" && BoardButtons[3].textContent === "X") { 
-                PWinRound = true;
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[4].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[6].textContent === "X") { 
-                PWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[7].textContent === "X" && BoardButtons[8].textContent === "X" && BoardButtons[9].textContent === "X") { 
-                PWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[1].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[7].textContent === "X") { 
-                PWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[2].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[8].textContent === "X") { 
-                PWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[3].textContent === "X" && BoardButtons[6].textContent === "X" && BoardButtons[9].textContent === "X") { 
-                PWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[1].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[9].textContent === "X") { 
-                PWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[3].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[7].textContent === "X") { 
-                PWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[1].textContent === "O" && BoardButtons[2].textContent === "O" && BoardButtons[3].textContent === "O") { 
-                BWinRound = true;
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[4].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[6].textContent === "O") { 
-                BWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[7].textContent === "O" && BoardButtons[8].textContent === "O" && BoardButtons[9].textContent === "O") { 
-                BWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[1].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[7].textContent === "O") { 
-                BWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[2].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[8].textContent === "O") { 
-                BWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[3].textContent === "O" && BoardButtons[6].textContent === "O" && BoardButtons[9].textContent === "O") { 
-                BWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[1].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[9].textContent === "O") { 
-                BWinRound = true; 
-                RoundSummary(); 
-                break;
-            } else if (BoardButtons[3].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[7].textContent === "O") { 
-                BWinRound = true; 
-                RoundSummary(); 
-                break;
-            }
-        }
+        BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
-        TurnDecider();
-
-    }
-    */
-
-    function GameBoard() {
-        //FORLATER: build a better system for detecting whether either player has a match with arrays instead of manually detecting the characters.
-        //For instance, [3,6,9] would be a match because on the board that correlates to a strike 
-        //Figure out why its not iterating to a new index (more than likely need a seperate variable rather than using i) and then use the arrays
-        // to then correlate to a number sequence, for example: if PlayerChoices[i + 2] === [1,4,7], then its a match. 
-        // IF however that doesnt work, then i left the original back in a comment above this function and still works just wonky..
-        // needs a little fix, but after that then the game is set and all you need to do is make the game go into the next round until the max amount of rounds.
-        for (let i = 0; i < BoardButtons.length; i++) {
+        for (let i = 0; i < BoardButtons.length; ++i) {
             if (PlayersChoice != 0) {
-                PlayersChoices[i] = PlayersChoice;
+                PlayersChoices[PChoicesArrIndex] = PlayersChoice;
+                PlayersChoice = 0;
+                PChoicesArrIndex++;
+                console.log(PlayersChoices);
             }
-
             if (BotsChoice != 0) { 
-                BotsChoices[i] = BotsChoice;
+                BotsChoices[BChoicesArrIndex] = BotsChoice;
+                BotsChoice = 0;
+                BChoicesArrIndex++;
+                console.log(BotsChoices);
             }
             break;
         }
 
+        //for (let i = 0; i < BoardButtons.length; ++i) { 
+            if (BoardButtons[0].textContent === "X" && BoardButtons[1].textContent === "X" && BoardButtons[2].textContent === "X") { 
+                PWinRound = true;
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[3].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[5].textContent === "X") { 
+                PWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[6].textContent === "X" && BoardButtons[7].textContent === "X" && BoardButtons[8].textContent === "X") { 
+                PWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[0].textContent === "X" && BoardButtons[3].textContent === "X" && BoardButtons[6].textContent === "X") { 
+                PWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[1].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[7].textContent === "X") { 
+                PWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[2].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[8].textContent === "X") { 
+                PWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[0].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[8].textContent === "X") { 
+                PWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[2].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[6].textContent === "X") { 
+                PWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } 
+            
+            if (BoardButtons[0].textContent === "O" && BoardButtons[1].textContent === "O" && BoardButtons[2].textContent === "O") { 
+                BWinRound = true;
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[3].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[5].textContent === "O") { 
+                BWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[6].textContent === "O" && BoardButtons[7].textContent === "O" && BoardButtons[8].textContent === "O") { 
+                BWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[0].textContent === "O" && BoardButtons[3].textContent === "O" && BoardButtons[6].textContent === "O") { 
+                BWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[1].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[7].textContent === "O") { 
+                BWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[2].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[8].textContent === "O") { 
+                BWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[0].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[8].textContent === "O") { 
+                BWinRound = true; 
+                RoundSummary(); 
+                //break;
+            } else if (BoardButtons[2].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[6].textContent === "O") { 
+                BWinRound = true; 
+                RoundSummary(); 
+                //break;
+            //}
+        }
+
         TurnDecider();
-
     }
-
 
     function PlayerMove() {
 
@@ -422,7 +418,7 @@ function Game() {
             box.target.style.color = "black";//Player.Color;
             box.target.classList.add("active");
             box.target.style.fontSize = "130px";
-            PlayersChoice = parseInt(box.target.value);
+            PlayersChoice = parseInt(box.value);
             box.disabled = true;
             BoardButtons.forEach(box => {
                 box.removeEventListener("mouseover", MouseOver);
@@ -452,12 +448,12 @@ function Game() {
 
         let num = Math.floor(Math.random() * 9 + 1);
 
-        if (num === PlayersChoice) { 
-            ComputerMove(); 
-            console.log(num); 
-        } else { 
-            for (let i = 0; i < BoardButtons.length; i++)  {
-                if (parseInt(BoardButtons[i].value) === num && BoardButtons[i].textContent != "O" && BoardButtons[i].textContent != "X") {
+        for (let i = 0; i < BoardButtons.length; ++i) { 
+            if (num === PlayersChoices[i - 1] || num === BotsChoices[i - 1]) { 
+                ComputerMove(); 
+                break;
+            } else { 
+                if (parseInt(BoardButtons[i].value) === num) {
                     BotsChoice = parseInt(BoardButtons[i].value);
                     BoardButtons[i].textContent = "O";
                     BoardButtons[i].style.color = "red";
@@ -548,23 +544,26 @@ function Game() {
 
 }
 
-console.log(PlayersChoices);
-console.log(BotsChoices);
-
-
-    function RoundSummary() { 
-        if (PWinRound === true) { 
-            setTimeout(() => {
-                RoundDisplay.textContent = "You win the round."
-                PlayerWinsRound++;
-            }, 500);
-        } else if (BWinRound === true) { 
-            setTimeout(() => {
-                RoundDisplay.textContent = "Bot wins the round.";
-                ComputerWinsRound++;
-            }, 500);
-        }
+function RoundSummary() { 
+    if (PWinRound === true) { 
+        setTimeout(() => {
+            RoundDisplay.textContent = "You win the round."
+            PlayerWinsRound++;
+        }, 500);
+    } else if (BWinRound === true) { 
+        setTimeout(() => {
+            RoundDisplay.textContent = "Bot wins the round.";
+            BotWinsRound++;
+        }, 500);
     }
+
+    /*
+    PWinRound = false;
+    BWinRound = false; 
+    
+    Game();
+    */ 
+}
 
 
 Game();
