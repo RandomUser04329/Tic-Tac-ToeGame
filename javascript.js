@@ -65,6 +65,8 @@ const UserLosesRoundPage = document.querySelector(".RoundLosePage");
 //Round Won Page(If the user wins)
 const UserWinsRoundPage = document.querySelector(".RoundWonPage");
 
+const NextRoundButton = document.querySelector("#NextRound-button");
+
 //End of Game page (Game Summary)
 const SummaryOfGamePage = document.querySelector(".GameSummaryPage");
 
@@ -275,8 +277,8 @@ GameRounds = 3;
 let CurrRound = 1;
 
 //Declares the choices of the user/Ai they make for the boxes within a round
-let PlayersChoice = 0;
-let BotsChoice = 0;
+let PlayersChoice;
+let BotsChoice;
 let PlayersChoices = []; 
 let BotsChoices = [];
 let PChoicesArrIndex = 0;
@@ -291,7 +293,9 @@ let PlayerWinsRound = 0;
 let BotWinsRound = 0; 
 
 //The Gameboard buttons (used for the animations and to find which value is pressed)
-let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");;
+let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+
+console.log(BoardButtons);
 
 function Game() { 
     ShowPage(GameBoardPage);
@@ -307,88 +311,72 @@ function Game() {
 
     function GameBoard() {
 
-        BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+        console.log(PlayersChoices);
+        console.log(BotsChoices);
 
-        for (let i = 0; i < BoardButtons.length; ++i) {
-            if (PlayersChoice != 0) {
-                PlayersChoices[PChoicesArrIndex] = PlayersChoice;
-                PlayersChoice = 0;
-                PChoicesArrIndex++;
-                console.log(PlayersChoices);
-            }
-            if (BotsChoice != 0) { 
-                BotsChoices[BChoicesArrIndex] = BotsChoice;
-                BotsChoice = 0;
-                BChoicesArrIndex++;
-                console.log(BotsChoices);
-            }
-            break;
-        }
-
-        //for (let i = 0; i < BoardButtons.length; ++i) { 
-            if (BoardButtons[0].textContent === "X" && BoardButtons[1].textContent === "X" && BoardButtons[2].textContent === "X") { 
+        if (BoardButtons[0].textContent === "X" && BoardButtons[1].textContent === "X" && BoardButtons[2].textContent === "X") { 
                 PWinRound = true;
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[3].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[5].textContent === "X") { 
+        } else if (BoardButtons[3].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[5].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[6].textContent === "X" && BoardButtons[7].textContent === "X" && BoardButtons[8].textContent === "X") { 
+        } else if (BoardButtons[6].textContent === "X" && BoardButtons[7].textContent === "X" && BoardButtons[8].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[0].textContent === "X" && BoardButtons[3].textContent === "X" && BoardButtons[6].textContent === "X") { 
+        } else if (BoardButtons[0].textContent === "X" && BoardButtons[3].textContent === "X" && BoardButtons[6].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[1].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[7].textContent === "X") { 
+        } else if (BoardButtons[1].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[7].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[2].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[8].textContent === "X") { 
+        } else if (BoardButtons[2].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[8].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[0].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[8].textContent === "X") { 
+        } else if (BoardButtons[0].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[8].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[2].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[6].textContent === "X") { 
+        } else if (BoardButtons[2].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[6].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } 
+        } 
             
-            if (BoardButtons[0].textContent === "O" && BoardButtons[1].textContent === "O" && BoardButtons[2].textContent === "O") { 
+        if (BoardButtons[0].textContent === "O" && BoardButtons[1].textContent === "O" && BoardButtons[2].textContent === "O") { 
                 BWinRound = true;
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[3].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[5].textContent === "O") { 
+        } else if (BoardButtons[3].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[5].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[6].textContent === "O" && BoardButtons[7].textContent === "O" && BoardButtons[8].textContent === "O") { 
+        } else if (BoardButtons[6].textContent === "O" && BoardButtons[7].textContent === "O" && BoardButtons[8].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[0].textContent === "O" && BoardButtons[3].textContent === "O" && BoardButtons[6].textContent === "O") { 
+        } else if (BoardButtons[0].textContent === "O" && BoardButtons[3].textContent === "O" && BoardButtons[6].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[1].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[7].textContent === "O") { 
+        } else if (BoardButtons[1].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[7].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[2].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[8].textContent === "O") { 
+        } else if (BoardButtons[2].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[8].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[0].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[8].textContent === "O") { 
+        } else if (BoardButtons[0].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[8].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
                 //break;
-            } else if (BoardButtons[2].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[6].textContent === "O") { 
+        } else if (BoardButtons[2].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[6].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
                 //break;
@@ -418,7 +406,9 @@ function Game() {
             box.target.style.color = "black";//Player.Color;
             box.target.classList.add("active");
             box.target.style.fontSize = "130px";
-            PlayersChoice = parseInt(box.value);
+            PlayersChoice = parseInt(box.target.value);
+            PlayersChoices[PChoicesArrIndex] = PlayersChoice;
+            PChoicesArrIndex++;
             box.disabled = true;
             BoardButtons.forEach(box => {
                 box.removeEventListener("mouseover", MouseOver);
@@ -446,15 +436,17 @@ function Game() {
 
     function ComputerMove() {
 
-        let num = Math.floor(Math.random() * 9 + 1);
+        let num = Math.floor(Math.random() * 9 + 1 - 1);
 
         for (let i = 0; i < BoardButtons.length; ++i) { 
-            if (num === PlayersChoices[i - 1] || num === BotsChoices[i - 1]) { 
+            if (num === PlayersChoices[i] || num === BotsChoices[i]) { 
                 ComputerMove(); 
                 break;
             } else { 
                 if (parseInt(BoardButtons[i].value) === num) {
                     BotsChoice = parseInt(BoardButtons[i].value);
+                    BotsChoices[BChoicesArrIndex] = BotsChoice;
+                    BChoicesArrIndex++;
                     BoardButtons[i].textContent = "O";
                     BoardButtons[i].style.color = "red";
                     BoardButtons[i].style.fontSize = "130px";
@@ -547,22 +539,38 @@ function Game() {
 function RoundSummary() { 
     if (PWinRound === true) { 
         setTimeout(() => {
-            RoundDisplay.textContent = "You win the round."
+            ShowPage(UserWinsRoundPage);
             PlayerWinsRound++;
-        }, 500);
+        }, 1000);
     } else if (BWinRound === true) { 
         setTimeout(() => {
-            RoundDisplay.textContent = "Bot wins the round.";
+            ShowPage(UserLosesRoundPage);
             BotWinsRound++;
-        }, 500);
+        }, 1000);
     }
 
-    /*
-    PWinRound = false;
-    BWinRound = false; 
-    
-    Game();
-    */ 
+
+    NextRoundButton.addEventListener("click", () => { 
+        PWinRound = false;
+        BWinRound = false; 
+        CurrRound++; 
+
+        BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+
+        PlayersChoices = []; 
+        BotsChoices = []; 
+        BChoicesArrIndex = 0;
+        PChoicesArrIndex = 0;
+        PlayersChoice = 0;
+        BotsChoice = 0; 
+
+        BoardButtons.forEach(box => { 
+            box.textContent = "";
+        }); 
+
+        Game(); 
+
+    });
 }
 
 
