@@ -67,8 +67,20 @@ const UserWinsRoundPage = document.querySelector(".RoundWonPage");
 
 const NextRoundButton = document.querySelector("#NextRound-button");
 
+let UserRoundWonScore = document.querySelector("#UserProfile-UserScore");
+let BotRoundWonScore = document.querySelector("#ComputerProfile-ComputerScore");
+
+
+
 //End of Game page (Game Summary)
-const SummaryOfGamePage = document.querySelector(".GameSummaryPage");
+const EndOfGamePage = document.querySelector(".GameSummaryPage");
+
+let UserWinsGameSummaryPage = document.querySelector(".GameSummary-UserWins");
+let BotWinsGameSummaryPage = document.querySelector(".GameSummary-UserLoses");
+
+let UserWinsButton = document.querySelector("#UserWins-button");
+let BotWinsButton = document.querySelector("#UserLoses-button");
+
 
 //User wants to play again page
 const PlayAgainPage = document.querySelector(".PlayAgainPage");
@@ -274,7 +286,7 @@ function RoundSelection() {
 GameRounds = 3;
 
 //Indicators for the game
-let CurrRound = 1;
+let CurrRound = 0;
 
 //Declares the choices of the user/Ai they make for the boxes within a round
 let PlayersChoice;
@@ -295,24 +307,29 @@ let BotWinsRound = 0;
 //The Gameboard buttons (used for the animations and to find which value is pressed)
 let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
-console.log(BoardButtons);
-
 function Game() { 
     ShowPage(GameBoardPage);
+
+    CurrRound = 5;
+    PlayerWinsRound = 3;
+    BotWinsRound = 0;
 
     //Sets the Players setting choices to display
     //PlayerPFPSelector.src = Player.Picture;
     //PlayerNameSelector.textContent = Player.Name;
     //PlayerNameSelector.style.color = Player.Color;
 
+    UserRoundWonScore.textContent = PlayerWinsRound; 
+    BotRoundWonScore.textContent = BotWinsRound;
+    
     if (PWinRound === false && BWinRound === false) { 
-        Roundsleft(); 
-    }
-
+       Roundsleft(); 
+    } 
+    
     function GameBoard() {
 
-        console.log(PlayersChoices);
-        console.log(BotsChoices);
+        //console.log(PlayersChoices);
+        //console.log(BotsChoices);
 
         if (BoardButtons[0].textContent === "X" && BoardButtons[1].textContent === "X" && BoardButtons[2].textContent === "X") { 
                 PWinRound = true;
@@ -527,29 +544,55 @@ function Game() {
     } 
 
     function Roundsleft() { 
-        for (let i = CurrRound; i < GameRounds; i++) { 
-            RoundDisplay.textContent = "Round " + i; 
-            TurnDecider();
-            break;
+        if (CurrRound <= GameRounds) { 
+            for (let i = CurrRound; i <= GameRounds; i++) { 
+                RoundDisplay.textContent = "Round " + i;
+                TurnDecider();
+                break;
+            }
+        } else if (CurrRound > GameRounds) { 
+            GameSummary(); 
         }
+        
     }
 
 }
 
-function RoundSummary() { 
-    if (PWinRound === true) { 
-        setTimeout(() => {
-            ShowPage(UserWinsRoundPage);
-            PlayerWinsRound++;
-        }, 1000);
-    } else if (BWinRound === true) { 
-        setTimeout(() => {
-            ShowPage(UserLosesRoundPage);
-            BotWinsRound++;
-        }, 1000);
+function GameSummary() {
+
+    ShowPage(EndOfGamePage);
+    
+    if (PlayerWinsRound > BotWinsRound) { 
+        UserWinsGameSummaryPage.style.display = "grid";
+    } else if (PlayerWinsRound < BotWinsRound) { 
+        BotWinsGameSummaryPage.style.display = "grid";
     }
 
 
+    if (UserWinsGameSummaryPage.style.display = "grid") { 
+        UserWinsButton.addEventListener("click", () => { 
+            //Continue here
+        }); 
+    } else if (BotWinsGameSummaryPage.style.display = "grid") {
+        BotWinsButton.addEventListener("click", () => {
+
+        });
+    }
+    
+}
+
+function RoundSummary() { 
+    if (PWinRound === true) {
+        PlayerWinsRound++;
+        setTimeout(() => {
+            ShowPage(UserWinsRoundPage);
+        }, 1000);
+    } else if (BWinRound === true) {
+        BotWinsRound++;
+        setTimeout(() => {
+            ShowPage(UserLosesRoundPage);
+        }, 1000);
+    }
     NextRoundButton.addEventListener("click", () => { 
         PWinRound = false;
         BWinRound = false; 
@@ -563,8 +606,12 @@ function RoundSummary() {
         PChoicesArrIndex = 0;
         PlayersChoice = 0;
         BotsChoice = 0; 
+        PTurns = 0;
+        BTurns = 0; 
 
         BoardButtons.forEach(box => { 
+            box.style.color = "rgb(0, 0, 0, 0.05)";
+            box.disabled = false;
             box.textContent = "";
         }); 
 
@@ -573,7 +620,6 @@ function RoundSummary() {
     });
 }
 
-
-Game();
+Game(); 
 
 
