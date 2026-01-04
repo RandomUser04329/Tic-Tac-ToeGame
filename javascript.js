@@ -38,8 +38,6 @@ let FormColorInput = document.querySelector("#UserInfo-Color");
 let FormColor;
 let SubmitColorButton = document.querySelector("#UserForm-ColorButton");
 
-
-
 //Round selection page + selectors
 const RoundChoicePage = document.querySelector(".RoundChoicePage");
 let Rounds = 0;
@@ -54,9 +52,35 @@ let RoundDisplay = document.querySelector("#GamePage-RoundDisplay");
 //Player Display Selectors
 let PlayerPFPSelector = document.querySelector("#UserProfile-UserPFP");
 let PlayerNameSelector = document.querySelector("#UserProfile-UserName");
+let UserRoundWonScore = document.querySelector("#UserProfile-UserScore");
 
 //AI Display Selectors
-let ComputerPFPSelector = document.querySelector("#ComputerProfile-ComputerPFP");
+let BotPFPSelector = document.querySelector("#ComputerProfile-ComputerPFP");
+let BotNameSelector = document.querySelector("#ComputerProfile-ComputerName");
+let BotRoundWonScore = document.querySelector("#ComputerProfile-ComputerScore");
+
+//Indicators for the game
+let CurrRound = 0;
+
+//Declares the choices of the user/Ai they make for the boxes within a round
+let PlayersChoice;
+let BotsChoice;
+let PlayersChoices = []; 
+let BotsChoices = [];
+let PChoicesArrIndex = 0;
+let BChoicesArrIndex = 0;
+
+let PTurns = 0;
+let BTurns = 0;
+
+let PWinRound = false; 
+let BWinRound = false;
+let PlayerWinsRound = 0; 
+let BotWinsRound = 0; 
+
+//The Gameboard buttons (used for the animations and to find which value is pressed)
+let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+
 
 
 //Round Lose Page(If the user loses)
@@ -64,12 +88,7 @@ const UserLosesRoundPage = document.querySelector(".RoundLosePage");
 
 //Round Won Page(If the user wins)
 const UserWinsRoundPage = document.querySelector(".RoundWonPage");
-
 const NextRoundButton = document.querySelector("#NextRound-button");
-
-let UserRoundWonScore = document.querySelector("#UserProfile-UserScore");
-let BotRoundWonScore = document.querySelector("#ComputerProfile-ComputerScore");
-
 
 
 //End of Game page (Game Summary)
@@ -77,71 +96,65 @@ const EndOfGamePage = document.querySelector(".GameSummaryPage");
 
 let UserWinsGameSummaryPage = document.querySelector(".GameSummary-UserWins");
 let BotWinsGameSummaryPage = document.querySelector(".GameSummary-UserLoses");
+let TieGameSummaryPage = document.querySelector(".GameSummary-UserDraw");
 
 let UserWinsButton = document.querySelector("#UserWins-button");
 let BotWinsButton = document.querySelector("#UserLoses-button");
+let TieGameButton = document.querySelector("#UserDraw-button");
 
 
 //User wants to play again page
 const PlayAgainPage = document.querySelector(".PlayAgainPage");
 
+const PlayAgainUserOption = document.querySelector(".PlayAgain-UserOption");
+let PlayAgainYesButton = document.querySelector("#PlayAgain-YesBTN");
+let PlayAgainNoButton = document.querySelector("#PlayAgain-NoBTN");
 
+//If User presses yes
+const PlayAgainYesPage = document.querySelector(".PlayAgain-IfYes");
+let KeepButton = document.querySelector("#IfYes-KeepBTN");
+let ChangeButton = document.querySelector("#IfYes-ChangeBTN");
 
-
+//If User presses no 
+const PlayAgainNoPage = document.querySelector(".PlayAgain-IfNo")
 
 //---------------------------------------------------------
-
-
-
-
-
-//Max amount of choices either players can have for the Tic tac game per round
-let size = 4;
 
 //Factory Function + Object keys for User
 let Player;
 let PlayerName = undefined;
-let PlayerLevel = undefined;
 let PlayerPic = undefined;
 let PlayerColor = undefined;
-let PlayerMarks = new Array(size);
 
 //Player Function
-function PlayerFunc(name, level, picture, color) {
+function PlayerFunc(name, picture, color) {
     Player = { 
         Name: name,
-        level: level,
         Picture: picture,
         Color: color
     }    
     return Player;
 }
 
-
-
 //---------------------------------------------------------
 
-
-
-let Computer;
-let ComputerName;
-let ComputerLevel;
-let ComputerPic;
-let ComputerColor;
-let ComputerMarks = new Array(size); 
+let Bot;
+let BotName;
+let BotPic;
+let BotColor;
 
 //Computer Function
-function ComputerFunc(name, level, pic, color) { 
-    return { 
-        ComputerName: name,
-        ComputerLevel: level,
-        ComputerPic: pic,
-        ComputerColor: color,
+function BotFunc(name, pic, color) { 
+    Bot = { 
+        BotName: name,
+        BotPic: pic,
+        BotColor: color
     }
+
+    return Bot;
 }
 
 //---------------------------------------------------------
-
 
 
 function ShowPage(page) {  
@@ -181,6 +194,8 @@ function ShowSection(Section) {
 //A boolean to check whether the Players Info has all data or is missing a piece
 let UserData = false;
 
+Start(); 
+
 function Start() { 
         
     ShowPage(TitleScreenPage); 
@@ -189,6 +204,11 @@ function Start() {
         MakeUser();
     });
 }
+
+//Random colors for the AI
+let r;
+let g;
+let b;
 
 function MakeUser() { 
 
@@ -203,12 +223,15 @@ function MakeUser() {
     }
 
     if (PlayerName != undefined && PlayerPic != undefined && PlayerColor != undefined) { 
-        PlayerFunc(PlayerName, 0, PlayerPic, PlayerColor);
+        r = Math.floor(Math.random() * 256);
+        g = Math.floor(Math.random() * 256);
+        b = Math.floor(Math.random() * 256);
+        PlayerFunc(PlayerName, PlayerPic, PlayerColor);
+        BotFunc("BOT", "../Tic-Tac-ToeGame/images/AI Profile.png", "rgb(" + r + ", " + g + ", " + b + ")");
         RoundSelection();   
     }
 }
 
-    
 function ProfileName() { 
     ShowSection(FormNameSection); 
 
@@ -248,7 +271,6 @@ function ProfilePicture() {
     })
 }
 
-
 function ProfileColor() { 
     ShowSection(FormColorSection); 
 
@@ -261,8 +283,6 @@ function ProfileColor() {
     });
 }
 
-
-
 function RoundSelection() { 
     ShowPage(RoundChoicePage); 
     
@@ -274,62 +294,32 @@ function RoundSelection() {
             Game();
         });
     });
-
-    return GameRounds;
 }
 
-
 //---------------------------------------------------------
-
-
-//Test value for now
-GameRounds = 3;
-
-//Indicators for the game
-let CurrRound = 0;
-
-//Declares the choices of the user/Ai they make for the boxes within a round
-let PlayersChoice;
-let BotsChoice;
-let PlayersChoices = []; 
-let BotsChoices = [];
-let PChoicesArrIndex = 0;
-let BChoicesArrIndex = 0;
-
-let PTurns = 0;
-let BTurns = 0;
-
-let PWinRound = false; 
-let BWinRound = false;
-let PlayerWinsRound = 0; 
-let BotWinsRound = 0; 
-
-//The Gameboard buttons (used for the animations and to find which value is pressed)
-let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
-
+//TODO: FIX THE GAME GOING CRAZY, thats it doe
 function Game() { 
     ShowPage(GameBoardPage);
 
-    CurrRound = 5;
-    PlayerWinsRound = 3;
-    BotWinsRound = 0;
-
+    
     //Sets the Players setting choices to display
-    //PlayerPFPSelector.src = Player.Picture;
-    //PlayerNameSelector.textContent = Player.Name;
-    //PlayerNameSelector.style.color = Player.Color;
+    PlayerPFPSelector.src = Player.Picture;
+    PlayerNameSelector.textContent = Player.Name;
+    PlayerNameSelector.style.color = Player.Color;
+    UserRoundWonScore.textContent = PlayerWinsRound;
 
-    UserRoundWonScore.textContent = PlayerWinsRound; 
+    //Sets the Bots setting choices to display
+    BotPFPSelector.src = Bot.BotPic;
+    BotNameSelector.textContent = Bot.BotName;
+    BotNameSelector.style.color = Bot.BotColor;
     BotRoundWonScore.textContent = BotWinsRound;
     
+
     if (PWinRound === false && BWinRound === false) { 
        Roundsleft(); 
     } 
     
     function GameBoard() {
-
-        //console.log(PlayersChoices);
-        //console.log(BotsChoices);
 
         if (BoardButtons[0].textContent === "X" && BoardButtons[1].textContent === "X" && BoardButtons[2].textContent === "X") { 
                 PWinRound = true;
@@ -420,7 +410,7 @@ function Game() {
         }
             
         function Click(box) {
-            box.target.style.color = "black";//Player.Color;
+            box.target.style.color = Player.Color;
             box.target.classList.add("active");
             box.target.style.fontSize = "130px";
             PlayersChoice = parseInt(box.target.value);
@@ -453,7 +443,7 @@ function Game() {
 
     function ComputerMove() {
 
-        let num = Math.floor(Math.random() * 9 + 1 - 1);
+        let num = Math.floor(Math.random() * 9);
 
         for (let i = 0; i < BoardButtons.length; ++i) { 
             if (num === PlayersChoices[i] || num === BotsChoices[i]) { 
@@ -465,7 +455,7 @@ function Game() {
                     BotsChoices[BChoicesArrIndex] = BotsChoice;
                     BChoicesArrIndex++;
                     BoardButtons[i].textContent = "O";
-                    BoardButtons[i].style.color = "red";
+                    BoardButtons[i].style.color = Bot.BotColor;
                     BoardButtons[i].style.fontSize = "130px";
                     BoardButtons[i].disabled = true;
                     BTurns++;
@@ -477,6 +467,8 @@ function Game() {
     }
 
     function TurnDecider() { 
+
+        console.log("Here");
 
         if (PWinRound === false && BWinRound === false) { 
             if ((BTurns + PTurns) <= BoardButtons.length) {
@@ -566,17 +558,22 @@ function GameSummary() {
         UserWinsGameSummaryPage.style.display = "grid";
     } else if (PlayerWinsRound < BotWinsRound) { 
         BotWinsGameSummaryPage.style.display = "grid";
+    } else if (PlayerWinsRound === BotWinsRound) { 
+        TieGameSummaryPage.style.display = "grid";
     }
 
-
-    if (UserWinsGameSummaryPage.style.display = "grid") { 
+    if (UserWinsGameSummaryPage.style.display === "grid") { 
         UserWinsButton.addEventListener("click", () => { 
-            //Continue here
+            EndOfGame();
         }); 
-    } else if (BotWinsGameSummaryPage.style.display = "grid") {
+    } else if (BotWinsGameSummaryPage.style.display === "grid") {
         BotWinsButton.addEventListener("click", () => {
-
+            EndOfGame(); 
         });
+    } else if (TieGameSummaryPage.style.display === "grid") { 
+        TieGameButton.addEventListener("click", () => {
+            EndOfGame(); 
+        })
     }
     
 }
@@ -593,12 +590,11 @@ function RoundSummary() {
             ShowPage(UserLosesRoundPage);
         }, 1000);
     }
+
     NextRoundButton.addEventListener("click", () => { 
         PWinRound = false;
         BWinRound = false; 
         CurrRound++; 
-
-        BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
         PlayersChoices = []; 
         BotsChoices = []; 
@@ -620,6 +616,68 @@ function RoundSummary() {
     });
 }
 
-Game(); 
+function EndOfGame() { 
+    ShowPage(PlayAgainPage); 
+
+    PlayersChoice = 0;
+    BotsChoice = 0;
+    PlayersChoices = []; 
+    BotsChoices = [];
+    PChoicesArrIndex = 0;
+    BChoicesArrIndex = 0;
+
+    PTurns = 0;
+    BTurns = 0;
+
+    PWinRound = false; 
+    BWinRound = false;
+    PlayerWinsRound = 0; 
+    BotWinsRound = 0;
+
+    PlayAgainUserOption.style.display = "grid"; 
+
+    PlayAgainYesButton.addEventListener("click", () => { 
+        PlayAgainUserOption.style.display = "none"; 
+        BoardButtons.forEach(box => { 
+            box.textContent = ""; 
+            box.style.color = "rgb(0, 0, 0, 0.5)";
+        }); 
+        Restart();
+    });
+    PlayAgainNoButton.addEventListener("click", () => { 
+        PlayAgainUserOption.style.display = "none";
+        Quit();
+    });
+}
+
+function Restart() { 
+    PlayAgainYesPage.style.display = "grid";
+
+    KeepButton.addEventListener("click", () => {
+        PlayAgainYesPage.style.display = "none";
+        CurrRound = 0; 
+        GameRounds = 0; 
+
+        RoundSelection();
+    });
+
+    ChangeButton.addEventListener("click", () => { 
+        PlayAgainYesPage.style.display = "none";
+        PlayerName = undefined;
+        PlayerColor = undefined;
+        PlayerPic = undefined;
+        UserData = false;
+
+        CurrRound = 0;
+        GameRounds = 0;
+
+        MakeUser(); 
+    });
+}
+
+function Quit() { 
+   PlayAgainNoPage.style.display = "grid";
+}
+
 
 
