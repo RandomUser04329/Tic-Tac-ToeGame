@@ -494,7 +494,6 @@ body {
 
 .computerClicked {
     font-size: 130px;
-    color: rgb(255, 0, 0);
 }
 
 
@@ -630,7 +629,7 @@ body {
     text-align: center;
 }
 
-#NextRound-button { 
+#RoundWon-button { 
     grid-column: 2;
     grid-row: 2;
     height: 50px;
@@ -643,12 +642,12 @@ body {
     background-color: white;
 }
 
-#NextRound-button:hover { 
+#RoundWon-button:hover { 
     background-color: rgb(0, 170, 255, 1);
     color: rgb(0, 0, 0, 0.5);
 }
 
-#NextRound-button:active { 
+#RoundWon-button:active { 
     background-color: rgb(0, 170, 255, 0.8);
     color: rgb(0, 0, 0, 0.5);
 }
@@ -677,8 +676,28 @@ body {
     text-align: center;
 }
 
+#RoundLost-button { 
+    grid-column: 2;
+    grid-row: 2;
+    height: 50px;
+    width: 150px;
+    font-family: MyFont1;
+    font-size: 12px;
+    border-radius: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+    background-color: white;
+}
 
+#RoundLost-button:hover { 
+    background-color: rgb(0, 170, 255, 1);
+    color: rgb(0, 0, 0, 0.5);
+}
 
+#RoundLost-button:active { 
+    background-color: rgb(0, 170, 255, 0.8);
+    color: rgb(0, 0, 0, 0.5);
+}
 
 
 
@@ -1008,23 +1027,6 @@ body {
 #IfYes-ChangeBTN:active { 
     background-color: rgba(255, 0, 0, 1);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

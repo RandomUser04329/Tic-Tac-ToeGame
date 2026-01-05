@@ -58,9 +58,9 @@ let UserRoundWonScore = document.querySelector("#UserProfile-UserScore");
 let BotPFPSelector = document.querySelector("#ComputerProfile-ComputerPFP");
 let BotNameSelector = document.querySelector("#ComputerProfile-ComputerName");
 let BotRoundWonScore = document.querySelector("#ComputerProfile-ComputerScore");
-
+ 
 //Indicators for the game
-let CurrRound = 0;
+let CurrRound = 1;
 
 //Declares the choices of the user/Ai they make for the boxes within a round
 let PlayersChoice;
@@ -81,15 +81,13 @@ let BotWinsRound = 0;
 //The Gameboard buttons (used for the animations and to find which value is pressed)
 let BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
 
-
-
 //Round Lose Page(If the user loses)
 const UserLosesRoundPage = document.querySelector(".RoundLosePage");
 
 //Round Won Page(If the user wins)
 const UserWinsRoundPage = document.querySelector(".RoundWonPage");
-const NextRoundButton = document.querySelector("#NextRound-button");
-
+let RoundWonButton = document.querySelector("#RoundWon-button");
+let RoundLostButton = document.querySelector("#RoundLost-button");
 
 //End of Game page (Game Summary)
 const EndOfGamePage = document.querySelector(".GameSummaryPage");
@@ -101,7 +99,6 @@ let TieGameSummaryPage = document.querySelector(".GameSummary-UserDraw");
 let UserWinsButton = document.querySelector("#UserWins-button");
 let BotWinsButton = document.querySelector("#UserLoses-button");
 let TieGameButton = document.querySelector("#UserDraw-button");
-
 
 //User wants to play again page
 const PlayAgainPage = document.querySelector(".PlayAgainPage");
@@ -127,10 +124,10 @@ let PlayerPic = undefined;
 let PlayerColor = undefined;
 
 //Player Function
-function PlayerFunc(name, picture, color) {
+function PlayerFunc(name, pic, color) {
     Player = { 
         Name: name,
-        Picture: picture,
+        Pic: pic,
         Color: color
     }    
     return Player;
@@ -194,8 +191,6 @@ function ShowSection(Section) {
 //A boolean to check whether the Players Info has all data or is missing a piece
 let UserData = false;
 
-Start(); 
-
 function Start() { 
         
     ShowPage(TitleScreenPage); 
@@ -227,7 +222,7 @@ function MakeUser() {
         g = Math.floor(Math.random() * 256);
         b = Math.floor(Math.random() * 256);
         PlayerFunc(PlayerName, PlayerPic, PlayerColor);
-        BotFunc("BOT", "../Tic-Tac-ToeGame/images/AI Profile.png", "rgb(" + r + ", " + g + ", " + b + ")");
+        BotFunc("Bot", "../Tic-Tac-ToeGame/images/AI Profile.png", "rgb(" + r + ", " + g + ", " + b + ")");
         RoundSelection();   
     }
 }
@@ -297,13 +292,15 @@ function RoundSelection() {
 }
 
 //---------------------------------------------------------
-//TODO: FIX THE GAME GOING CRAZY, thats it doe
+
+
 function Game() { 
     ShowPage(GameBoardPage);
 
-    
+    BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
+
     //Sets the Players setting choices to display
-    PlayerPFPSelector.src = Player.Picture;
+    PlayerPFPSelector.src = Player.Pic;
     PlayerNameSelector.textContent = Player.Name;
     PlayerNameSelector.style.color = Player.Color;
     UserRoundWonScore.textContent = PlayerWinsRound;
@@ -313,84 +310,61 @@ function Game() {
     BotNameSelector.textContent = Bot.BotName;
     BotNameSelector.style.color = Bot.BotColor;
     BotRoundWonScore.textContent = BotWinsRound;
-    
 
-    if (PWinRound === false && BWinRound === false) { 
-       Roundsleft(); 
-    } 
-    
     function GameBoard() {
-
         if (BoardButtons[0].textContent === "X" && BoardButtons[1].textContent === "X" && BoardButtons[2].textContent === "X") { 
                 PWinRound = true;
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[3].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[5].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[6].textContent === "X" && BoardButtons[7].textContent === "X" && BoardButtons[8].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[0].textContent === "X" && BoardButtons[3].textContent === "X" && BoardButtons[6].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[1].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[7].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[2].textContent === "X" && BoardButtons[5].textContent === "X" && BoardButtons[8].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[0].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[8].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[2].textContent === "X" && BoardButtons[4].textContent === "X" && BoardButtons[6].textContent === "X") { 
                 PWinRound = true; 
                 RoundSummary(); 
-                //break;
         } 
             
         if (BoardButtons[0].textContent === "O" && BoardButtons[1].textContent === "O" && BoardButtons[2].textContent === "O") { 
                 BWinRound = true;
-                RoundSummary(); 
-                //break;
+                RoundSummary();
         } else if (BoardButtons[3].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[5].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[6].textContent === "O" && BoardButtons[7].textContent === "O" && BoardButtons[8].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[0].textContent === "O" && BoardButtons[3].textContent === "O" && BoardButtons[6].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[1].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[7].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[2].textContent === "O" && BoardButtons[5].textContent === "O" && BoardButtons[8].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[0].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[8].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
-                //break;
         } else if (BoardButtons[2].textContent === "O" && BoardButtons[4].textContent === "O" && BoardButtons[6].textContent === "O") { 
                 BWinRound = true; 
                 RoundSummary(); 
-                //break;
-            //}
         }
 
-        TurnDecider();
+        TurnDecider(); 
     }
 
     function PlayerMove() {
@@ -442,7 +416,6 @@ function Game() {
     }
 
     function ComputerMove() {
-
         let num = Math.floor(Math.random() * 9);
 
         for (let i = 0; i < BoardButtons.length; ++i) { 
@@ -455,7 +428,7 @@ function Game() {
                     BotsChoices[BChoicesArrIndex] = BotsChoice;
                     BChoicesArrIndex++;
                     BoardButtons[i].textContent = "O";
-                    BoardButtons[i].style.color = Bot.BotColor;
+                    BoardButtons[i].style.color = "red";//Bot.BotColor;
                     BoardButtons[i].style.fontSize = "130px";
                     BoardButtons[i].disabled = true;
                     BTurns++;
@@ -464,6 +437,8 @@ function Game() {
                 }
             }
         }
+        
+
     }
 
     function TurnDecider() { 
@@ -536,8 +511,8 @@ function Game() {
     } 
 
     function Roundsleft() { 
-        if (CurrRound <= GameRounds) { 
-            for (let i = CurrRound; i <= GameRounds; i++) { 
+        if (CurrRound < GameRounds) { 
+            for (let i = CurrRound; i <= GameRounds; ++i) { 
                 RoundDisplay.textContent = "Round " + i;
                 TurnDecider();
                 break;
@@ -547,6 +522,10 @@ function Game() {
         }
         
     }
+    
+    if (PWinRound === false && BWinRound === false) { 
+       Roundsleft(); 
+    } 
 
 }
 
@@ -591,29 +570,55 @@ function RoundSummary() {
         }, 1000);
     }
 
-    NextRoundButton.addEventListener("click", () => { 
-        PWinRound = false;
-        BWinRound = false; 
-        CurrRound++; 
+    if (UserWinsRoundPage.style.display === "grid") {
+        RoundWonButton.addEventListener("click", () => { 
+            PWinRound = false;
+            BWinRound = false; 
+            CurrRound++; 
 
-        PlayersChoices = []; 
-        BotsChoices = []; 
-        BChoicesArrIndex = 0;
-        PChoicesArrIndex = 0;
-        PlayersChoice = 0;
-        BotsChoice = 0; 
-        PTurns = 0;
-        BTurns = 0; 
+            PlayersChoices = []; 
+            BotsChoices = []; 
+            BChoicesArrIndex = 0;
+            PChoicesArrIndex = 0;
+            PlayersChoice = 0;
+            BotsChoice = 0; 
+            PTurns = 0;
+            BTurns = 0; 
 
-        BoardButtons.forEach(box => { 
-            box.style.color = "rgb(0, 0, 0, 0.05)";
-            box.disabled = false;
-            box.textContent = "";
-        }); 
+            BoardButtons.forEach(box => { 
+                box.style.color = "rgb(0, 0, 0, 0.05)";
+                box.disabled = false;
+                box.textContent = "";
+            }); 
 
-        Game(); 
+            Game(); 
 
-    });
+        });
+    } else if (UserLosesRoundPage.style.display === "grid") { 
+        RoundLostButton.addEventListener("click", () => { 
+            PWinRound = false;
+            BWinRound = false; 
+            CurrRound++; 
+
+            PlayersChoices = []; 
+            BotsChoices = []; 
+            BChoicesArrIndex = 0;
+            PChoicesArrIndex = 0;
+            PlayersChoice = 0;
+            BotsChoice = 0; 
+            PTurns = 0;
+            BTurns = 0; 
+
+            BoardButtons.forEach(box => { 
+                box.style.color = "rgb(0, 0, 0, 0.05)";
+                box.disabled = false;
+                box.textContent = "";
+            }); 
+
+            Game(); 
+
+        });
+    }
 }
 
 function EndOfGame() { 
@@ -679,5 +684,5 @@ function Quit() {
    PlayAgainNoPage.style.display = "grid";
 }
 
-
+Start(); 
 
