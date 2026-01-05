@@ -40,8 +40,8 @@ let SubmitColorButton = document.querySelector("#UserForm-ColorButton");
 
 //Round selection page + selectors
 const RoundChoicePage = document.querySelector(".RoundChoicePage");
-let Rounds = 0;
-let GameRounds;
+let CurrRound = 0;
+let GameRounds = 0;
 let RoundChoiceInput = document.querySelector("#RoundChoice-Input");
 let RoundChoiceButton = document.querySelector("#RoundChoice-Button");
 
@@ -58,9 +58,6 @@ let UserRoundWonScore = document.querySelector("#UserProfile-UserScore");
 let BotPFPSelector = document.querySelector("#ComputerProfile-ComputerPFP");
 let BotNameSelector = document.querySelector("#ComputerProfile-ComputerName");
 let BotRoundWonScore = document.querySelector("#ComputerProfile-ComputerScore");
- 
-//Indicators for the game
-let CurrRound = 1;
 
 //Declares the choices of the user/Ai they make for the boxes within a round
 let PlayersChoice;
@@ -222,8 +219,12 @@ function MakeUser() {
         g = Math.floor(Math.random() * 256);
         b = Math.floor(Math.random() * 256);
         PlayerFunc(PlayerName, PlayerPic, PlayerColor);
-        BotFunc("Bot", "../Tic-Tac-ToeGame/images/AI Profile.png", "rgb(" + r + ", " + g + ", " + b + ")");
-        RoundSelection();   
+        BotFunc("Bot", "../Tic-Tac-ToeGame/images/AI Profile.png", "rgb(" + r + ", " + g + ", " + b + ")");  
+        StartGame();
+    }
+
+    function StartGame() { 
+        return RoundSelection();
     }
 }
 
@@ -231,9 +232,8 @@ function ProfileName() {
     ShowSection(FormNameSection); 
 
     SubmitNameButton.addEventListener("click", () => {
-        FormName = FormInputField.value;
-        PlayerName = FormName; 
-        return MakeUser(); 
+        PlayerName = FormInputField.value; 
+        MakeUser(); 
     });
 }
 
@@ -243,27 +243,20 @@ function ProfilePicture() {
 
     FormApplePFP.addEventListener("click", () => {
         FormPFPSrc = FormApplePFP.src;
-        SubmitPFPButton.addEventListener("click", () => {
-            PlayerPic = FormPFPSrc;
-            return MakeUser();
-        });
     })
 
     FormInvaderPFP.addEventListener("click", () => {
         FormPFPSrc = FormInvaderPFP.src;
-        SubmitPFPButton.addEventListener("click", () => {
-            PlayerPic = FormPFPSrc; 
-            return MakeUser(); 
-        });
     })
 
     FormStarPFP.addEventListener("click", () => {
         FormPFPSrc = FormStarPFP.src;
-        SubmitPFPButton.addEventListener("click", () => {
-            PlayerPic = FormPFPSrc;
-            return MakeUser(); 
-        });
     })
+
+    SubmitPFPButton.addEventListener("click", () => {
+        PlayerPic = FormPFPSrc;
+        MakeUser();
+    });
 }
 
 function ProfileColor() { 
@@ -271,23 +264,26 @@ function ProfileColor() {
 
     FormColorInput.addEventListener("input", () => { 
         FormColor = FormColorInput.value;
+        /*
         SubmitColorButton.addEventListener("click", () => {
             PlayerColor = FormColor; 
-            return MakeUser(); 
+            MakeUser(); 
         }); 
+        */
+    });
+    SubmitColorButton.addEventListener("click", () => {
+        PlayerColor = FormColor; 
+        MakeUser(); 
     });
 }
 
 function RoundSelection() { 
     ShowPage(RoundChoicePage); 
-    
-    RoundChoiceInput.addEventListener("change", () => {
-        Rounds = RoundChoiceInput.value;
-        
-        RoundChoiceButton.addEventListener("click", () => { 
-            GameRounds = Rounds;
-            Game();
-        });
+
+    RoundChoiceButton.addEventListener("click", () => { 
+        GameRounds = parseInt(RoundChoiceInput.value);
+        console.log(GameRounds);
+        Game();
     });
 }
 
@@ -297,8 +293,8 @@ function RoundSelection() {
 function Game() { 
     ShowPage(GameBoardPage);
 
-    BoardButtons = document.querySelectorAll(".MainPage > .GamePage > .GamePage-GameBoardBox > button");
-
+    console.log("Game");
+    
     //Sets the Players setting choices to display
     PlayerPFPSelector.src = Player.Pic;
     PlayerNameSelector.textContent = Player.Name;
@@ -310,7 +306,7 @@ function Game() {
     BotNameSelector.textContent = Bot.BotName;
     BotNameSelector.style.color = Bot.BotColor;
     BotRoundWonScore.textContent = BotWinsRound;
-
+    
     function GameBoard() {
         if (BoardButtons[0].textContent === "X" && BoardButtons[1].textContent === "X" && BoardButtons[2].textContent === "X") { 
                 PWinRound = true;
@@ -418,6 +414,8 @@ function Game() {
     function ComputerMove() {
         let num = Math.floor(Math.random() * 9);
 
+        console.log("Computer");
+
         for (let i = 0; i < BoardButtons.length; ++i) { 
             if (num === PlayersChoices[i] || num === BotsChoices[i]) { 
                 ComputerMove(); 
@@ -428,7 +426,7 @@ function Game() {
                     BotsChoices[BChoicesArrIndex] = BotsChoice;
                     BChoicesArrIndex++;
                     BoardButtons[i].textContent = "O";
-                    BoardButtons[i].style.color = "red";//Bot.BotColor;
+                    BoardButtons[i].style.color = Bot.BotColor;
                     BoardButtons[i].style.fontSize = "130px";
                     BoardButtons[i].disabled = true;
                     BTurns++;
@@ -440,7 +438,7 @@ function Game() {
         
 
     }
-
+    
     function TurnDecider() { 
 
         console.log("Here");
@@ -509,9 +507,10 @@ function Game() {
             RoundSummary(); 
         }
     } 
-
+    
     function Roundsleft() { 
-        if (CurrRound < GameRounds) { 
+        console.log("Rounds");
+        if (CurrRound <= GameRounds) { 
             for (let i = CurrRound; i <= GameRounds; ++i) { 
                 RoundDisplay.textContent = "Round " + i;
                 TurnDecider();
@@ -526,7 +525,7 @@ function Game() {
     if (PWinRound === false && BWinRound === false) { 
        Roundsleft(); 
     } 
-
+       
 }
 
 function GameSummary() {
@@ -559,66 +558,43 @@ function GameSummary() {
 
 function RoundSummary() { 
     if (PWinRound === true) {
-        PlayerWinsRound++;
+        PlayerWinsRound += 1;
         setTimeout(() => {
             ShowPage(UserWinsRoundPage);
         }, 1000);
     } else if (BWinRound === true) {
-        BotWinsRound++;
+        BotWinsRound += 1;
         setTimeout(() => {
             ShowPage(UserLosesRoundPage);
         }, 1000);
     }
 
-    if (UserWinsRoundPage.style.display === "grid") {
-        RoundWonButton.addEventListener("click", () => { 
-            PWinRound = false;
-            BWinRound = false; 
-            CurrRound++; 
+    PWinRound = false;
+    BWinRound = false; 
 
-            PlayersChoices = []; 
-            BotsChoices = []; 
-            BChoicesArrIndex = 0;
-            PChoicesArrIndex = 0;
-            PlayersChoice = 0;
-            BotsChoice = 0; 
-            PTurns = 0;
-            BTurns = 0; 
+    PlayersChoices = []; 
+    BotsChoices = []; 
+    BChoicesArrIndex = 0;
+        PChoicesArrIndex = 0;
+        PlayersChoice = 0;
+        BotsChoice = 0; 
+        PTurns = 0;
+        BTurns = 0; 
 
-            BoardButtons.forEach(box => { 
-                box.style.color = "rgb(0, 0, 0, 0.05)";
-                box.disabled = false;
-                box.textContent = "";
-            }); 
+        BoardButtons.forEach(box => { 
+            box.style.color = "rgb(0, 0, 0, 0.05)";
+            box.disabled = false;
+            box.textContent = "";
+        }); 
 
-            Game(); 
 
-        });
-    } else if (UserLosesRoundPage.style.display === "grid") { 
-        RoundLostButton.addEventListener("click", () => { 
-            PWinRound = false;
-            BWinRound = false; 
-            CurrRound++; 
+    RoundWonButton.addEventListener("click", () => { 
+        Game(); 
+    });
 
-            PlayersChoices = []; 
-            BotsChoices = []; 
-            BChoicesArrIndex = 0;
-            PChoicesArrIndex = 0;
-            PlayersChoice = 0;
-            BotsChoice = 0; 
-            PTurns = 0;
-            BTurns = 0; 
-
-            BoardButtons.forEach(box => { 
-                box.style.color = "rgb(0, 0, 0, 0.05)";
-                box.disabled = false;
-                box.textContent = "";
-            }); 
-
-            Game(); 
-
-        });
-    }
+    RoundLostButton.addEventListener("click", () => { 
+        Game(); 
+    });
 }
 
 function EndOfGame() { 
@@ -686,3 +662,8 @@ function Quit() {
 
 Start(); 
 
+
+/*------------For Debugging---------------*/
+
+
+//RoundSelection();
