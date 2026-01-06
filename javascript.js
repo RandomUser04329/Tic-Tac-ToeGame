@@ -40,7 +40,7 @@ let SubmitColorButton = document.querySelector("#UserForm-ColorButton");
 
 //Round selection page + selectors
 const RoundChoicePage = document.querySelector(".RoundChoicePage");
-let CurrRound = 0;
+let CurrRound = 1;
 let GameRounds = 0;
 let RoundChoiceInput = document.querySelector("#RoundChoice-Input");
 let RoundChoiceButton = document.querySelector("#RoundChoice-Button");
@@ -306,7 +306,7 @@ function Game() {
     BotNameSelector.textContent = Bot.BotName;
     BotNameSelector.style.color = Bot.BotColor;
     BotRoundWonScore.textContent = BotWinsRound;
-    
+
     function GameBoard() {
         if (BoardButtons[0].textContent === "X" && BoardButtons[1].textContent === "X" && BoardButtons[2].textContent === "X") { 
                 PWinRound = true;
@@ -414,8 +414,6 @@ function Game() {
     function ComputerMove() {
         let num = Math.floor(Math.random() * 9);
 
-        console.log("Computer");
-
         for (let i = 0; i < BoardButtons.length; ++i) { 
             if (num === PlayersChoices[i] || num === BotsChoices[i]) { 
                 ComputerMove(); 
@@ -507,7 +505,7 @@ function Game() {
             RoundSummary(); 
         }
     } 
-    
+    //FORTOMORROW: Change how the turndecider function works. Needs a rework.
     function Roundsleft() { 
         console.log("Rounds");
         if (CurrRound <= GameRounds) { 
@@ -521,13 +519,12 @@ function Game() {
         }
         
     }
-    
     if (PWinRound === false && BWinRound === false) { 
        Roundsleft(); 
     } 
        
 }
-
+    
 function GameSummary() {
 
     ShowPage(EndOfGamePage);
@@ -558,19 +555,20 @@ function GameSummary() {
 
 function RoundSummary() { 
     if (PWinRound === true) {
-        PlayerWinsRound += 1;
         setTimeout(() => {
+            PlayerWinsRound += 1;
             ShowPage(UserWinsRoundPage);
         }, 1000);
     } else if (BWinRound === true) {
-        BotWinsRound += 1;
         setTimeout(() => {
+            BotWinsRound += 1;
             ShowPage(UserLosesRoundPage);
         }, 1000);
     }
 
     PWinRound = false;
     BWinRound = false; 
+    CurrRound += 1;
 
     PlayersChoices = []; 
     BotsChoices = []; 
@@ -617,12 +615,13 @@ function EndOfGame() {
 
     PlayAgainUserOption.style.display = "grid"; 
 
+    BoardButtons.forEach(box => { 
+        box.textContent = ""; 
+        box.style.color = "rgb(0, 0, 0, 0.5)";
+    });
+
     PlayAgainYesButton.addEventListener("click", () => { 
-        PlayAgainUserOption.style.display = "none"; 
-        BoardButtons.forEach(box => { 
-            box.textContent = ""; 
-            box.style.color = "rgb(0, 0, 0, 0.5)";
-        }); 
+        PlayAgainUserOption.style.display = "none";  
         Restart();
     });
     PlayAgainNoButton.addEventListener("click", () => { 
